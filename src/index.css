@@ -27,3 +27,19 @@ body, html {
 .text-secondary{
     color: black !important;
 }
+
+/* Une classe personnalisée pour le style spécifique des cartes */
+.card-litteral {
+    border: none !important; /* On enlève la bordure Bootstrap classique */
+
+    /* 1. L'ombre portée large et douce */
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.1) !important;
+
+    /* 2. La bordure colorée uniquement sur le côté gauche */
+    border-left: 8px solid deepskyblue !important; /* Ton Aqua/Deepskyblue */
+
+    /* Assure que la bordure suit l'arrondi du coin */
+    overflow: hidden;
+
+    background-color: aliceblue;
+}
