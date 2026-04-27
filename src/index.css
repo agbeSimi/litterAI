@@ -1,10 +1,27 @@
-body {
+body, html {
     margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
     font-family: sans-serif;
 }
 
+#root {
+    width: 100%;
+}
+
+
+
 .text-primary{
     color: deepskyblue !important;
+}
+
+.btn-primary{
+    background-color: deepskyblue !important;
+}
+
+.btn-primary:hover{
+    background-color: blue !important;
 }
 
 .text-secondary{
