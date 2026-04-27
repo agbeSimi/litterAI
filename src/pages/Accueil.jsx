@@ -1,10 +1,16 @@
 import React from "react";
 import logoRobot from '../assets/logo_robot.png';
-import CartePresentation from "../composants/CarteConcept.jsx";
 import CarteConcept from "../composants/CarteConcept.jsx";
 import CarteExplication from "../composants/CarteExplication.jsx";
+import Modelage from "./Modelage.jsx";
+import { useNavigate } from "react-router-dom";
 
 function Accueil() {
+  const navigation = useNavigate();
+
+  const goToModelage = () => {
+    navigation("/modelage"); // 3. Définir la destination
+  };
   return (
     <div className="text-center mb-5 min-h-screen bg-gray-50 flex flex-col items-center p-8">
         <img
@@ -19,7 +25,7 @@ function Accueil() {
         <CarteConcept/>
         <CarteExplication/>
       <div className="text-center mt-5">
-        <button className="btn btn-primary rounded-pill border-0 px-5 py-3 fw-bold shadow">
+        <button onClick={goToModelage} className="btn btn-primary rounded-pill border-0 px-5 py-3 fw-bold shadow">
           Commencer la séance
         </button>
       </div>
