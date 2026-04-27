@@ -1,12 +1,16 @@
 import React from "react";
-
+import logoRobot from '../assets/logo_robot.png';
 
 function Accueil() {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col items-center p-8">
-      {/* Header avec Logo */}
       <header className="text-center mb-12">
-        <img src="/logo-robot.png" alt="LitterAl" className="w-24 mx-auto mb-4" />
+        <img
+          src={logoRobot}
+          alt="LitterAl"
+          className="w-32 mx-auto mb-4"
+
+        />
         <h1 className="text-4xl font-bold text-indigo-900">Projet LitterAl</h1>
         <p className="text-gray-600 mt-2">Apprendre les équations avec l'aide de l'IA</p>
       </header>
