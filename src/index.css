@@ -1,9 +1,12 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* Tu peux garder ceci pour éviter que le contenu soit collé aux bords */
 body {
     margin: 0;
     font-family: sans-serif;
+}
+
+.text-primary{
+    color: deepskyblue !important;
+}
+
+.text-secondary{
+    color: black !important;
 }
