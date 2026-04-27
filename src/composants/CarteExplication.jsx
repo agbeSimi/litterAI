@@ -16,7 +16,7 @@ function CarteConcept() {
         scale: 1.02
       }}
 
-      className="card  shadow-sm rounded-4 p-4 m-4"
+      className="card card-litteral shadow-sm rounded-4 p-4 m-4"
       style={{ cursor: 'pointer' }}
     >
       <h5 className="fw-bold text-primary">🛠️ Comment résoudre? : </h5>
