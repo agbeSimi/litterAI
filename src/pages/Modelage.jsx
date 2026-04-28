@@ -49,7 +49,7 @@ function Modelage() {
                 }}
               >
 
-                <button className="btn btn-sm px-md-5 py-md-3 px-4 rounded-pill fw-bold" style={{ backgroundColor: 'red', color: 'white' }}>
+                <button className="btn btn-sm px-md-5 py-md-3 px-4 rounded-pill fw-bold" style={{ backgroundColor: 'orangered', color: 'white' }}>
                   🎬 Vidéo : Le Mystère de la Balance
                 </button>
               </motion.div>
