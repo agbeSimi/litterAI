@@ -19,7 +19,7 @@ function Accueil() {
           className="mb-4"
           style={{ width: '120px' }}
         />
-        <h1 className="display-4 fw-bold text-primary mb-5">Litter AI</h1>
+        <h1 className="display-4 fw-bold text-primary mb-5 mt-3">Litter AI</h1>
         <h2 className="text-secondary mb-5">Chapitre : Les équations</h2>
         <h4 className="fw-bold text-secondary">Objectif : Savoir isoler "x" et résoudre l'équation</h4>
         <CarteConcept/>
