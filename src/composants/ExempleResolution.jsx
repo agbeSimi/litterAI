@@ -32,11 +32,11 @@ function ExempleResolution() {
       <div className="card-body font-monospace"> {/* Police monospace pour le style code */}
 
         {/* Étape 1 */}
-        <p className="mb-2">1. Équation : <span className="text-info">{equation.a} * x + {equation.b} = {equation.c}</span></p>
+        <p className="mb-2">1. Équation : <span className="text-info">{equation.a}x + {equation.b} = {equation.c}</span></p>
         <p className="mb-4 text-warning ms-3">→ L'opposé de <span className="fw-bold">+{equation.b}</span> est <span className="fw-bold">-{equation.b}</span></p>
 
         {/* Étape 2 */}
-        <p className="mb-2">2. On obtient : <span className="text-info">{equation.a} * x = { nvlVal = equation.c - equation.b}</span></p>
+        <p className="mb-2">2. On obtient : <span className="text-info">{equation.a}x = { nvlVal = equation.c - equation.b}</span></p>
         <p className="mb-4 text-warning ms-3">→ La réciproque de <span className="fw-bold">×{equation.a}</span> est <span className="fw-bold">÷{equation.a}</span></p>
 
         {/* Solution */}
