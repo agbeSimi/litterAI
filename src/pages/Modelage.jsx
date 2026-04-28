@@ -1,7 +1,7 @@
-import logoRobot from "../assets/logo_robot.png";
-import CarteConcept from "../composants/CarteConcept.jsx";
-import CarteExplication from "../composants/CarteExplication.jsx";
 import React from "react";
+import { motion } from "framer-motion";
+import ExempleResolution from "../composants/ExempleResolution.jsx";
+
 
 function Modelage() {
   return(
@@ -35,30 +35,38 @@ function Modelage() {
             </div>
 
             {/* --- Résolution Sombre --- */}
-            <div className="card bg-dark text-light border-0 rounded-4 p-4 mb-5 shadow-sm">
-              <div className="card-body font-monospace"> {/* Police monospace pour le style code */}
+          <ExempleResolution/>
 
-                {/* Étape 1 */}
-                <p className="mb-2">1. Équation : <span className="text-info">3x + 5 = 17</span></p>
-                <p className="mb-4 text-warning ms-3">→ L'opposé de <span className="fw-bold">+5</span> est <span className="fw-bold">-5</span></p>
 
-                {/* Étape 2 */}
-                <p className="mb-2">2. On obtient : <span className="text-info">3x = 12</span></p>
-                <p className="mb-4 text-warning ms-3">→ La réciproque de <span className="fw-bold">×3</span> est <span className="fw-bold">÷3</span></p>
-
-                {/* Solution */}
-                <p className="mb-0 fs-5">3. Solution : <span className="text-success fw-bold">x = 4</span> ✅</p>
-              </div>
-            </div>
             {/* --- Actions --- */}
             <footer className="d-flex justify-content-between mt-5 pt-4 border-top">
-              <button className="btn btn-lg px-4 rounded-pill fw-bold" style={{ backgroundColor: '#e67e22', color: 'white' }}>
-                🎬 Vidéo : Le Mystère de la Balance
-              </button>
+              <motion.div
+                // Animation au survol (Effet de lévitation)
+                whileHover={{
+                  y: -10,
+                  shadow: "0px 10px 20px rgba(0,0,0,0.1)",
+                  scale: 1.02
+                }}
+              >
 
-              <button className="btn btn-lg  rounded-pill fw-bold" style={{ backgroundColor: '#2ecc71', color: 'white' }}>
-                Pratique Guidée
-              </button>
+                <button className="btn btn-lg px-4 rounded-pill fw-bold" style={{ backgroundColor: 'red', color: 'white' }}>
+                  🎬 Vidéo : Le Mystère de la Balance
+                </button>
+              </motion.div>
+
+              <motion.div
+                // Animation au survol (Effet de lévitation)
+                whileHover={{
+                  y: -10,
+                  shadow: "0px 10px 20px rgba(0,0,0,0.1)",
+                  scale: 1.02
+                }}
+              >
+                <button className="btn btn-lg rounded-pill fw-bold" style={{ backgroundColor: 'deepskyblue', color: 'white' }}>
+                  Pratique Guidée
+                </button>
+              </motion.div>
+
             </footer>
           </div>
         </div>
