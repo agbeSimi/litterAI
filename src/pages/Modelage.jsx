@@ -44,7 +44,7 @@ function Modelage() {
 
 
             {/* --- Actions --- */}
-            <footer className="d-flex justify-content-between mt-5 pt-4 border-top">
+            <footer className="d-flex justify-content-center gap-4 mt-5 pt-4 border-top">
               <motion.div
                 // Animation au survol (Effet de lévitation)
                 whileHover={{
@@ -55,7 +55,7 @@ function Modelage() {
               >
 
                 <button onClick={goToVideo} className="btn btn-sm px-md-5 py-md-3 px-4 rounded-pill fw-bold d-flex flex-wrap justify-content-center gap-3 mt-4" style={{ backgroundColor: 'orangered', color: 'white' }}>
-                  🎬 Vidéo : Le Mystère de la Balance
+                  🎬 Vidéo éxplicative
                 </button>
               </motion.div>
               <motion.div
@@ -66,7 +66,7 @@ function Modelage() {
                   scale: 1.02
                 }}
               >
-                <button className="btn btn-sm px-md-5 py-md-3 rounded-pill fw-bold d-flex flex-wrap justify-content-center gap-3 mt-4" style={{ backgroundColor: 'deepskyblue', color: 'white' }}>
+                <button className="btn btn-sm px-md-5 py-md-3 px-4 rounded-pill fw-bold d-flex flex-wrap justify-content-center gap-3 mt-4" style={{ backgroundColor: 'deepskyblue', color: 'white' }}>
                   Pratique Guidée
                 </button>
               </motion.div>
