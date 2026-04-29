@@ -1,14 +1,19 @@
 import React, {useState} from "react";
 import { motion } from "framer-motion";
 import ExempleResolution from "../composants/ExempleResolution.jsx";
+import {useNavigate} from "react-router-dom";
 
 
 function Modelage() {
   const [afficheVideo, setAfficheVideo] = useState(false);
-
+  const navigate = useNavigate();
   const goToVideo = () => {
     setAfficheVideo( !afficheVideo );
   };
+
+  const goToPratiqueGuide = () => {
+    navigate("/pratiqueGuide")
+  }
   return(
     <div className="container py-5 min-h-screen bg-light">
       <div className="row justify-content-center">
@@ -66,7 +71,7 @@ function Modelage() {
                   scale: 1.02
                 }}
               >
-                <button className="btn btn-sm px-md-5 py-md-3 px-4 rounded-pill fw-bold d-flex flex-wrap justify-content-center gap-3 mt-4" style={{ backgroundColor: 'deepskyblue', color: 'white' }}>
+                <button onClick={goToPratiqueGuide} className="btn btn-sm px-md-5 py-md-3 px-4 rounded-pill fw-bold d-flex flex-wrap justify-content-center gap-3 mt-4" style={{ backgroundColor: 'deepskyblue', color: 'white' }}>
                   Pratique Guidée
                 </button>
               </motion.div>
