@@ -14,7 +14,7 @@ function PratiqueGuide() {
         'Accept': 'application/json',
       },
       body: JSON.stringify({
-        question: "Génère une équation simple de format aX + b = c et demande-moi la première étape.",
+        question: "Souhaite moi le bienvenue dans la 'Pratique guidé' et Génère une équation simple de format aX + b = c et demande-moi la première étape, sans me donner aucune indice ou réponse.",
         listeMessages: conversation
       })
     })
