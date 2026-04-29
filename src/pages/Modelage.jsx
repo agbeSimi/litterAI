@@ -1,9 +1,14 @@
-import React from "react";
+import React, {useState} from "react";
 import { motion } from "framer-motion";
 import ExempleResolution from "../composants/ExempleResolution.jsx";
 
 
 function Modelage() {
+  const [afficheVideo, setAfficheVideo] = useState(false);
+
+  const goToVideo = () => {
+    setAfficheVideo( !afficheVideo );
+  };
   return(
     <div className="container py-5 min-h-screen bg-light">
       <div className="row justify-content-center">
@@ -49,11 +54,10 @@ function Modelage() {
                 }}
               >
 
-                <button className="btn btn-sm px-md-5 py-md-3 px-4 rounded-pill fw-bold d-flex flex-wrap justify-content-center gap-3 mt-4" style={{ backgroundColor: 'orangered', color: 'white' }}>
+                <button onClick={goToVideo} className="btn btn-sm px-md-5 py-md-3 px-4 rounded-pill fw-bold d-flex flex-wrap justify-content-center gap-3 mt-4" style={{ backgroundColor: 'orangered', color: 'white' }}>
                   🎬 Vidéo : Le Mystère de la Balance
                 </button>
               </motion.div>
-
               <motion.div
                 // Animation au survol (Effet de lévitation)
                 whileHover={{
@@ -68,6 +72,14 @@ function Modelage() {
               </motion.div>
 
             </footer>
+            {afficheVideo && (
+              <div className="mt-3">
+                <video controls width="100%" className="rounded-4">
+                  <source src="/videos/le-mystere-de-la-balance.mp4" type="video/mp4" />
+                  Votre navigateur ne supporte pas la lecture de vidéos.
+                </video>
+              </div>
+            )}
           </div>
         </div>
       </div>
