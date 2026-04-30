@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Accueil from './pages/Accueil';
 import Modelage from "./pages/Modelage.jsx";
 import PratiqueGuide from "./pages/PratiqueGuide.jsx";
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 function App() {
   return (
