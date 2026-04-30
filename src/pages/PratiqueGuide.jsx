@@ -1,33 +1,9 @@
 import {useState} from "react";
+import lancerExercice from "../services/LitterAI_API.js";
 
 function PratiqueGuide() {
   const [conversation, setConversation] = useState([]);
   const [isWorking, setIsWorking] = useState(false);
-
-  function lancerExercice() {
-    const URL_BASE = 'https://127.0.0.1:8000/api'
-    setIsWorking(true);
-    fetch(`${URL_BASE}/ia/groq`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-      body: JSON.stringify({
-        question: "Souhaite moi le bienvenue dans la 'Pratique guidé' et Génère une équation simple de format aX + b = c et demande-moi la première étape, sans me donner aucune indice ou réponse.",
-        listeMessages: conversation
-      })
-    })
-      .then(response => response.json())
-      .then(data => {
-        setConversation(data.listeMessages);
-        setIsWorking(false);
-      })
-      .catch(error => {
-        console.error("Aïe :", error);
-        setIsWorking(false);
-      });
-  }
 
   return(
     <div className="container py-5 min-h-screen bg-light">
@@ -36,7 +12,7 @@ function PratiqueGuide() {
 
           <button
             className="btn btn-primary"
-            onClick={lancerExercice}
+            onClick={() => lancerExercice(conversation,setConversation, setIsWorking)}
             disabled={isWorking}
           >
             {isWorking ? "L'IA réfléchit..." : "Commencer l'exercice"}
