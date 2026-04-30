@@ -10,13 +10,19 @@ function PratiqueGuide() {
       <div className="row justify-content-center">
         <div className="col-lg-8 bg-white p-5 shadow-lg rounded-4">
 
-          <button
+          {conversation.filter(message => message.role !== 'user').map((message, index) => (
+            <div key={index} style={{ whiteSpace: 'pre-wrap' }}>
+              {message.content}
+            </div>
+          ))}
+
+          {conversation.length === 0 && <button
             className="btn btn-primary"
-            onClick={() => lancerExercice(conversation,setConversation, setIsWorking)}
+            onClick={() => lancerExercice(conversation, setConversation, setIsWorking)}
             disabled={isWorking}
           >
             {isWorking ? "L'IA réfléchit..." : "Commencer l'exercice"}
-          </button>
+          </button>}
 
         </div>
       </div>
