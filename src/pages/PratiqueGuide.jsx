@@ -1,15 +1,22 @@
 import React, {useState} from "react";
 import {lancerExercice, envoyerMessage} from "../services/LitterAI_API.js";
 import logoRobot from "../assets/logo_robot.png";
+import {useNavigate} from "react-router-dom";
 
 function PratiqueGuide() {
   const [conversation, setConversation] = useState([]);
   const [isWorking, setIsWorking] = useState(false);
   const[input, setInput] = useState("");
+
+  const navigate = useNavigate();
+  const goToPratiqueAutonome = () => {
+    navigate("/pratiqueAutonome")
+  }
+
   return (
     <div className="container-fluid d-flex flex-column vh-100 bg-light p-0">
 
-      <div className="bg-white border-bottom p-3 shadow-sm text-center d-flex flex-row mb-3 d-flex align-items-center">
+      <div className="bg-white border-bottom p-3 shadow-sm d-flex align-items-center">
         <div className="bg-light rounded-circle p-2 d-flex align-items-center justify-content-center me-3" style={{ width: '50px', height: '50px' }}>
           <img
             src={logoRobot}
@@ -17,7 +24,17 @@ function PratiqueGuide() {
             style={{ width: '100%', height: 'auto' }}
           />
         </div>
+
         <h5 className="mb-0 fw-bold">Pratique Guidée : Les Équations</h5>
+
+        {/* Utilisation de ms-auto pour pousser le bouton à droite et retrait de mt-4 */}
+        <button
+          onClick={goToPratiqueAutonome}
+          className="btn btn-sm px-4 py-2 rounded-pill fw-bold ms-auto"
+          style={{ backgroundColor: 'deepskyblue', color: 'white', border: 'none' }}
+        >
+          Pratique autonome →
+        </button>
       </div>
 
       <div className="flex-grow-1 overflow-auto p-3 p-md-5" style={{ scrollBehavior: 'smooth' }}>
