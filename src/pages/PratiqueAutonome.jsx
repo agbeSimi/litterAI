@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 function PratiqueAutonome() {
   const [exercice, setExercice] = useState(1);
   const [score, setScore] = useState(0);
-  const [niveau, setNiveau] = useState(0); // 0: ax+b=c | 1: ax+b=cx+d
+  const [niveau, setNiveau] = useState(0); // 0: ax+b=c | 1: ax+b=cx+d | 2: décimaux
   const [currentEquation, setCurrentEquation] = useState(genererEquationNiveau0());
   const [reponseEleve, setReponseEleve] = useState("");
   const [message, setMessage] = useState("");
@@ -34,7 +34,7 @@ function PratiqueAutonome() {
     do {
       a = Math.floor(Math.random() * 8) + 2;
       c = Math.floor(Math.random() * 8) + 2;
-    } while (a === c); // Évite l'annulation des x
+    } while (a === c);
     let b = Math.floor(Math.random() * 9) + 1;
     let d = (a * xSolution) + b - (c * xSolution);
     return {
@@ -44,16 +44,9 @@ function PratiqueAutonome() {
   }
 
   function genererEquationNiveau2() {
-    // On choisit une solution entière entre 1 et 10
     const xSolution = Math.floor(Math.random() * 10) + 1;
-
-    // On génère des coefficients avec une décimale (ex: 1.5, 2.2)
-    // On multiplie par 10, on prend un entier, puis on divise par 10
-    const a = (Math.floor(Math.random() * 40) + 11) / 10; // Entre 1.1 et 5.0
-    const b = (Math.floor(Math.random() * 50) + 10) / 10; // Entre 1.0 et 5.9
-
-    // On calcule c pour que ax + b = c
-    // On utilise .toFixed(1) pour éviter les erreurs de précision binaire de JS
+    const a = (Math.floor(Math.random() * 40) + 11) / 10;
+    const b = (Math.floor(Math.random() * 50) + 10) / 10;
     const c = parseFloat((a * xSolution + b).toFixed(1));
 
     return {
@@ -65,12 +58,21 @@ function PratiqueAutonome() {
   // --- ACTIONS IA ---
   async function discuterErreur(messageUtilisateur = "") {
     setIsWorking(true);
-    const nouveauMessage = { role: "user", content: messageUtilisateur || `J'ai proposé ${reponseEleve} pour ${currentEquation.affichage}, pourquoi c'est faux ?` };
+    const contenuUser = messageUtilisateur || `J'ai proposé ${reponseEleve} pour ${currentEquation.affichage}, pourquoi c'est faux ?`;
+    const nouveauMessage = { role: "user", content: contenuUser };
     const historique = [...conversationIA, nouveauMessage];
     const promptSysteme = {
       role: "system",
-      content: `Tu es LitterAl. ÉQUATION : ${currentEquation.affichage}. RÉPONSE ÉLÈVE : ${reponseEleve}. SOLUTION : ${currentEquation.solution}. 
-                Aide-le via le questionnement socratique sans donner la réponse.`
+      content: `Tu es LitterAl, un tuteur de mathématiques pour un élève de 4ème.
+      L'élève travaille sur l'équation : ${currentEquation.affichage}.
+      La solution est x = ${currentEquation.solution}.
+      
+      RÈGLES DE RÉPONSE :
+      1. ANALYSE D'ABORD : Regarde l'équation. S'il y a un "+", l'inverse est "-". S'il y a un "-", l'inverse est "+".
+      2. NE TE TROMPE PAS : Pour ${currentEquation.affichage}, l'étape correcte est de SOUSTRAIRE ${currentEquation.affichage.split('+')[1].trim().split('=')[0].trim()}.
+      3. MÉTHODE : Ne donne pas la réponse. Demande à l'élève quel est l'opposé du nombre qui "gêne" à côté du x.
+      4. MOTS SIMPLES : "On veut laisser x tout seul. Comment se débarrasser du nombre à côté ?".
+      5. INTERDICTION : Ne jamais dire d'ajouter si l'équation a un signe plus, et inversement.`
     };
     await envoyerMessage([promptSysteme, ...historique], setConversationIA, "", () => {}, setIsWorking);
   }
@@ -91,7 +93,6 @@ function PratiqueAutonome() {
   function exerciceSuivant() {
     if (exercice < 4) {
       setExercice(prev => prev + 1);
-      // On utilise le générateur correspondant au niveau actuel
       if (niveau === 0) setCurrentEquation(genererEquationNiveau0());
       else if (niveau === 1) setCurrentEquation(genererEquationNiveau1());
       else setCurrentEquation(genererEquationNiveau2());
@@ -103,8 +104,6 @@ function PratiqueAutonome() {
       setIsFinished(true);
     }
   }
-
-
 
   return (
       <div className="container-fluid d-flex flex-row vh-100 bg-light p-0">
@@ -141,7 +140,7 @@ function PratiqueAutonome() {
             ) : (
                 <div className="animate__animated animate__fadeIn">
                   <h2 className="fw-bold mb-3">Bilan de la série</h2>
-                  <div className="display-4 fw-bold mb-4">{score} / 4</div>
+                  <div className="display-4 fw-bold mb-4 text-primary">{score} / 4</div>
 
                   {(score / 4) >= 0.75 ? (
                       <div className="alert alert-success rounded-4 p-4">
@@ -156,12 +155,8 @@ function PratiqueAutonome() {
                             setScore(0);
                             setIsFinished(false);
 
-                            // Correctif : Forcer la génération immédiate selon le nouveau niveau
-                            if (prochainNiveau === 1) {
-                              setCurrentEquation(genererEquationNiveau1());
-                            } else if (prochainNiveau === 2) {
-                              setCurrentEquation(genererEquationNiveau2());
-                            }
+                            if (prochainNiveau === 1) setCurrentEquation(genererEquationNiveau1());
+                            else if (prochainNiveau === 2) setCurrentEquation(genererEquationNiveau2());
 
                             setReponseEleve("");
                             setMessage("");
@@ -188,11 +183,13 @@ function PratiqueAutonome() {
           </div>
         </div>
 
+        {/* ZONE DROITE : CHAT LITTERAL */}
         <div className="bg-white border-start shadow-sm d-flex flex-column" style={{ width: '420px' }}>
           <div className="p-4 border-bottom text-center bg-white">
             <img src={logoRobot} alt="Robot" style={{ width: '70px' }} />
             <h5 className="fw-bold mb-0 mt-2">LitterAl</h5>
           </div>
+
           <div className="flex-grow-1 overflow-auto p-4 bg-light">
             {isCorrect === false && !isFinished ? (
                 <>
@@ -207,6 +204,28 @@ function PratiqueAutonome() {
                 </div>
             )}
           </div>
+
+          {/* RÉINTÉGRATION DU CHAMP DE SAISIE */}
+          {isCorrect === false && !isFinished && (
+              <div className="p-3 border-top bg-white">
+                <div className="input-group shadow-sm rounded-pill overflow-hidden border">
+                  <input
+                      type="text"
+                      className="form-control border-0 px-4"
+                      placeholder="Pose une question au robot..."
+                      onKeyDown={(e) => {
+                        if(e.key === 'Enter' && e.target.value.trim() !== "") {
+                          discuterErreur(e.target.value);
+                          e.target.value = "";
+                        }
+                      }}
+                  />
+                  <button className="btn btn-white border-0 text-primary">
+                    <i className="bi bi-send-fill"></i>
+                  </button>
+                </div>
+              </div>
+          )}
         </div>
       </div>
   );
