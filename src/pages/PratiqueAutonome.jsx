@@ -1,29 +1,63 @@
 import React, { useState } from "react";
 import logoRobot from "../assets/logo_robot.png";
 import { envoyerMessage } from "../services/LitterAI_API.js";
+import { useNavigate } from "react-router-dom";
 
 function PratiqueAutonome() {
-  // --- ÉTATS ---
   const [exercice, setExercice] = useState(1);
   const [score, setScore] = useState(0);
+  const [niveau, setNiveau] = useState(0); // 0: ax+b=c | 1: ax+b=cx+d
   const [currentEquation, setCurrentEquation] = useState(genererEquationNiveau0());
   const [reponseEleve, setReponseEleve] = useState("");
   const [message, setMessage] = useState("");
   const [conversationIA, setConversationIA] = useState([]);
   const [isWorking, setIsWorking] = useState(false);
   const [isCorrect, setIsCorrect] = useState(null);
+  const [isFinished, setIsFinished] = useState(false);
 
-  // --- LOGIQUE MATHÉMATIQUE (Nombres strictement positifs) ---
+  const navigate = useNavigate();
+  const goToModelage = () => {
+    navigate("/modelage");
+  };
+
+  // --- LOGIQUE MATHÉMATIQUE ---
   function genererEquationNiveau0() {
-    let a, b, xSolution, c;
-    // On génère des nombres positifs pour le niveau 0 
-    a = Math.floor(Math.random() * 8) + 2; // a entre 2 et 9
-    b = Math.floor(Math.random() * 9) + 1; // b entre 1 et 9
-    xSolution = Math.floor(Math.random() * 9) + 1; // x entre 1 et 9
-    c = a * xSolution + b;
+    let a = Math.floor(Math.random() * 8) + 2;
+    let b = Math.floor(Math.random() * 9) + 1;
+    let xSolution = Math.floor(Math.random() * 9) + 1;
+    let c = a * xSolution + b;
+    return { affichage: `${a}x + ${b} = ${c}`, solution: xSolution };
+  }
+
+  function genererEquationNiveau1() {
+    let a, c, xSolution = Math.floor(Math.random() * 9) + 1;
+    do {
+      a = Math.floor(Math.random() * 8) + 2;
+      c = Math.floor(Math.random() * 8) + 2;
+    } while (a === c); // Évite l'annulation des x
+    let b = Math.floor(Math.random() * 9) + 1;
+    let d = (a * xSolution) + b - (c * xSolution);
+    return {
+      affichage: `${a}x ${b >= 0 ? '+ ' : '- '}${Math.abs(b)} = ${c}x ${d >= 0 ? '+ ' : '- '}${Math.abs(d)}`,
+      solution: xSolution
+    };
+  }
+
+  function genererEquationNiveau2() {
+    // On choisit une solution entière entre 1 et 10
+    const xSolution = Math.floor(Math.random() * 10) + 1;
+
+    // On génère des coefficients avec une décimale (ex: 1.5, 2.2)
+    // On multiplie par 10, on prend un entier, puis on divise par 10
+    const a = (Math.floor(Math.random() * 40) + 11) / 10; // Entre 1.1 et 5.0
+    const b = (Math.floor(Math.random() * 50) + 10) / 10; // Entre 1.0 et 5.9
+
+    // On calcule c pour que ax + b = c
+    // On utilise .toFixed(1) pour éviter les erreurs de précision binaire de JS
+    const c = parseFloat((a * xSolution + b).toFixed(1));
 
     return {
-      affichage: `${a}x + ${b} = ${c}`,
+      affichage: `${a.toString().replace('.', ',')}x + ${b.toString().replace('.', ',')} = ${c.toString().replace('.', ',')}`,
       solution: xSolution
     };
   }
@@ -31,160 +65,150 @@ function PratiqueAutonome() {
   // --- ACTIONS IA ---
   async function discuterErreur(messageUtilisateur = "") {
     setIsWorking(true);
-
-    // Message de l'utilisateur (soit automatique à l'erreur, soit saisi dans le chat)
-    const contenuUser = messageUtilisateur || `J'ai proposé ${reponseEleve} pour ${currentEquation.affichage}, pourquoi c'est faux ?`;
-    const nouveauMessage = { role: "user", content: contenuUser };
+    const nouveauMessage = { role: "user", content: messageUtilisateur || `J'ai proposé ${reponseEleve} pour ${currentEquation.affichage}, pourquoi c'est faux ?` };
     const historique = [...conversationIA, nouveauMessage];
-
-    // Prompt système strict pour éviter les hallucinations (le bug du "9") 
     const promptSysteme = {
       role: "system",
-      content: `Tu es LitterAl, tuteur socratique. L'élève a fait une ERREUR.
-                ÉQUATION : ${currentEquation.affichage}
-                RÉPONSE ÉLÈVE : ${reponseEleve}
-                VRAIE SOLUTION : ${currentEquation.solution}
-
-                CONSIGNES :
-                1. Ne mentionne que les nombres présents dans l'équation.
-                2. Ne valide pas l'erreur (pas de "c'est bien").
-                3. Pose une question courte sur l'opération inverse (+ devient -, * devient /).
-                4. Ne donne JAMAIS la solution x = ${currentEquation.solution}.` 
-  };
-
+      content: `Tu es LitterAl. ÉQUATION : ${currentEquation.affichage}. RÉPONSE ÉLÈVE : ${reponseEleve}. SOLUTION : ${currentEquation.solution}. 
+                Aide-le via le questionnement socratique sans donner la réponse.`
+    };
     await envoyerMessage([promptSysteme, ...historique], setConversationIA, "", () => {}, setIsWorking);
   }
 
   // --- LOGIQUE DE VALIDATION ---
   function verifierReponse() {
-    const reponseNum = Number(reponseEleve);
-    if (reponseNum === currentEquation.solution) {
-      setScore(prev => prev + 1); 
+    if (Number(reponseEleve) === currentEquation.solution) {
+      setScore(prev => prev + 1);
       setIsCorrect(true);
-      setMessage("Bravo ! C'est la bonne réponse."); 
-      setConversationIA([]);
+      setMessage("Bravo ! C'est la bonne réponse.");
     } else {
       setIsCorrect(false);
-      setMessage("Ce n'est pas ça. Regarde l'aide de LitterAl à droite !"); 
-      discuterErreur(); // Lance la discussion automatiquement
+      setMessage("Ce n'est pas ça. Regarde l'aide de LitterAl à droite !");
+      discuterErreur();
     }
   }
 
   function exerciceSuivant() {
     if (exercice < 4) {
-      setExercice(prev => prev + 1); 
-      setCurrentEquation(genererEquationNiveau0());
+      setExercice(prev => prev + 1);
+      // On utilise le générateur correspondant au niveau actuel
+      if (niveau === 0) setCurrentEquation(genererEquationNiveau0());
+      else if (niveau === 1) setCurrentEquation(genererEquationNiveau1());
+      else setCurrentEquation(genererEquationNiveau2());
       setReponseEleve("");
       setMessage("");
       setIsCorrect(null);
       setConversationIA([]);
     } else {
-      const reussite = (score / 4) >= 0.75; 
-      alert(reussite ? `Mission réussie ! Score : ${score}/4` : `Score : ${score}/4. Tu dois t'entraîner encore.`); 
-      // Ici, ajouter la redirection vers l'accueil ou le modelage selon le score 
+      setIsFinished(true);
     }
   }
 
+
+
   return (
-    <div className="container-fluid d-flex flex-row vh-100 bg-light p-0">
+      <div className="container-fluid d-flex flex-row vh-100 bg-light p-0">
+        <div className="flex-grow-1 p-4 d-flex flex-column align-items-center justify-content-center">
+          <div className="card shadow-lg p-5 rounded-4 text-center border-0" style={{ maxWidth: '600px', width: '100%' }}>
 
-      {/* ZONE GAUCHE : EXERCICE ET PROGRESSION */}
-      <div className="flex-grow-1 p-4 d-flex flex-column align-items-center justify-content-center">
-        <div className="card shadow-lg p-5 rounded-4 text-center border-0" style={{ maxWidth: '600px', width: '100%' }}>
+            {!isFinished ? (
+                <>
+                  <div className="progress mb-4" style={{ height: '8px' }}>
+                    <div className="progress-bar bg-primary" style={{ width: `${((exercice - 1) / 4) * 100}%` }}></div>
+                  </div>
+                  <h6 className="text-muted fw-bold text-uppercase small">Niveau {niveau} — Exercice {exercice} / 4</h6>
+                  <h2 className="display-2 fw-bold my-4">{currentEquation.affichage}</h2>
+                  <div className="d-flex gap-3 justify-content-center mb-4">
+                    <input
+                        type="number"
+                        className="form-control form-control-lg text-center fw-bold"
+                        style={{ maxWidth: '160px' }}
+                        value={reponseEleve}
+                        onChange={(e) => setReponseEleve(e.target.value)}
+                        disabled={isCorrect === true}
+                    />
+                    {isCorrect !== true && <button className="btn btn-primary px-4 fw-bold shadow-sm" onClick={verifierReponse}>Valider</button>}
+                  </div>
+                  {message && (
+                      <div className={`alert ${isCorrect ? 'alert-success' : 'alert-danger'} rounded-4 py-3 shadow-sm`}>
+                        <div className="fw-bold mb-3">{message}</div>
+                        <button className={`btn ${isCorrect ? 'btn-success' : 'btn-outline-danger'} rounded-pill px-5 fw-bold`} onClick={exerciceSuivant}>
+                          {exercice < 4 ? "Exercice suivant →" : "Voir mon bilan"}
+                        </button>
+                      </div>
+                  )}
+                </>
+            ) : (
+                <div className="animate__animated animate__fadeIn">
+                  <h2 className="fw-bold mb-3">Bilan de la série</h2>
+                  <div className="display-4 fw-bold mb-4">{score} / 4</div>
 
-          <div className="progress mb-4" style={{ height: '8px' }}>
-            <div className="progress-bar bg-primary" style={{ width: `${((exercice - 1) / 4) * 100}%` }}></div>
-          </div>
+                  {(score / 4) >= 0.75 ? (
+                      <div className="alert alert-success rounded-4 p-4">
+                        <h5>Félicitations ! 🌟</h5>
+                        <p>Tu maîtrises le niveau {niveau}. Prêt pour la suite ?</p>
 
-          <h6 className="text-muted fw-bold text-uppercase small">Niveau 0 — Exercice {exercice} / 4</h6>
-          <h2 className="display-2 fw-bold my-4 text-dark">{currentEquation.affichage}</h2>
+                        <button className="btn btn-success rounded-pill px-5 fw-bold" onClick={() => {
+                          const prochainNiveau = niveau + 1;
+                          if (prochainNiveau <= 2) {
+                            setNiveau(prochainNiveau);
+                            setExercice(1);
+                            setScore(0);
+                            setIsFinished(false);
 
-          <div className="d-flex gap-3 justify-content-center mb-4">
-            <input
-              type="text"
-              className="form-control form-control-lg border-2 text-center fw-bold"
-              style={{ maxWidth: '160px', fontSize: '1.5rem' }}
-              placeholder="x = ?"
-              value={reponseEleve}
-              onChange={(e) => setReponseEleve(e.target.value)}
-              disabled={isCorrect === true}
-            />
-            {isCorrect !== true && (
-              <button className="btn btn-primary px-4 fw-bold shadow-sm" onClick={verifierReponse}>Valider</button>
+                            // Correctif : Forcer la génération immédiate selon le nouveau niveau
+                            if (prochainNiveau === 1) {
+                              setCurrentEquation(genererEquationNiveau1());
+                            } else if (prochainNiveau === 2) {
+                              setCurrentEquation(genererEquationNiveau2());
+                            }
+
+                            setReponseEleve("");
+                            setMessage("");
+                            setIsCorrect(null);
+                            setConversationIA([]);
+                          } else {
+                            navigate("/");
+                          }
+                        }}>
+                          {niveau < 2 ? `Passer au Niveau ${niveau + 1}` : "Terminer la mission"}
+                        </button>
+                      </div>
+                  ) : (
+                      <div className="alert alert-danger rounded-4 p-4">
+                        <h5>Besoin d'un renforcement 💡</h5>
+                        <p>Ton score est insuffisant. Une petite révision t'aidera !</p>
+                        <button className="btn btn-danger rounded-pill px-5 fw-bold" onClick={goToModelage}>
+                          Retourner au Modelage
+                        </button>
+                      </div>
+                  )}
+                </div>
             )}
           </div>
-
-          {/* MESSAGE ET BOUTON SUIVANT (Visible après validation, même si faux)  */}
-          {message && (
-            <div className={`alert ${isCorrect ? 'alert-success' : 'alert-danger'} rounded-4 py-3 mt-2 shadow-sm animate__animated animate__fadeIn`}>
-              <div className="fw-bold mb-3">{message}</div>
-              <button className={`btn ${isCorrect ? 'btn-success' : 'btn-outline-danger'} rounded-pill px-5 fw-bold`} onClick={exerciceSuivant}>
-                {exercice < 4 ? "Exercice suivant →" : "Terminer la mission"} 
-              </button>
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* ZONE DROITE : CHAT AVEC LITTERAL */}
-      <div className="bg-white border-start shadow-sm d-flex flex-column" style={{ width: '420px' }}>
-        <div className="p-4 border-bottom text-center bg-white">
-          <img src={logoRobot} alt="Robot" style={{ width: '70px' }} className={isWorking ? "opacity-50" : ""} />
-          <h5 className="fw-bold mb-0 mt-2">LitterAl</h5>
-          <small className="text-primary fw-bold">Tuteur Intelligent</small>
         </div>
 
-        <div className="flex-grow-1 overflow-auto p-4 bg-light">
-          {isCorrect === false ? (
-            <>
-              {conversationIA
-                .filter(m => m.role !== 'system' && m.content.trim() !== "") // Filtre anti-bug 
-                .map((m, i) => (
-                  <div key={i} className={`mb-3 p-3 rounded-4 shadow-sm text-break ${
-                    m.role === 'user' ? 'bg-primary text-white ms-4' : 'bg-white me-4 border'
-                  }`}>
-                    {m.content}
-                  </div>
-                ))
-              }
-              {isWorking && (
-                <div className="text-muted small d-flex align-items-center p-2">
-                  <div className="spinner-border spinner-border-sm me-2 text-primary"></div>
-                  LitterAl réfléchit...
-                </div>
-              )}
-            </>
-          ) : (
-            <div className="text-center text-muted mt-5 px-4">
-              <i className="bi bi-robot display-1 opacity-25"></i>
-              <p className="mt-4 fs-5">Résous l'équation à gauche. Je t'aiderai ici si tu commets une erreur !</p> 
-            </div>
-          )}
-        </div>
-
-        {/* ENTRÉE DU CHAT (Actif seulement en cas d'erreur)  */}
-        {isCorrect === false && (
-          <div className="p-3 border-top bg-white">
-            <div className="input-group shadow-sm rounded-pill overflow-hidden border">
-              <input
-                type="text"
-                className="form-control border-0 px-4"
-                placeholder="Pose une question au robot..."
-                onKeyDown={(e) => {
-                  if(e.key === 'Enter' && e.target.value.trim() !== "") {
-                    discuterErreur(e.target.value);
-                    e.target.value = "";
-                  }
-                }}
-              />
-              <button className="btn btn-white border-0 text-primary">
-                <i className="bi bi-send-fill"></i>
-              </button>
-            </div>
+        <div className="bg-white border-start shadow-sm d-flex flex-column" style={{ width: '420px' }}>
+          <div className="p-4 border-bottom text-center bg-white">
+            <img src={logoRobot} alt="Robot" style={{ width: '70px' }} />
+            <h5 className="fw-bold mb-0 mt-2">LitterAl</h5>
           </div>
-        )}
+          <div className="flex-grow-1 overflow-auto p-4 bg-light">
+            {isCorrect === false && !isFinished ? (
+                <>
+                  {conversationIA.filter(m => m.role !== 'system' && m.content.trim() !== "").map((m, i) => (
+                      <div key={i} className={`mb-3 p-3 rounded-4 shadow-sm ${m.role === 'user' ? 'bg-primary text-white ms-4' : 'bg-white me-4 border'}`}>{m.content}</div>
+                  ))}
+                  {isWorking && <div className="text-muted small p-2"><div className="spinner-border spinner-border-sm me-2 text-primary"></div>LitterAl écrit...</div>}
+                </>
+            ) : (
+                <div className="text-center text-muted mt-5 px-4">
+                  <p className="fs-5">Je t'aiderai ici en cas d'erreur !</p>
+                </div>
+            )}
+          </div>
+        </div>
       </div>
-    </div>
   );
 }
 
