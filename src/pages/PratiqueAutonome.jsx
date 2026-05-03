@@ -26,7 +26,7 @@ function PratiqueAutonome() {
     let b = Math.floor(Math.random() * 9) + 1;
     let xSolution = Math.floor(Math.random() * 9) + 1;
     let c = a * xSolution + b;
-    return { affichage: `${a}x + ${b} = ${c}`, solution: xSolution };
+    return {affichage: `${a}x + ${b} = ${c}`, solution: xSolution};
   }
 
   function genererEquationNiveau1() {
@@ -59,7 +59,7 @@ function PratiqueAutonome() {
   async function discuterErreur(messageUtilisateur = "") {
     setIsWorking(true);
     const contenuUser = messageUtilisateur || `J'ai proposé ${reponseEleve} pour ${currentEquation.affichage}, pourquoi c'est faux ?`;
-    const nouveauMessage = { role: "user", content: contenuUser };
+    const nouveauMessage = {role: "user", content: contenuUser};
     const historique = [...conversationIA, nouveauMessage];
     const promptSysteme = {
       role: "system",
@@ -74,7 +74,8 @@ function PratiqueAutonome() {
       4. MOTS SIMPLES : "On veut laisser x tout seul. Comment se débarrasser du nombre à côté ?".
       5. INTERDICTION : Ne jamais dire d'ajouter si l'équation a un signe plus, et inversement.`
     };
-    await envoyerMessage([promptSysteme, ...historique], setConversationIA, "", () => {}, setIsWorking);
+    await envoyerMessage([promptSysteme, ...historique], setConversationIA, "", () => {
+    }, setIsWorking);
   }
 
   // --- LOGIQUE DE VALIDATION ---
@@ -106,58 +107,69 @@ function PratiqueAutonome() {
   }
 
   return (
-      <div className="container-fluid d-flex flex-row vh-100 bg-light p-0">
-        <div className="flex-grow-1 p-4 d-flex flex-column align-items-center justify-content-center">
-          <div className="card shadow-lg p-5 rounded-4 text-center border-0" style={{ maxWidth: '600px', width: '100%' }}>
+      <div className="container-fluid d-flex flex-column flex-md-row vh-100 bg-light p-0 overflow-hidden">
+
+        {/* ZONE GAUCHE (HAUT SUR MOBILE) : EXERCICE */}
+        <div
+            className="flex-grow-1 p-3 p-md-4 d-flex flex-column align-items-center justify-content-center border-bottom border-md-0">
+          <div className="card shadow-lg p-3 p-md-5 rounded-4 text-center border-0 w-100" style={{maxWidth: '600px'}}>
 
             {!isFinished ? (
                 <>
-                  <div className="progress mb-4" style={{ height: '8px' }}>
-                    <div className="progress-bar bg-primary" style={{ width: `${((exercice - 1) / 4) * 100}%` }}></div>
+                  <div className="progress mb-3 mb-md-4" style={{height: '6px'}}>
+                    <div className="progress-bar bg-primary" style={{width: `${((exercice - 1) / 4) * 100}%`}}></div>
                   </div>
-                  <h6 className="text-muted fw-bold text-uppercase small">Niveau {niveau} — Exercice {exercice} / 4</h6>
-                  <h2 className="display-2 fw-bold my-4">{currentEquation.affichage}</h2>
-                  <div className="d-flex gap-3 justify-content-center mb-4">
+
+                  <h6 className="text-muted fw-bold text-uppercase small">Niveau {niveau} — Ex {exercice} / 4</h6>
+                  <h2 className="display-4 display-md-2 fw-bold my-3 my-md-4 text-dark">{currentEquation.affichage}</h2>
+
+                  <div className="d-flex flex-column flex-sm-row gap-2 justify-content-center mb-3">
                     <input
                         type="number"
-                        className="form-control form-control-lg text-center fw-bold"
-                        style={{ maxWidth: '160px' }}
+                        className="form-control form-control-lg text-center fw-bold mx-auto mx-sm-0"
+                        style={{maxWidth: '160px', height: '60px', fontSize: '1.5rem'}}
                         value={reponseEleve}
                         onChange={(e) => setReponseEleve(e.target.value)}
                         disabled={isCorrect === true}
+                        placeholder="x = ?"
                     />
-                    {isCorrect !== true && <button className="btn btn-primary px-4 fw-bold shadow-sm" onClick={verifierReponse}>Valider</button>}
+                    {isCorrect !== true && (
+                        <button className="btn btn-primary px-4 fw-bold shadow-sm" onClick={verifierReponse}>
+                          Valider
+                        </button>
+                    )}
                   </div>
+
                   {message && (
-                      <div className={`alert ${isCorrect ? 'alert-success' : 'alert-danger'} rounded-4 py-3 shadow-sm`}>
-                        <div className="fw-bold mb-3">{message}</div>
-                        <button className={`btn ${isCorrect ? 'btn-success' : 'btn-outline-danger'} rounded-pill px-5 fw-bold`} onClick={exerciceSuivant}>
-                          {exercice < 4 ? "Exercice suivant →" : "Voir mon bilan"}
+                      <div
+                          className={`alert ${isCorrect ? 'alert-success' : 'alert-danger'} rounded-4 py-3 shadow-sm animate__animated animate__fadeIn`}>
+                        <div className="fw-bold mb-2 small mb-md-3">{message}</div>
+                        <button
+                            className={`btn ${isCorrect ? 'btn-success' : 'btn-outline-danger'} rounded-pill px-4 px-md-5 fw-bold w-100 w-sm-auto`}
+                            onClick={exerciceSuivant}>
+                          {exercice < 4 ? "Suivant →" : "Voir bilan"}
                         </button>
                       </div>
                   )}
                 </>
             ) : (
+                /* ÉCRAN BILAN ADAPTÉ */
                 <div className="animate__animated animate__fadeIn">
-                  <h2 className="fw-bold mb-3">Bilan de la série</h2>
-                  <div className="display-4 fw-bold mb-4 text-primary">{score} / 4</div>
+                  <h2 className="fw-bold mb-2">Bilan</h2>
+                  <div className="display-3 fw-bold mb-3 text-primary">{score} / 4</div>
 
                   {(score / 4) >= 0.75 ? (
-                      <div className="alert alert-success rounded-4 p-4">
-                        <h5>Félicitations ! 🌟</h5>
-                        <p>Tu maîtrises le niveau {niveau}. Prêt pour la suite ?</p>
-
-                        <button className="btn btn-success rounded-pill px-5 fw-bold" onClick={() => {
-                          const prochainNiveau = niveau + 1;
-                          if (prochainNiveau <= 2) {
-                            setNiveau(prochainNiveau);
+                      <div className="alert alert-success rounded-4 p-3 p-md-4">
+                        <p className="small mb-3">Bravo ! Prêt pour la suite ?</p>
+                        <button className="btn btn-success rounded-pill px-4 fw-bold w-100" onClick={() => {
+                          const prochain = niveau + 1;
+                          if (prochain <= 2) {
+                            setNiveau(prochain);
                             setExercice(1);
                             setScore(0);
                             setIsFinished(false);
-
-                            if (prochainNiveau === 1) setCurrentEquation(genererEquationNiveau1());
-                            else if (prochainNiveau === 2) setCurrentEquation(genererEquationNiveau2());
-
+                            if (prochain === 1) setCurrentEquation(genererEquationNiveau1());
+                            else if (prochain === 2) setCurrentEquation(genererEquationNiveau2());
                             setReponseEleve("");
                             setMessage("");
                             setIsCorrect(null);
@@ -166,15 +178,14 @@ function PratiqueAutonome() {
                             navigate("/");
                           }
                         }}>
-                          {niveau < 2 ? `Passer au Niveau ${niveau + 1}` : "Terminer la mission"}
+                          {niveau < 2 ? "Niveau Suivant" : "Terminer"}
                         </button>
                       </div>
                   ) : (
-                      <div className="alert alert-danger rounded-4 p-4">
-                        <h5>Besoin d'un renforcement 💡</h5>
-                        <p>Ton score est insuffisant. Une petite révision t'aidera !</p>
-                        <button className="btn btn-danger rounded-pill px-5 fw-bold" onClick={goToModelage}>
-                          Retourner au Modelage
+                      <div className="alert alert-danger rounded-4 p-3 p-md-4">
+                        <p className="small mb-3">Besoin de réviser la méthode.</p>
+                        <button className="btn btn-danger rounded-pill px-4 fw-bold w-100" onClick={goToModelage}>
+                          Retour Modelage
                         </button>
                       </div>
                   )}
@@ -183,46 +194,47 @@ function PratiqueAutonome() {
           </div>
         </div>
 
-        {/* ZONE DROITE : CHAT LITTERAL */}
-        <div className="bg-white border-start shadow-sm d-flex flex-column" style={{ width: '420px' }}>
-          <div className="p-4 border-bottom text-center bg-white">
-            <img src={logoRobot} alt="Robot" style={{ width: '70px' }} />
-            <h5 className="fw-bold mb-0 mt-2">LitterAl</h5>
+        {/* ZONE DROITE (BAS SUR MOBILE) : CHAT */}
+        <div className="bg-white border-start shadow-sm d-flex flex-column"
+             style={{width: '100%', maxWidth: '100%', height: '40vh', flexBasis: '420px'}}>
+          <div className="p-2 p-md-3 border-bottom text-center bg-white d-none d-md-block">
+            <img src={logoRobot} alt="Robot" style={{width: '50px'}}/>
+            <h6 className="fw-bold mb-0">LitterAl</h6>
           </div>
 
-          <div className="flex-grow-1 overflow-auto p-4 bg-light">
+          <div className="flex-grow-1 overflow-auto p-3 bg-light">
             {isCorrect === false && !isFinished ? (
                 <>
                   {conversationIA.filter(m => m.role !== 'system' && m.content.trim() !== "").map((m, i) => (
-                      <div key={i} className={`mb-3 p-3 rounded-4 shadow-sm ${m.role === 'user' ? 'bg-primary text-white ms-4' : 'bg-white me-4 border'}`}>{m.content}</div>
+                      <div key={i}
+                           className={`mb-2 p-2 rounded-4 shadow-sm small ${m.role === 'user' ? 'bg-primary text-white ms-4' : 'bg-white me-4 border'}`}>
+                        {m.content}
+                      </div>
                   ))}
-                  {isWorking && <div className="text-muted small p-2"><div className="spinner-border spinner-border-sm me-2 text-primary"></div>LitterAl écrit...</div>}
+                  {isWorking && <div className="text-muted small p-2 text-center">LitterAl réfléchit...</div>}
                 </>
             ) : (
-                <div className="text-center text-muted mt-5 px-4">
-                  <p className="fs-5">Je t'aiderai ici en cas d'erreur !</p>
+                <div className="text-center text-muted mt-2">
+                  <p className="small">Je t'aide ici en cas d'erreur !</p>
                 </div>
             )}
           </div>
 
-          {/* RÉINTÉGRATION DU CHAMP DE SAISIE */}
           {isCorrect === false && !isFinished && (
-              <div className="p-3 border-top bg-white">
+              <div className="p-2 p-md-3 border-top bg-white">
                 <div className="input-group shadow-sm rounded-pill overflow-hidden border">
                   <input
                       type="text"
-                      className="form-control border-0 px-4"
-                      placeholder="Pose une question au robot..."
+                      className="form-control border-0 px-3"
+                      style={{fontSize: '0.9rem'}}
+                      placeholder="Question au robot..."
                       onKeyDown={(e) => {
-                        if(e.key === 'Enter' && e.target.value.trim() !== "") {
+                        if (e.key === 'Enter' && e.target.value.trim() !== "") {
                           discuterErreur(e.target.value);
                           e.target.value = "";
                         }
                       }}
                   />
-                  <button className="btn btn-white border-0 text-primary">
-                    <i className="bi bi-send-fill"></i>
-                  </button>
                 </div>
               </div>
           )}
@@ -230,5 +242,4 @@ function PratiqueAutonome() {
       </div>
   );
 }
-
 export default PratiqueAutonome;
