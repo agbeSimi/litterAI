@@ -1,11 +1,10 @@
-import React from "react";
+import "react";
 import logoRobot from '../assets/logo_robot.png';
 import CarteConcept from "../composants/CarteConcept.jsx";
 import CarteExplication from "../composants/CarteExplication.jsx";
-import Modelage from "./Modelage.jsx";
 import { useNavigate } from "react-router-dom";
 
-function Accueil() {
+function PageEquation() {
   const navigation = useNavigate();
 
   const goToModelage = () => {
@@ -33,4 +32,4 @@ function Accueil() {
   );
 }
 
-export default Accueil;
+export default PageEquation;
