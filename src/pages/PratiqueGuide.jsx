@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import  {useState} from "react";
 import {lancerExercice, envoyerMessage} from "../services/LitterAI_API.js";
 import logoRobot from "../assets/logo_robot.png";
 import {useNavigate} from "react-router-dom";
