@@ -18,7 +18,7 @@ function CarteConcept({description}) {
       className="card card-litteral shadow-sm rounded-4 p-4 m-4"
       style={{ cursor: 'pointer' }}
     >
-      <h5 className="fw-bold text-primary">⚖️ Concept :</h5>
+      <h5 className="fw-bold text-primary">📚️ Concept :</h5>
       <p className="mb-0 text-secondary">
         {description}
       </p>
