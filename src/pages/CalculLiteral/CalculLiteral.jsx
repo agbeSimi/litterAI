@@ -1,8 +1,11 @@
 import logoRobot from "../../assets/logo_robot.png";
 import CarteConcept from "../../composants/CarteConcept.jsx";
 import CarteExplication from "../../composants/CarteExplication.jsx";
+import {useNavigate} from "react-router-dom";
 
 function CalculLiteral() {
+  const navigate = useNavigate();
+
   return (
     <div className="text-center mb-5 min-h-screen bg-gray-50 flex flex-col items-center p-8">
       <img
