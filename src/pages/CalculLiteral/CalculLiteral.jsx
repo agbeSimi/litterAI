@@ -12,10 +12,12 @@ function CalculLiteral() {
         style={{ width: '120px' }}
       />
       <h1 className="display-4 fw-bold text-primary mb-5 mt-3">Litter AI</h1>
-      <h2 className="text-secondary mb-5">Chapitre : Les équations</h2>
-      <h4 className="fw-bold text-secondary">Objectif : Savoir isoler "x" et résoudre l'équation</h4>
-      <CarteConcept/>
-      <CarteExplication/>
+      <h2 className="text-secondary mb-5">Chapitre : Le Calcul litéral</h2>
+      <h4 className="fw-bold text-secondary">Objectif : Comprendre qu'une lettre cache une valeur et savoir calculer une expression</h4>
+      <CarteConcept
+        description="En mathématiques, une lettre est comme une 'boîte magique' : elle cache un nombre que l'on ne connaît pas encore, mais avec lequel on peut déjà faire des calculs !"/>
+      <CarteExplication
+        description="Utiliser des lettres permet d'écrire une seule règle qui fonctionne pour tous les nombres du monde. C'est l'outil secret des mathématiciens pour passer des phrases aux formules !"/>
       <div className="text-center mt-5">
         <button onClick={() => navigate("/modelageCalculLiteral")} className="btn btn-primary rounded-pill border-0 px-5 py-3 fw-bold shadow">
           Commencer la séance
