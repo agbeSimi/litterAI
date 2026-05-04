@@ -10,26 +10,57 @@ function Accueil(){
   }
 
   return(
-    <div className="text-center mb-5 min-h-screen bg-gray-50 flex flex-col items-center p-8">
-      <img
-        src={logoRobot}
-        alt="LitterAl"
-        className="mb-4"
-        style={{ width: '120px' }}
-        onClick={goHome}
-      />
-      <h1 className="display-4 fw-bold text-primary mb-5 mt-3">Litter AI</h1>
-      <h3 className="text-secondary mb-5">L'intelligence artificielle au service de ta réussite en mathématiques.</h3>
-      <h5 className="fw text-secondary">Un projet conçu par Morgan MARTIN — Professeur
-        Agrégé de Mathématiques</h5>
-          <ModuleCard
-            titre="Equations"
+    <>
+      <div className="d-flex flex-column min-vh-100 bg-gray-50 p-8">
+
+        {/* Cette partie contient tout ton contenu du haut */}
+        <div className="flex-grow-1 d-flex flex-column align-items-center text-center">
+          <img
+            src={logoRobot}
+            alt="LitterAl"
+            className="mb-4"
+            style={{ width: '120px', cursor: 'pointer' }}
+            onClick={goHome}
+          />
+          <h1 className="display-4 fw-bold text-primary mb-3 mt-3">
+            LitterAl
+          </h1>
+          <h3 className="text-secondary mb-5">
+            L'intelligence artificielle au service de ta réussite en mathématiques.
+          </h3>
+          <h5 className="fw text-secondary mb-5">
+            Un projet conçu par Morgan MARTIN — Professeur Agrégé de Mathématiques
+          </h5>
+
+          {/* Conteneur pour tes cartes */}
+          <div className="d-flex  gap-3">
+            <ModuleCard
+              titre="Module 0 : Les Équations"
             description="Apprendre à isoler x et maîtriser la balance algébrique."
-            path="/equation"/>
-          <ModuleCard
-            titre="Calcul Littéral"
-            description="Passer des phrases aux formules et comprendre le rôle des lettres."/>
-    </div>
+            path="/equation"
+            status="Opérationnel"
+            />
+            <ModuleCard
+              titre="Module 1 : Calcul Littéral"
+            description="Passer des phrases aux formules et comprendre le rôle des lettres."
+            status="Nouveau"
+            />
+          </div>
+        </div>
+
+        {/* Le footer avec mt-auto se collera tout en bas car le parent est flex-column */}
+        <footer className="text-center py-4 border-top mt-auto">
+          <small className="text-muted">
+            Développement : Simisola Agbe | Conception : Morgan MARTIN
+          </small><br/>
+          <small
+            onClick={() => navigate("/credit")}>
+            En savoir plus
+          </small>
+        </footer>
+      </div>
+
+    </>
   )
 }
 
