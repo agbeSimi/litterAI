@@ -1,6 +1,6 @@
 import { useState } from "react";
-import logoRobot from "../assets/logo_robot.png";
-import { envoyerMessage } from "../services/LitterAI_API.js";
+import logoRobot from "../../assets/logo_robot.png";
+import { envoyerMessage } from "../../services/LitterAI_API.js";
 import { useNavigate } from "react-router-dom";
 
 function PratiqueAutonome() {

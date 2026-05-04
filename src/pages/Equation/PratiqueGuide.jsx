@@ -1,6 +1,6 @@
 import  {useState} from "react";
-import {lancerExercice, envoyerMessage} from "../services/LitterAI_API.js";
-import logoRobot from "../assets/logo_robot.png";
+import {lancerExercice, envoyerMessage} from "../../services/LitterAI_API.js";
+import logoRobot from "../../assets/logo_robot.png";
 import {useNavigate} from "react-router-dom";
 
 function PratiqueGuide() {
@@ -22,6 +22,7 @@ function PratiqueGuide() {
             src={logoRobot}
             alt="Robot"
             style={{ width: '100%', height: 'auto' }}
+            onClick={() => navigate("/")}
           />
         </div>
 

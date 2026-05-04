@@ -1,7 +1,7 @@
 import "react";
-import logoRobot from '../assets/logo_robot.png';
-import CarteConcept from "../composants/CarteConcept.jsx";
-import CarteExplication from "../composants/CarteExplication.jsx";
+import logoRobot from '../../assets/logo_robot.png';
+import CarteConcept from "../../composants/CarteConcept.jsx";
+import CarteExplication from "../../composants/CarteExplication.jsx";
 import { useNavigate } from "react-router-dom";
 
 function PageEquation() {
