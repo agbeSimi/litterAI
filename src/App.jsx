@@ -6,12 +6,14 @@ import PratiqueGuide from "./pages/Equation/PratiqueGuide.jsx";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import PratiqueAutonome from "./pages/Equation/PratiqueAutonome.jsx";
 import Accueil from "./pages/Accueil.jsx";
+import Credit from "./pages/Credit.jsx";
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Accueil />} />
+        <Route path="credit" element={<Credit/>}/>
         <Route path="/equation" element={<PageEquation />} />
         <Route path="/modelage" element={<Modelage />} />
         <Route path="/pratiqueGuide" element={<PratiqueGuide/>}/>
