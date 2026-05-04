@@ -38,12 +38,11 @@ function Accueil(){
               titre="Module 0 : Les Équations"
             description="Apprendre à isoler x et maîtriser la balance algébrique."
             path="/equation"
-            status="Opérationnel"
             />
             <ModuleCard
               titre="Module 1 : Calcul Littéral"
-            description="Passer des phrases aux formules et comprendre le rôle des lettres."
-            status="Nouveau"
+              description="Passer des phrases aux formules et comprendre le rôle des lettres."
+              path="/calculLiteral"
             />
           </div>
         </div>
