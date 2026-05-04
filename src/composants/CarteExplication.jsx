@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import React from "react";
 
-function CarteConcept() {
+function CarteConcept({description}) {
   return (
     <motion.div
       // Animation d'entrée (Fade in + montée)
@@ -20,8 +20,8 @@ function CarteConcept() {
       style={{ cursor: 'pointer' }}
     >
       <h5 className="fw-bold text-primary">🛠️ Comment résoudre? : </h5>
-      <p>Il faut savoir utiliser <strong>l'opposé</strong> (Annuler une addition par une soustraction et inversement)
-            ainsi que la <strong>réciproque</strong> (Annuler une multiplication par une division et inversement)
+      <p>
+        {description}
       </p>
 
     </motion.div>

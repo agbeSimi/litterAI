@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-function CarteConcept() {
+function CarteConcept({description}) {
   return (
     <motion.div
       // Animation d'entrée (Fade in + montée)
@@ -20,8 +20,7 @@ function CarteConcept() {
     >
       <h5 className="fw-bold text-primary">⚖️ Concept :</h5>
       <p className="mb-0 text-secondary">
-        Une équation est une balance en équilibre. Pour isoler x, chaque opération effectuée d'un <strong>côté</strong> doit
-        être effectuée de <strong>l'autre</strong>.
+        {description}
       </p>
     </motion.div>
   );
