@@ -7,7 +7,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import PratiqueAutonome from "./pages/Equation/PratiqueAutonome.jsx";
 import Accueil from "./pages/Accueil.jsx";
 import Credit from "./pages/Credit.jsx";
-import ModelageCalculLiteral from "./pages/CalculLiteral/ModelageCalculLiteral.jsx";
+import ModelageCalculLiteralPhase2 from "./pages/CalculLiteral/ModelageCalculLiteralPhase2.jsx";
 import CalculLiteral from "./pages/CalculLiteral/CalculLiteral.jsx";
 import IntroductionIA from "./pages/CalculLiteral/introductionIA.jsx";
 
@@ -21,7 +21,7 @@ function App() {
         <Route path="/modelage" element={<Modelage/>}/>
         <Route path="/calculLiteral" element={<CalculLiteral/>}/>
         <Route path="/introductionIA" element={<IntroductionIA/>}/>
-        <Route path="/modelageCalculLiteral" element={<ModelageCalculLiteral/>}/>
+        <Route path="/modelageCalculLiteral" element={<ModelageCalculLiteralPhase2/>}/>
         <Route path="/pratiqueGuide" element={<PratiqueGuide/>}/>
         <Route path="/pratiqueAutonome" element={<PratiqueAutonome/>}/>
       </Routes>
