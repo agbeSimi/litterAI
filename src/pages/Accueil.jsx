@@ -37,7 +37,7 @@ function Accueil(){
             <ModuleCard
               titre="Module 0 : Calcul Littéral"
               description="Passer des phrases aux formules et comprendre le rôle des lettres."
-              path="/calculLiteral"
+              path="/introductionIA"
             />
             <ModuleCard
               titre="Module 1 : Les Équations"
