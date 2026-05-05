@@ -65,7 +65,7 @@ function ExempleResolutionLiteralPhase2() {
         <div className="text-center">
           <p className="mb-1 text-primary small">L'opération s'écrit d'abord :</p>
           <div className="d-flex align-items-center justify-content-center bg-dark-subtle p-2 rounded">
-            <span className="fs-4 text-primary fw-bold">{valeurs.a} × <span className="text-secondary">X</span></span>
+            <span className="fs-4 text-primary fw-bold">{valeurs.a} * <span className="text-secondary">X</span></span>
           </div>
         </div>
       )
@@ -74,7 +74,7 @@ function ExempleResolutionLiteralPhase2() {
       id: 6,
       jsx: (
         <p className="text-warning ms-3 small italic">
-          💡 Astuce : <span className="fw-bold">{valeurs.a} × x</span> peut s'écrire plus simplement <span className="fw-bold text-white">{valeurs.a}x</span> !
+          💡 Astuce : <span className="fw-bold">{valeurs.a} * x</span> peut s'écrire plus simplement <span className="fw-bold text-white">{valeurs.a}x</span> !
         </p>
       )
     },
@@ -92,7 +92,7 @@ function ExempleResolutionLiteralPhase2() {
       jsx: (
         <div className="p-3 bg-dark rounded border border-primary text-center">
           <p className="mb-1 text-primary small">Voici notre formule finale (l'expression littérale) :</p>
-          <p className="fs-3 mb-0 fw-bold text-primary">({valeurs.a} × X) + {valeurs.b}</p>
+          <p className="fs-3 mb-0 fw-bold text-primary">({valeurs.a} * X) + {valeurs.b}</p>
         </div>
       )
     },
@@ -103,7 +103,7 @@ function ExempleResolutionLiteralPhase2() {
           <p className="fw-bold text-info">🔍 Pourquoi c'est utile ?</p>
           <p className="small mb-0">Si tu décides que ton nombre de départ <span className="text-warning">x</span> est <span className="fw-bold text-white">10</span> :</p>
           <p className="text-center font-monospace mt-2">
-            ({valeurs.a} × <span className="text-warning">10</span>) + {valeurs.b} = <span className="text-primary">{valeurs.a * 10 + valeurs.b}</span>
+            ({valeurs.a} * <span className="text-warning">10</span>) + {valeurs.b} = <span className="text-primary">{valeurs.a * 10 + valeurs.b}</span>
           </p>
         </div>
       )

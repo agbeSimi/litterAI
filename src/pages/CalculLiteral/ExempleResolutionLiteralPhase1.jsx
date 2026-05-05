@@ -32,7 +32,7 @@ function ExempleResolutionLiteralPhase2() {
       jsx: (
         <p className="mb-0">
           <span className="badge bg-primary me-2">Exemple</span>
-          (3 × <span className="text-warning fw-bold">X</span>) + 5
+          (3 * <span className="text-warning fw-bold">X</span>) + 5
         </p>
       )
     },
