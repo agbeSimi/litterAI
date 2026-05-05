@@ -3,12 +3,14 @@ import {motion} from "framer-motion";
 import React, {useState} from "react";
 import ExempleResolutionLiteralPhase2 from "./ExempleResolutionLiteralPhase2.jsx";
 import ExempleAnalyse from "./ExempleResolutionLiteralPhase2.jsx";
+import {useNavigate} from "react-router-dom";
 
 function ModelageCalculLiteralPhase2() {
   const [afficheVideo, setAfficheVideo] = useState(false);
   const goToVideo = () => {
     setAfficheVideo( !afficheVideo );
   };
+  const navigate = useNavigate();
 
   return(
     <div className="container py-5 min-h-screen bg-light">
@@ -68,7 +70,7 @@ function ModelageCalculLiteralPhase2() {
                   scale: 1.02
                 }}
               >
-                <button o className="btn btn-sm px-md-5 py-md-3 px-4 rounded-pill fw-bold d-flex flex-wrap justify-content-center gap-3 mt-4" style={{ backgroundColor: 'deepskyblue', color: 'white' }}>
+                <button onClick={() => navigate("/pratiqueGuidePhase2CL")} className="btn btn-sm px-md-5 py-md-3 px-4 rounded-pill fw-bold d-flex flex-wrap justify-content-center gap-3 mt-4" style={{ backgroundColor: 'deepskyblue', color: 'white' }}>
                   Pratique Guidée
                 </button>
               </motion.div>
