@@ -21,7 +21,7 @@ function App() {
         <Route path="/modelage" element={<Modelage/>}/>
         <Route path="/calculLiteral" element={<CalculLiteral/>}/>
         <Route path="/introductionIA" element={<IntroductionIA/>}/>
-        <Route path="/modelageCalculLiteral" element={<ModelageCalculLiteralPhase2/>}/>
+        <Route path="/modelageCalculLiteralPhase2" element={<ModelageCalculLiteralPhase2/>}/>
         <Route path="/pratiqueGuide" element={<PratiqueGuide/>}/>
         <Route path="/pratiqueAutonome" element={<PratiqueAutonome/>}/>
       </Routes>
