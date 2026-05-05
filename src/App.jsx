@@ -9,6 +9,7 @@ import Accueil from "./pages/Accueil.jsx";
 import Credit from "./pages/Credit.jsx";
 import ModelageCalculLiteral from "./pages/CalculLiteral/ModelageCalculLiteral.jsx";
 import CalculLiteral from "./pages/CalculLiteral/CalculLiteral.jsx";
+import IntroductionIA from "./pages/CalculLiteral/introductionIA.jsx";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/equation" element={<PageEquation/>}/>
         <Route path="/modelage" element={<Modelage/>}/>
         <Route path="/calculLiteral" element={<CalculLiteral/>}/>
+        <Route path="/introductionIA" element={<IntroductionIA/>}/>
         <Route path="/modelageCalculLiteral" element={<ModelageCalculLiteral/>}/>
         <Route path="/pratiqueGuide" element={<PratiqueGuide/>}/>
         <Route path="/pratiqueAutonome" element={<PratiqueAutonome/>}/>
