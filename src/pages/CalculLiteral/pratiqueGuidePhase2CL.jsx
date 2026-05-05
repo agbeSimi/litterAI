@@ -30,7 +30,8 @@ export default function PratiqueGuidePhase2CL() {
                   - Multiplier par [NOMBRE ALÉATOIRE].
                   - Additionner [NOMBRE ALÉATOIRE] au résultat.
                   3. ÉTAPE 1 : Demande d'abord à l'élève de choisir un nombre de départ.
-                  4. ÉTAPE 2 : Une fois le nombre choisi, accompagne l'élève pour transformer ce programme en expression littérale en utilisant "X" comme variable.
+                  4. ÉTAPE 2.1 : Une fois le nombre choisi, demande à l'élève de multiplier par 3 et de donner l'expression littérale.
+                  
 
                   RÈGLES DE FORMATAGE STRICTES
                   - Pour le calcul littéral, n'utilise JAMAIS l'abréviation (ex: 5X).
