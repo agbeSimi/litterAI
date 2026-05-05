@@ -1,8 +1,10 @@
 import ExempleResolution from "../../composants/ExempleResolution.jsx";
 import {motion} from "framer-motion";
 import React, {useState} from "react";
+import ExempleResolutionLiteralPhase2 from "./ExempleResolutionLiteralPhase2.jsx";
+import ExempleAnalyse from "./ExempleResolutionLiteralPhase2.jsx";
 
-function ModelageCalculLiteral() {
+function ModelageCalculLiteralPhase2() {
   const [afficheVideo, setAfficheVideo] = useState(false);
   const goToVideo = () => {
     setAfficheVideo( !afficheVideo );
@@ -16,30 +18,31 @@ function ModelageCalculLiteral() {
           {/* --- Header --- */}
           <header className="text-center mb-5">
             <h1 className="display-5 fw-bold text-primary">
-              L'équilibre de la Balance ⚖️
+              Le Programme de Calcul 🖩
             </h1>
             <p className="lead text-dark mt-4">
-              Le signe "=" est le pivot.
+              Passer de la phrase en français à l'écriture mathématique.
               <br />
-              <span className="fw-bold">Règle d'or :</span> Tout ce que tu retires d'un côté, tu dois le retirer de l'autre avec l'opération contraire !
+              <br />
+              <span className="fw-bold">Règle :</span> On inverse la logique. On part de la phrase pour aller vers la lettre.
             </p>
           </header>
 
           {/* --- Rappel Concepts --- */}
           <div className="card bg-light border-0 p-3 mb-5">
-            <div className="card-body">
-              <p className="mb-2">
-                <i className="bi bi-arrow-right-short text-primary fs-5"></i>
-                L'opposé de <strong>+5</strong> est <strong>-5</strong>.
-              </p>
-              <p className="mb-0">
-                <i className="bi bi-arrow-right-short text-primary fs-5"></i>
-                La réciproque de <strong>×3</strong> est <strong>÷3</strong>.
-              </p>
-            </div>
+            {/*<div className="card-body">*/}
+            {/*  <p className="mb-2">*/}
+            {/*    <i className="bi bi-arrow-right-short text-primary fs-5"></i>*/}
+            {/*    L'opposé de <strong>+5</strong> est <strong>-5</strong>.*/}
+            {/*  </p>*/}
+            {/*  <p className="mb-0">*/}
+            {/*    <i className="bi bi-arrow-right-short text-primary fs-5"></i>*/}
+            {/*    La réciproque de <strong>×3</strong> est <strong>÷3</strong>.*/}
+            {/*  </p>*/}
+            {/*</div>*/}
 
             {/* --- Résolution Sombre --- */}
-            <ExempleResolution/>
+            <ExempleResolutionLiteralPhase2/>
 
 
             {/* --- Actions --- */}
@@ -86,4 +89,4 @@ function ModelageCalculLiteral() {
   )
 }
 
-export default ModelageCalculLiteral;
+export default ModelageCalculLiteralPhase2;
