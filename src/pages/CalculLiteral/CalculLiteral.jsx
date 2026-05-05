@@ -24,7 +24,7 @@ function CalculLiteral() {
 
       <div className="text-center mt-5">
         <div className="text-center mt-5">
-          <button className="btn btn-primary rounded-pill border-0 px-5 py-3 fw-bold shadow">
+          <button onClick={() => navigate("/ModelageCalculLiteralPhase1")} className="btn btn-primary rounded-pill border-0 px-5 py-3 fw-bold shadow">
             Phase 1
           </button>
         <button onClick={() => navigate("/ModelageCalculLiteralPhase2")} className="btn btn-primary rounded-pill border-0 px-5 py-3 fw-bold shadow">
