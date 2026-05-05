@@ -1,8 +1,13 @@
 import ExempleResolution from "../../composants/ExempleResolution.jsx";
 import {motion} from "framer-motion";
-import React from "react";
+import React, {useState} from "react";
 
 function ModelageCalculLiteral() {
+  const [afficheVideo, setAfficheVideo] = useState(false);
+  const goToVideo = () => {
+    setAfficheVideo( !afficheVideo );
+  };
+
   return(
     <div className="container py-5 min-h-screen bg-light">
       <div className="row justify-content-center">
@@ -48,7 +53,7 @@ function ModelageCalculLiteral() {
                 }}
               >
 
-                <button  className="btn btn-sm px-md-5 py-md-3 px-4 rounded-pill fw-bold d-flex flex-wrap justify-content-center gap-3 mt-4" style={{ backgroundColor: 'orangered', color: 'white' }}>
+                <button onClick={goToVideo} className="btn btn-sm px-md-5 py-md-3 px-4 rounded-pill fw-bold d-flex flex-wrap justify-content-center gap-3 mt-4" style={{ backgroundColor: 'orangered', color: 'white' }}>
                   🎬 Vidéo éxplicative
                 </button>
               </motion.div>
@@ -66,14 +71,14 @@ function ModelageCalculLiteral() {
               </motion.div>
 
             </footer>
-            {/*{afficheVideo && (*/}
-            {/*  <div className="mt-3">*/}
-            {/*    <video controls width="100%" className="rounded-4">*/}
-            {/*      <source src="/videos/le-mystere-de-la-balance.mp4" type="video/mp4" />*/}
-            {/*      Votre navigateur ne supporte pas la lecture de vidéos.*/}
-            {/*    </video>*/}
-            {/*  </div>*/}
-            {/*)}*/}
+            {afficheVideo && (
+              <div className="mt-3">
+                <video controls width="100%" className="rounded-4">
+                  <source src="/videos/Niveau-1-1-Introduction-au-calcul-litteral.mp4" type="video/mp4" />
+                  Votre navigateur ne supporte pas la lecture de vidéos.
+                </video>
+              </div>
+            )}
           </div>
         </div>
       </div>
