@@ -47,7 +47,8 @@ function PratiqueGuide() {
               <p className="text-muted mb-4">Prêt à t'entraîner?</p>
               <button
                 className="btn btn-primary btn-lg rounded-pill px-5 shadow"
-                onClick={() => lancerExercice(conversation, setConversation, setIsWorking)}
+                onClick={() => lancerExercice(conversation, setConversation, setIsWorking,
+                              "Souhaite moi le bienvenue dans la 'Pratique guidé' et Génère une équation aléatoire simple de format aX + b = c et demande-moi la première étape, sans me donner aucune indice ou réponse.")}
                 disabled={isWorking}
               >
                 {isWorking ? "Chargement..." : "Commencer l'exercice"}
