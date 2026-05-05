@@ -1,7 +1,7 @@
 
 const URL_BASE = 'https://127.0.0.1:8000/api'
 
-export function lancerExercice(conversation, setConversation, setIsWorking) {
+export function lancerExercice(conversation, setConversation, setIsWorking, prompt) {
   setIsWorking(true);
   fetch(`${URL_BASE}/ia/groq`, {
     method: 'POST',
@@ -10,7 +10,7 @@ export function lancerExercice(conversation, setConversation, setIsWorking) {
       'Accept': 'application/json',
     },
     body: JSON.stringify({
-      question: "Souhaite moi le bienvenue dans la 'Pratique guidé' et Génère une équation aléatoire simple de format aX + b = c et demande-moi la première étape, sans me donner aucune indice ou réponse.",
+      question: prompt,
       listeMessages: conversation
     })
   })
