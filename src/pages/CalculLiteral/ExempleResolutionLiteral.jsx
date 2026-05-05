@@ -1,0 +1,5 @@
+function ExempleResolutionLiteral() {
+  return (
+
+  )
+}
