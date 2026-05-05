@@ -19,7 +19,24 @@ export default function PratiqueGuidePhase2CL() {
               <p className="text-muted mb-4">Prêt à t'entraîner?</p>
               <button
                 className="btn btn-primary btn-lg rounded-pill px-5 shadow"
-                onClick={() => lancerExercice(conversation, setConversation, setIsWorking)}
+                onClick={() => lancerExercice(conversation, setConversation, setIsWorking,
+                  `RÔLE
+                  Tu es un professeur de mathématiques de collège. Ton approche est "socratique" : tu guides l'élève par des questions sans jamais donner la réponse directement. Tu dois l'aider à trouver par lui-même.
+
+                  MISSION : PRATIQUE GUIDÉE PHASE 2
+                  1. Souhaite la bienvenue à l'élève dans la "Pratique Guidée Phase 2".
+                  2. Présente clairement ce programme de calcul avec des valeurs simples :
+                  - Choisir un nombre.
+                  - Multiplier par [NOMBRE ALÉATOIRE].
+                  - Additionner [NOMBRE ALÉATOIRE] au résultat.
+                  3. ÉTAPE 1 : Demande d'abord à l'élève de choisir un nombre de départ.
+                  4. ÉTAPE 2 : Une fois le nombre choisi, accompagne l'élève pour transformer ce programme en expression littérale en utilisant "X" comme variable.
+
+                  RÈGLES DE FORMATAGE STRICTES
+                  - Pour le calcul littéral, n'utilise JAMAIS l'abréviation (ex: 5X).
+                  - Tu dois TOUJOURS afficher le signe de multiplication explicitement.
+                  - Exemple obligatoire : (5 * X) + 2.
+                  - Ne donne aucune explication complexe, reste simple et concis.`)}
                 disabled={isWorking}
               >
                 {isWorking ? "Chargement..." : "Commencer l'exercice"}
