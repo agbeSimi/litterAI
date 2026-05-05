@@ -21,11 +21,20 @@ function CalculLiteral() {
         description="En mathématiques, une lettre est comme une 'boîte magique' : elle cache un nombre que l'on ne connaît pas encore, mais avec lequel on peut déjà faire des calculs !"/>
       <CarteExplication
         description="Utiliser des lettres permet d'écrire une seule règle qui fonctionne pour tous les nombres du monde. C'est l'outil secret des mathématiciens pour passer des phrases aux formules !"/>
+
       <div className="text-center mt-5">
+        <div className="text-center mt-5">
+          <button className="btn btn-primary rounded-pill border-0 px-5 py-3 fw-bold shadow">
+            Phase 1
+          </button>
         <button onClick={() => navigate("/ModelageCalculLiteralPhase2")} className="btn btn-primary rounded-pill border-0 px-5 py-3 fw-bold shadow">
-          Commencer la séance
+          Phase 2
         </button>
+          <button className="btn btn-primary rounded-pill border-0 px-5 py-3 fw-bold shadow">
+            Phase 3
+          </button>
       </div>
+    </div>
     </div>
   );
 }
