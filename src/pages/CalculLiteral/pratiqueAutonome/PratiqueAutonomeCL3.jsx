@@ -144,30 +144,54 @@ export default function PratiqueAutonomeCL3() {
               </div>
 
               <h6 className="text-muted fw-bold text-uppercase small">Ex {exercice} / 4</h6>
-              <p className="display-6 display-md-2  my-3 my-md-4 text-dark">
-                Etape 1 :{currentEquation.premierePartie}<br/>
-                Etape 2 : {currentEquation.deuxiemePartie}<br/>
-                Etape 3: {currentEquation.troisiemePartie}<br/>
+              <p className="display-4 fw-bold text-primary my-4">
+                {currentEquation.solution}
               </p>
-              <p> Transforme ces instructions en expression littéral </p>
+              <p className="mb-4">Retrouve le programme de calcul correspondant :</p>
 
-              <div className="d-flex flex-column flex-sm-row gap-2 justify-content-center mb-3">
-                <input
-                  type="text"
-                  className="form-control form-control-lg text-center fw-bold mx-auto mx-sm-0"
-                  style={{maxWidth: '250px', height: '60px', fontSize: '1.5rem'}}
-                  value={reponseEleve}
-                  onChange={(e) => setReponseEleve(e.target.value)}
-                  placeholder="Ex: 4 * x + 1"
-                  disabled={isCorrect === true}
+              <div className="d-flex flex-column gap-3 mb-4 mx-auto" style={{maxWidth: '350px'}}>
+                <div className="input-group">
+                  <span className="input-group-text fw-bold">Étape 1</span>
+                  <input
+                    type="text"
+                    className="form-control text-center"
+                    value={reponseEtape1}
+                    onChange={(e) => setReponseEtape1(e.target.value)}
+                    placeholder="Ex: Choisir X"
+                    disabled={isCorrect === true}
+                  />
+                </div>
 
-                />
-                {isCorrect !== true && (
-                  <button className="btn btn-primary px-4 fw-bold shadow-sm" onClick={verifierReponse}>
-                    Valider
-                  </button>
-                )}
+                <div className="input-group">
+                  <span className="input-group-text fw-bold">Étape 2</span>
+                  <input
+                    type="text"
+                    className="form-control text-center"
+                    value={reponseEtape2}
+                    onChange={(e) => setReponseEtape2(e.target.value)}
+                    placeholder="Ex: Multiplier par 1"
+                    disabled={isCorrect === true}
+                  />
+                </div>
+
+                <div className="input-group">
+                  <span className="input-group-text fw-bold">Étape 3</span>
+                  <input
+                    type="text"
+                    className="form-control text-center"
+                    value={reponseEtape3}
+                    onChange={(e) => setReponseEtape3(e.target.value)}
+                    placeholder="Ex: additionner 5"
+                    disabled={isCorrect === true}
+                  />
+                </div>
               </div>
+
+              {isCorrect !== true && (
+                <button className="btn btn-primary px-5 fw-bold shadow-sm mb-3" onClick={verifierReponse}>
+                  Valider mon programme
+                </button>
+              )}
 
               {message && (
                 <div
@@ -197,7 +221,9 @@ export default function PratiqueAutonomeCL3() {
                       setExercice(1);
                       setScore(0);
                       setIsFinished(false);
-                      setReponseEleve("");
+                      setReponseEtape1("");
+                      setReponseEtape2("");
+                      setReponseEtape3("");
                       setMessage("");
                       setIsCorrect(null);
                       setConversationIA([]);
