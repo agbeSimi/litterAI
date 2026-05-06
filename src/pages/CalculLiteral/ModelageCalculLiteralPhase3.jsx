@@ -21,29 +21,20 @@ function ModelageCalculLiteralPhase3() {
             <h1 className="display-5 fw-bold text-primary">
               Expression littéraire
             </h1>
-            <p className="lead fw-bold text-dark mt-4">
+            <p className="lead text-dark mt-4">
               Savoir lire une formule complexe et décrire les étapes du calcul.
               <br />
               <br />
+              <span className="fw-bold">Règle :</span> On inverse la logique. On part de la lettre pour aller vers la phrase.
+
             </p>
+
           </header>
 
           {/* --- Rappel Concepts --- */}
           <div className="card bg-light border-0 p-3 mb-5">
-            {/*<div className="card-body">*/}
-            {/*  <p className="mb-2">*/}
-            {/*    <i className="bi bi-arrow-right-short text-primary fs-5"></i>*/}
-            {/*    L'opposé de <strong>+5</strong> est <strong>-5</strong>.*/}
-            {/*  </p>*/}
-            {/*  <p className="mb-0">*/}
-            {/*    <i className="bi bi-arrow-right-short text-primary fs-5"></i>*/}
-            {/*    La réciproque de <strong>×3</strong> est <strong>÷3</strong>.*/}
-            {/*  </p>*/}
-            {/*</div>*/}
-
             {/* --- Résolution Sombre --- */}
             <ExempleResolutionLiteralPhase3/>
-
 
             {/* --- Actions --- */}
             <footer className="d-flex justify-content-center gap-4 mt-5 pt-4 border-top">

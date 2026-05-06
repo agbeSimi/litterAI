@@ -26,22 +26,12 @@ function ModelageCalculLiteralPhase2() {
               Passer de la phrase en français à l'écriture mathématique.
               <br />
               <br />
-              <span className="fw-bold">Règle :</span> On inverse la logique. On part de la phrase pour aller vers la lettre.
+              <span className="fw-bold">Règle :</span> On part de la phrase pour aller vers la lettre.
             </p>
           </header>
 
           {/* --- Rappel Concepts --- */}
           <div className="card bg-light border-0 p-3 mb-5">
-            {/*<div className="card-body">*/}
-            {/*  <p className="mb-2">*/}
-            {/*    <i className="bi bi-arrow-right-short text-primary fs-5"></i>*/}
-            {/*    L'opposé de <strong>+5</strong> est <strong>-5</strong>.*/}
-            {/*  </p>*/}
-            {/*  <p className="mb-0">*/}
-            {/*    <i className="bi bi-arrow-right-short text-primary fs-5"></i>*/}
-            {/*    La réciproque de <strong>×3</strong> est <strong>÷3</strong>.*/}
-            {/*  </p>*/}
-            {/*</div>*/}
 
             {/* --- Résolution Sombre --- */}
             <ExempleResolutionLiteralPhase2/>
