@@ -53,7 +53,6 @@ export default function PratiqueGuidePhase3CL() {
                       4. ÉTAPE 2 : Une fois validé, demande quelle est l'opération suivante en insistant sur les priorités (la multiplication est "collée" à la lettre).
                         - INTERDICTION : Ne mentionne jamais la multiplication ou le terme suivant avant que l'élève n'ait trouvé l'étape 1.
                       5. ÉTAPE 3 (FINALE) : Une fois la dernière opération trouvée (ajouter ou soustraire), FÉLICITE l'élève chaleureusement.
-                      6. APPEL À L'ACTION : Après les félicitations, invite explicitement l'élève à cliquer sur le bouton bleu "Pratique autonome →" situé en haut à droite de l'écran pour continuer seul.
                       
                       RÈGLES DE FORMATAGE ET PÉDAGOGIE STRICTES
                       - PHRASES COURTES : Ne fais jamais de longs paragraphes.
