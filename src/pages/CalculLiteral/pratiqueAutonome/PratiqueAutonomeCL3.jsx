@@ -91,15 +91,25 @@ export default function PratiqueAutonomeCL3() {
     }, setIsWorking);
   }
 
+  // Fonction pour nettoyer le texte (enlève les espaces multiples et met en minuscules)
+  const nettoyerTexte = (texte) => texte.trim().toLowerCase().replace(/\s+/g, " ");
   // --- LOGIQUE DE VALIDATION ---
   function verifierReponse() {
-    if (reponseEleve.replace(/\s+/g, "").toUpperCase() === currentEquation.solution) {
+    const etape1Attendue = nettoyerTexte("Choisir X");
+    const etape2Attendue = nettoyerTexte(`Multiplier par ${currentEquation.a}`);
+    const etape3Attendue = nettoyerTexte(`${currentEquation.troisiemePartie}`);
+
+    const estEtape1Correcte = nettoyerTexte(reponseEtape1) === etape1Attendue;
+    const estEtape2Correcte = nettoyerTexte(reponseEtape2) === etape2Attendue;
+    const estEtape3Correcte = nettoyerTexte(reponseEtape3) === etape3Attendue;
+
+    if (estEtape1Correcte && estEtape2Correcte && estEtape3Correcte) {
       setScore(prev => prev + 1);
       setIsCorrect(true);
-      setMessage("Bravo ! C'est la bonne réponse.");
+      setMessage("Bravo ! Tu as parfaitement décodé l'expression.");
     } else {
       setIsCorrect(false);
-      setMessage("Ce n'est pas ça. Regarde l'aide de LitterAl à droite !");
+      setMessage("Il y a une erreur dans au moins l'une des étapes. Regarde l'aide de LitterAl !");
       discuterErreur();
     }
   }
@@ -110,7 +120,8 @@ export default function PratiqueAutonomeCL3() {
       setCurrentEquation(genererProgramme());
       setReponseEtape1("");
       setReponseEtape2("");
-      setReponseEtape3("");      setMessage("");
+      setReponseEtape3("");
+      setMessage("");
       setIsCorrect(null);
       setConversationIA([]);
     } else {
