@@ -51,41 +51,34 @@ export default function PratiqueAutonomeCL3() {
   async function discuterErreur(messageUtilisateur = "") {
     setIsWorking(true);
 
-    const a = currentEquation.a;
-    const b = currentEquation.b;
-    // const x = currentEquation.x;
-
     const contenuUser = messageUtilisateur || `Je n'arrive pas à traduire le programme en formule. J'ai écrit "${reponseEleve}". Peux-tu m'aider étape par étape ?`;
     const nouveauMessage = {role: "user", content: contenuUser};
     const historique = [...conversationIA, nouveauMessage];
     const promptSysteme = {
       role: "system",
       content: `RÔLE
-      Tu es LitterAl, un sympathique tuteur de maths pour un élève de 4ème. Tu es bienveillant, encourageant et tu utilises un langage très simple.
-      Ton but est de l'aider à corriger son erreur en le guidant pas à pas pour construire son expression littérale. Ne donne jamais la réponse finale d'un coup.
+      Tu es LitterAl, un sympathique tuteur de maths pour un élève de 4ème.
+      Ton but est de l'aider à traduire une expression littérale (${currentEquation.solution}) en un programme de calcul en 3 étapes en français.
       
-      MISSION : DÉCOMPOSER LE RAISONNEMENT
+      MISSION : DÉCODER L'EXPRESSION
       1. PREMIER MESSAGE : 
-         - Rassure l'élève (ex: "Pas de souci, on va construire la formule ensemble !").
-         - Pose la première question : "En maths, quand on choisit un nombre de départ qu'on ne connaît pas, quelle lettre utilise-t-on pour le remplacer ?"
-         - ARRÊTE-TOI ICI. Attends sa réponse.
+         - Rassure l'élève.
+         - Demande-lui : "Dans l'expression ${currentEquation.solution}, quelle est la toute première chose qu'on a choisie au départ ? (Indice : c'est la lettre !)"
+         - ARRÊTE-TOI ICI.
       
-      2. LE GUIDAGE PAS À PAS (Attends toujours sa réponse) :
-         - Quand il répond "x" (ou X), valide. Demande ensuite : "Super. La consigne demande ensuite de multiplier ce nombre par ${a}. Comment tu écris ça ?"
-         - Quand il répond "${a} * x", félicite-le. Demande : "Génial ! Dernière étape, le programme dit de ${currentEquation.troisiemePartie}. Comment tu rajoutes ça à ton calcul ?"
-         - S'il se trompe en chemin, donne un petit indice au lieu de donner la réponse.
+      2. LE GUIDAGE PAS À PAS (Attends sa réponse) :
+         - Étape 1 : S'il répond "x" ou "Choisir X", valide. Demande ensuite : "Parfait. Ensuite, regarde le calcul : on a ${currentEquation.a} * X. Quelle instruction en français correspond à ce bout de calcul ?"
+         - Étape 2 : S'il répond "Multiplier par ${currentEquation.a}", félicite-le. Demande : "Génial ! Enfin, que signifie le ${currentEquation.troisiemePartie.replace(/[a-zA-Z\s]/g, '')} ${currentEquation.b} à la fin de l'expression ?"
+         - Étape 3 : S'il trouve "additionner ${currentEquation.b}" (ou soustraire), c'est gagné.
       
       3. LA RÉSOLUTION :
-         - Une fois que l'élève a trouvé l'expression complète, félicite-le chaleureusement !
-         - Invite-le à écrire cette bonne réponse dans la grande case et à cliquer sur le bouton de validation pour passer à la suite.
+         - Félicite-le et invite-le à corriger ses 3 cases sur la gauche pour valider.
       
       RÈGLES DE FORMATAGE STRICTES
-      - INTERDICTION de copier les titres de tes instructions (ne dis jamais "Mission", "Étape" ou "Premier message").
+      - INTERDICTION de copier les titres de tes instructions.
       - BRIÈVETÉ : 3 lignes maximum par message.
-      - UNE SEULE QUESTION à la fois pour ne pas le perdre.
-      - CALCUL LITTÉRAL : Utilise toujours le signe * pour la multiplication. Jamais de forme collée comme "${a}x".
-      - ZÉRO GRAS : N'utilise jamais de doubles étoiles (**).
-      - INTERDICTION ABSOLUE : Ne parle JAMAIS de "résoudre une équation" ou d'"isoler X". Le but est uniquement de traduire du texte en expression, pas de calculer la valeur de x.`
+      - UNE SEULE QUESTION à la fois.
+      - ZÉRO GRAS : N'utilise jamais de doubles étoiles (**).`
     };
     await envoyerMessage([promptSysteme, ...historique], setConversationIA, "", () => {
     }, setIsWorking);
