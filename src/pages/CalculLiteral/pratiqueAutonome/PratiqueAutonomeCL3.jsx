@@ -10,7 +10,8 @@ export default function PratiqueAutonomeCL3() {
   const [currentEquation, setCurrentEquation] = useState(genererProgramme());
   const [reponseEtape1, setReponseEtape1] = useState("");
   const [reponseEtape2, setReponseEtape2] = useState("");
-  const [reponseEtape3, setReponseEtape3] = useState("");  const [message, setMessage] = useState("");
+  const [reponseEtape3, setReponseEtape3] = useState("");
+  const [message, setMessage] = useState("");
   const [conversationIA, setConversationIA] = useState([]);
   const [isWorking, setIsWorking] = useState(false);
   const [isCorrect, setIsCorrect] = useState(null);
@@ -107,8 +108,9 @@ export default function PratiqueAutonomeCL3() {
     if (exercice < 4) {
       setExercice(prev => prev + 1);
       setCurrentEquation(genererProgramme());
-      setReponseEleve("");
-      setMessage("");
+      setReponseEtape1("");
+      setReponseEtape2("");
+      setReponseEtape3("");      setMessage("");
       setIsCorrect(null);
       setConversationIA([]);
     } else {
