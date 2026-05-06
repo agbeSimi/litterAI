@@ -1,6 +1,6 @@
-import {envoyerMessage, lancerExercice} from "../../services/LitterAI_API.js";
+import {envoyerMessage, lancerExercice} from "../../../services/LitterAI_API.js";
 import {useState} from "react";
-import logoRobot from "../../assets/logo_robot.png";
+import logoRobot from "../../../assets/logo_robot.png";
 import {useNavigate} from "react-router-dom";
 
 export default function PratiqueGuidePhase2CL() {
