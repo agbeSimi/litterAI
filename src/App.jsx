@@ -7,12 +7,12 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import PratiqueAutonome from "./pages/Equation/PratiqueAutonome.jsx";
 import Accueil from "./pages/Accueil.jsx";
 import Credit from "./pages/Credit.jsx";
-import ModelageCalculLiteralPhase2 from "./pages/CalculLiteral/ModelageCalculLiteralPhase2.jsx";
+import ModelageCalculLiteralPhase2 from "./pages/CalculLiteral/modelage/ModelageCalculLiteralPhase2.jsx";
 import CalculLiteral from "./pages/CalculLiteral/CalculLiteral.jsx";
 import IntroductionIA from "./pages/CalculLiteral/introductionIA.jsx";
 import PratiqueGuidePhase2CL from "./pages/CalculLiteral/pratiqueGuide/pratiqueGuidePhase2CL.jsx";
-import ModelageCalculLiteralPhase1 from "./pages/CalculLiteral/ModelageCalculLiteralPhase1.jsx";
-import ModelageCalculLiteralPhase3 from "./pages/CalculLiteral/ModelageCalculLiteralPhase3.jsx";
+import ModelageCalculLiteralPhase1 from "./pages/CalculLiteral/modelage/ModelageCalculLiteralPhase1.jsx";
+import ModelageCalculLiteralPhase3 from "./pages/CalculLiteral/modelage/ModelageCalculLiteralPhase3.jsx";
 
 function App() {
   return (

@@ -1,10 +1,11 @@
+import ExempleResolution from "../../../composants/ExempleResolution.jsx";
 import {motion} from "framer-motion";
 import React, {useState} from "react";
-import ExempleResolutionLiteralPhase2 from "./ExempleResolutionLiteralPhase2.jsx";
+import ExempleResolutionLiteralPhase2 from "../ExempleResolutionLiteralPhase2.jsx";
+import ExempleAnalyse from "../ExempleResolutionLiteralPhase2.jsx";
 import {useNavigate} from "react-router-dom";
-import ExempleResolutionLiteralPhase3 from "./ExempleResolutionLiteralPhase3.jsx";
 
-function ModelageCalculLiteralPhase3() {
+function ModelageCalculLiteralPhase2() {
   const [afficheVideo, setAfficheVideo] = useState(false);
   const goToVideo = () => {
     setAfficheVideo( !afficheVideo );
@@ -19,22 +20,22 @@ function ModelageCalculLiteralPhase3() {
           {/* --- Header --- */}
           <header className="text-center mb-5">
             <h1 className="display-5 fw-bold text-primary">
-              Expression littéraire
+              Le Programme de Calcul 🖩
             </h1>
             <p className="lead text-dark mt-4">
-              Savoir lire une formule complexe et décrire les étapes du calcul.
+              Passer de la phrase en français à l'écriture mathématique.
               <br />
               <br />
-              <span className="fw-bold">Règle :</span> On inverse la logique. On part de la lettre pour aller vers la phrase.
-
+              <span className="fw-bold">Règle :</span> On part de la phrase pour aller vers la lettre.
             </p>
-
           </header>
 
           {/* --- Rappel Concepts --- */}
           <div className="card bg-light border-0 p-3 mb-5">
+
             {/* --- Résolution Sombre --- */}
-            <ExempleResolutionLiteralPhase3/>
+            <ExempleResolutionLiteralPhase2/>
+
 
             {/* --- Actions --- */}
             <footer className="d-flex justify-content-center gap-4 mt-5 pt-4 border-top">
@@ -59,7 +60,7 @@ function ModelageCalculLiteralPhase3() {
                   scale: 1.02
                 }}
               >
-                <button  className="btn btn-sm px-md-5 py-md-3 px-4 rounded-pill fw-bold d-flex flex-wrap justify-content-center gap-3 mt-4" style={{ backgroundColor: 'deepskyblue', color: 'white' }}>
+                <button onClick={() => navigate("/pratiqueGuidePhase2CL")} className="btn btn-sm px-md-5 py-md-3 px-4 rounded-pill fw-bold d-flex flex-wrap justify-content-center gap-3 mt-4" style={{ backgroundColor: 'deepskyblue', color: 'white' }}>
                   Pratique Guidée
                 </button>
               </motion.div>
@@ -80,4 +81,4 @@ function ModelageCalculLiteralPhase3() {
   )
 }
 
-export default ModelageCalculLiteralPhase3;
+export default ModelageCalculLiteralPhase2;

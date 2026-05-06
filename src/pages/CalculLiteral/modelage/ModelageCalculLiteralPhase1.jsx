@@ -1,8 +1,8 @@
-import ExempleResolution from "../../composants/ExempleResolution.jsx";
+import ExempleResolution from "../../../composants/ExempleResolution.jsx";
 import {motion} from "framer-motion";
 import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
-import ExempleResolutionLiteralPhase1 from "./ExempleResolutionLiteralPhase1.jsx";
+import ExempleResolutionLiteralPhase1 from "../ExempleResolutionLiteralPhase1.jsx";
 
 function ModelageCalculLiteralPhase2() {
   const [afficheVideo, setAfficheVideo] = useState(false);
