@@ -29,6 +29,7 @@ export default function PratiqueGuidePhase2CL() {
         <button
           className="btn btn-sm px-4 py-2 rounded-pill fw-bold ms-auto"
           style={{ backgroundColor: 'deepskyblue', color: 'white', border: 'none' }}
+          onClick={() => navigate("/PratiqueAutonomeCL2")}
         >
           Pratique autonome →
         </button>
