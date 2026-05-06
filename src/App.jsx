@@ -13,6 +13,7 @@ import IntroductionIA from "./pages/CalculLiteral/introductionIA.jsx";
 import PratiqueGuidePhase2CL from "./pages/CalculLiteral/pratiqueGuide/pratiqueGuidePhase2CL.jsx";
 import ModelageCalculLiteralPhase1 from "./pages/CalculLiteral/modelage/ModelageCalculLiteralPhase1.jsx";
 import ModelageCalculLiteralPhase3 from "./pages/CalculLiteral/modelage/ModelageCalculLiteralPhase3.jsx";
+import PratiqueGuidePhase3CL from "./pages/CalculLiteral/pratiqueGuide/pratiqueGuidePhase3CL.jsx";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Route path="/modelageCalculLiteralPhase3" element={<ModelageCalculLiteralPhase3/>}/>
 
         <Route path="/pratiqueGuidePhase2CL" element={<PratiqueGuidePhase2CL/>}/>
+        <Route path="/pratiqueGuidePhase3CL" element={<PratiqueGuidePhase3CL/>}/>
         <Route path="/pratiqueGuide" element={<PratiqueGuide/>}/>
         <Route path="/pratiqueAutonome" element={<PratiqueAutonome/>}/>
       </Routes>
