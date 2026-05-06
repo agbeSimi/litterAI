@@ -1,15 +1,38 @@
 import {envoyerMessage, lancerExercice} from "../../services/LitterAI_API.js";
 import {useState} from "react";
+import logoRobot from "../../assets/logo_robot.png";
+import {useNavigate} from "react-router-dom";
 
 export default function PratiqueGuidePhase2CL() {
   const [conversation, setConversation] = useState([]);
   const [isWorking, setIsWorking] = useState(false);
   const[input, setInput] = useState("");
+  const navigate = useNavigate();
 
 
   return (
 
-    <>
+    <div className="d-flex flex-column vh-100 bg-light">
+      <div className="bg-white border-bottom p-3 shadow-sm d-flex align-items-center">
+        <div className="bg-light rounded-circle p-2 d-flex align-items-center justify-content-center me-3" style={{ width: '50px', height: '50px' }}>
+          <img
+            src={logoRobot}
+            alt="Robot"
+            style={{ width: '100%', height: 'auto' }}
+            onClick={() => navigate("/")}
+          />
+        </div>
+
+        <h5 className="mb-0 fw-bold">Pratique Guidée : Les Équations</h5>
+
+        {/* Utilisation de ms-auto pour pousser le bouton à droite et retrait de mt-4 */}
+        <button
+          className="btn btn-sm px-4 py-2 rounded-pill fw-bold ms-auto"
+          style={{ backgroundColor: 'deepskyblue', color: 'white', border: 'none' }}
+        >
+          Pratique autonome →
+        </button>
+      </div>
       <div className="flex-grow-1 overflow-auto p-3 p-md-5" style={{ scrollBehavior: 'smooth' }}>
         <div className="mx-auto" style={{ maxWidth: '800px' }}>
 
@@ -85,6 +108,7 @@ export default function PratiqueGuidePhase2CL() {
         </div>
       </div>
   )}
-    </>
+    <div/>
+    </div>
   )
 }
