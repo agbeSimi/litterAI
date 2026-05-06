@@ -32,9 +32,13 @@ function Credit() {
                     <strong>IA :</strong> Utilisation du modèle de langage <strong>Llama 3</strong> via l'API <strong>GROQ</strong> pour une vitesse de réponse instantanée.
                   </div>
                 </li>
-                <li className="d-flex align-items-start">
-                  <i className="bi bi-server text-primary me-3 mt-1"></i>
+                <li className="d-flex flex-column align-items-start">
+                  <div className="mb-2">
+                  <i className="bi text-primary bi-window-sidebar  me-3 mt-1"></i>
+                    <strong>Frontend :</strong> Developpé avec React (JavaScript).
+                  </div>
                   <div>
+                    <i className="bi bi-server text-primary me-3 mt-1"></i>
                     <strong>Backend :</strong> Serveur sécurisé symfony.
                   </div>
                 </li>
