@@ -109,7 +109,7 @@ export default function PratiqueAutonomeCL1() {
                   value={reponseEleve}
                   onChange={(e) => setReponseEleve(e.target.value)}
                   disabled={isCorrect === true}
-                  placeholder="x = ?"
+
                 />
                 {isCorrect !== true && (
                   <button className="btn btn-primary px-4 fw-bold shadow-sm" onClick={verifierReponse}>
