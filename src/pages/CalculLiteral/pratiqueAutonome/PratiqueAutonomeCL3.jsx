@@ -51,8 +51,7 @@ export default function PratiqueAutonomeCL3() {
   async function discuterErreur(messageUtilisateur = "") {
     setIsWorking(true);
 
-    const contenuUser = messageUtilisateur || `Je n'arrive pas à traduire le programme en formule. J'ai écrit "${reponseEleve}". Peux-tu m'aider étape par étape ?`;
-    const nouveauMessage = {role: "user", content: contenuUser};
+    const contenuUser = messageUtilisateur || `Je n'arrive pas à trouver les instructions pour ${currentEquation.solution}. J'ai écrit : 1) ${reponseEtape1}, 2) ${reponseEtape2}, 3) ${reponseEtape3}. Peux-tu m'aider ?`;    const nouveauMessage = {role: "user", content: contenuUser};
     const historique = [...conversationIA, nouveauMessage];
     const promptSysteme = {
       role: "system",
