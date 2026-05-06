@@ -3,13 +3,13 @@ import { motion } from "framer-motion";
 
 
 function ExempleResolutionLiteralPhase3() {
-  const [valeurs, setValeurs] = useState({ a: 0, b: 0, x: 5 });
+  const [valeurs, setValeurs] = useState({ a: 0, b: 0 });
   const [indexEtape, setIndexEtape] = useState(1);
 
   function genererSituation() {
-    const valA = Math.floor(Math.random() * 4) + 2; // Multiplicateur simple
-    const valB = Math.floor(Math.random() * 6) + 1; // Addition simple
-    setValeurs({ a: valA, b: valB, x: 5 });
+    const valA = Math.floor(Math.random() * 4) + 2; // Multiplicateur (2 à 5)
+    const valB = Math.floor(Math.random() * 8) + 1; // Addition (1 à 8)
+    setValeurs({ a: valA, b: valB });
   }
 
   useEffect(() => {
@@ -20,89 +20,78 @@ function ExempleResolutionLiteralPhase3() {
     {
       id: 1,
       jsx: (
-        <div>
-          <p className="text-info fw-bold mb-1">📋 Le défi :</p>
-          <p>Décomposition de l'expression.</p>
+        <div className="text-center p-3 bg-dark-subtle rounded border border-primary">
+          <p className="text-info fw-bold mb-1">🔍 Expression à analyser :</p>
+          <p className="fs-2 fw-bold mb-0 text-primary">{valeurs.a} * x + {valeurs.b}</p>
         </div>
       )
     },
     {
       id: 2,
       jsx: (
-        <p className="mb-0">
-          <span className="badge bg-primary me-2">Attention aux priorités !</span>
-          Dans 2(x-1) + 3, on fait d'abord x-1 puis 2*(x-1) puis + 3.
-        </p>
+        <div className="d-flex align-items-center gap-3">
+          <div className="p-2 border border-secondary rounded text-center" style={{minWidth: '80px'}}>
+            <span className="fs-5 fw-bold text-primary">x</span>
+          </div>
+          <div className="flex-grow-1">
+            <p className="mb-0 fw-bold text-primary">1. Choisir un nombre.</p>
+            <p className="small text-warning mb-0 italic">C'est notre point de départ.</p>
+          </div>
+        </div>
       )
     },
     {
       id: 3,
       jsx: (
-        <div className="d-flex align-items-center justify-content-center bg-dark-subtle p-2 rounded">
-          <span className="fs-4 text-primary">Démarrage : </span>
-          <span className="fs-3 ms-3 fw-bold text-secondary ">x</span>
+        <div className="d-flex align-items-center gap-3">
+          <div className="p-2 border border-secondary rounded text-center" style={{minWidth: '80px'}}>
+            <span className="fs-5 text-primary fw-bold text-white">{valeurs.a} * x</span>
+          </div>
+          <div className="flex-grow-1">
+            <p className="mb-0 fw-bold text-primary">2. Multiplier par {valeurs.a}.</p>
+            <p className="small text-warning mb-0 italic">C'est une multiplication prioritaire.</p>
+          </div>
         </div>
       )
     },
     {
       id: 4,
       jsx: (
-        <p className="mb-0">
-          <span className="badge bg-primary me-2">Étape 2</span>
-
-          On doit multiplier ce nombre par <span className="fw-bold">{valeurs.a}</span>.
-        </p>
+        <div className="d-flex align-items-center gap-3">
+          <div className="p-2 border border-secondary rounded text-center" style={{minWidth: '130px'}}>
+            <span className="fs-5 fw-bold text-primary">{valeurs.a} * x + {valeurs.b}</span>
+          </div>
+          <div className="flex-grow-1">
+            <p className="mb-0 fw-bold text-primary">3. Ajouter {valeurs.b}.</p>
+            <p className="small text-warning mb-0 italic">On termine par l'addition car elle n'est pas prioritaire.</p>
+          </div>
+        </div>
       )
     },
     {
       id: 5,
       jsx: (
-        <div className="text-center">
-          <p className="mb-1 text-primary small">L'opération s'écrit d'abord :</p>
-          <div className="d-flex align-items-center justify-content-center bg-dark-subtle p-2 rounded">
-            <span className="fs-4 text-primary fw-bold">{valeurs.a} × <span className="text-secondary">X</span></span>
-          </div>
+        <div className="mt-3 p-3 bg-primary bg-opacity-10 rounded border border-primary text-center">
+          <p className="mb-0 fw-bold text-primary">📜 Programme de calcul trouvé :</p>
+          <ol className="text-start mt-2 small">
+            <li>Choisir un nombre</li>
+            <li>Le multiplier par {valeurs.a}</li>
+            <li>Lui ajouter {valeurs.b}</li>
+          </ol>
         </div>
       )
     },
     {
       id: 6,
       jsx: (
-        <p className="text-warning ms-3 small italic">
-          💡 Astuce : <span className="fw-bold">{valeurs.a} × x</span> peut s'écrire plus simplement <span className="fw-bold text-white">{valeurs.a}x</span> !
-        </p>
-      )
-    },
-    {
-      id: 7,
-      jsx: (
-        <p className="mb-0">
-          <span className="badge bg-primary me-2">Étape 3</span>
-          Maintenant, on ajoute <span className="fw-bold">{valeurs.b}</span> à tout ce qu'on a déjà fait.
-        </p>
-      )
-    },
-    {
-      id: 8,
-      jsx: (
-        <div className="p-3 bg-dark rounded border border-primary text-center">
-          <p className="mb-1 text-primary small">Voici notre formule finale (l'expression littérale) :</p>
-          <p className="fs-3 mb-0 fw-bold text-primary">({valeurs.a} × X) + {valeurs.b}</p>
-        </div>
-      )
-    },
-    {
-      id: 9,
-      jsx: (
         <div className="mt-2">
-          <p className="fw-bold text-info">🔍 Pourquoi c'est utile ?</p>
-          <p className="small mb-0">Si tu décides que ton nombre de départ <span className="text-warning">x</span> est <span className="fw-bold text-white">10</span> :</p>
-          <p className="text-center font-monospace mt-2">
-            ({valeurs.a} × <span className="text-warning">10</span>) + {valeurs.b} = <span className="text-primary">{valeurs.a * 10 + valeurs.b}</span>
+          <p className="small text-warning">
+            <span className="badge badge- bg-primary me-2">Attention aux priorités !</span>
+            Dans 2(x-1) + 3, on fait d'abord x-1 puis 2*(x-1) puis + 3
           </p>
         </div>
       )
-    }
+    },
   ];
 
   function etapeSuivante() {
