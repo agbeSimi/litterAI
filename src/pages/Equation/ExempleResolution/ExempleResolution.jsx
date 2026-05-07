@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {motion} from "framer-motion";
-import BoutonSuivant from "./BoutonSuivant.jsx";
+import BoutonSuivant from "../../../composants/BoutonSuivant.jsx";
 
 function ExempleResolution() {
   const [equation, setEquation] = useState({ a: 0, b: 0, c: 0, x: 0 });
