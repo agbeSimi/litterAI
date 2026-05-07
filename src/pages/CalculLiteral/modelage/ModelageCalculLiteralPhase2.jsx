@@ -1,8 +1,6 @@
-import ExempleResolution from "../../../composants/ExempleResolution.jsx";
 import {motion} from "framer-motion";
 import React, {useState} from "react";
 import ExempleResolutionLiteralPhase2 from "../ExempleResolutionLiteralPhase2.jsx";
-import ExempleAnalyse from "../ExempleResolutionLiteralPhase2.jsx";
 import {useNavigate} from "react-router-dom";
 
 function ModelageCalculLiteralPhase2() {
