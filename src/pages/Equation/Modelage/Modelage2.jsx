@@ -1,10 +1,10 @@
 import React, {useState} from "react";
 import { motion } from "framer-motion";
-import ExempleResolution from "../../../composants/ExempleResolution.jsx";
 import {useNavigate} from "react-router-dom";
+import ExempleResolution2 from "../ExempleResolution/ExempleResolution2.jsx";
 
 
-function Modelage1() {
+function Modelage2() {
   const [afficheVideo, setAfficheVideo] = useState(false);
   const navigate = useNavigate();
   const goToVideo = () => {
@@ -45,7 +45,7 @@ function Modelage1() {
             </div>
 
             {/* --- Résolution Sombre --- */}
-          <ExempleResolution/>
+          <ExempleResolution2/>
 
 
             {/* --- Actions --- */}
@@ -92,4 +92,4 @@ function Modelage1() {
   )
 }
 
-export default Modelage1;
+export default Modelage2;
