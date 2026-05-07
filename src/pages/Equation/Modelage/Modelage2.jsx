@@ -71,7 +71,7 @@ function Modelage2() {
                   scale: 1.02
                 }}
               >
-                <button onClick={goToPratiqueGuide} className="btn btn-sm px-md-5 py-md-3 px-4 rounded-pill fw-bold d-flex flex-wrap justify-content-center gap-3 mt-4" style={{ backgroundColor: 'deepskyblue', color: 'white' }}>
+                <button onClick={() => navigate("/pratiqueGuide2")} className="btn btn-sm px-md-5 py-md-3 px-4 rounded-pill fw-bold d-flex flex-wrap justify-content-center gap-3 mt-4" style={{ backgroundColor: 'deepskyblue', color: 'white' }}>
                   Pratique Guidée
                 </button>
               </motion.div>
