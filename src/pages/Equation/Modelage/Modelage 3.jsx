@@ -1,19 +1,16 @@
 import React, {useState} from "react";
 import { motion } from "framer-motion";
 import {useNavigate} from "react-router-dom";
-import ExempleResolution2 from "../ExempleResolution/ExempleResolution2.jsx";
+import ExempleResolution3 from "../ExempleResolution/ExempleResolution3.jsx";
 
 
-function Modelage2() {
+function Modelage3() {
   const [afficheVideo, setAfficheVideo] = useState(false);
   const navigate = useNavigate();
   const goToVideo = () => {
     setAfficheVideo( !afficheVideo );
   };
 
-  const goToPratiqueGuide = () => {
-    navigate("/pratiqueGuide")
-  }
   return(
     <div className="container py-5 min-h-screen bg-light">
       <div className="row justify-content-center">
@@ -45,7 +42,7 @@ function Modelage2() {
             </div>
 
             {/* --- Résolution Sombre --- */}
-            <ExempleResolution2/>
+            <ExempleResolution3/>
 
 
             {/* --- Actions --- */}
@@ -92,4 +89,4 @@ function Modelage2() {
   )
 }
 
-export default Modelage2;
+export default Modelage3;
