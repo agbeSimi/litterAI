@@ -4,7 +4,7 @@ import PageEquation from './pages/Equation/pageEquation.jsx';
 import Modelage1 from "./pages/Equation/Modelage/Modelage1.jsx";
 import PratiqueGuide1 from "./pages/Equation/pratiqueGuide/PratiqueGuide1.jsx";
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import PratiqueAutonome from "./pages/Equation/PratiqueAutonome.jsx";
+import PratiqueAutonome1 from "./pages/Equation/pratiqueAutonome/PratiqueAutonome1.jsx";
 import Accueil from "./pages/Accueil.jsx";
 import Credit from "./pages/Credit.jsx";
 import ModelageCalculLiteralPhase2 from "./pages/CalculLiteral/modelage/ModelageCalculLiteralPhase2.jsx";
@@ -45,7 +45,7 @@ function App() {
         <Route path="/pratiqueGuide" element={<PratiqueGuide1/>}/>
         <Route path="/pratiqueGuide2" element={<PratiqueGuide2/>}/>
 
-        <Route path="/pratiqueAutonome" element={<PratiqueAutonome/>}/>
+        <Route path="/pratiqueAutonome" element={<PratiqueAutonome1/>}/>
       </Routes>
     </Router>
   );

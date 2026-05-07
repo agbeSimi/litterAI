@@ -1,9 +1,9 @@
 import { useState } from "react";
-import logoRobot from "../../assets/logo_robot.png";
-import { envoyerMessage } from "../../services/LitterAI_API.js";
+import logoRobot from "../../../assets/logo_robot.png";
+import { envoyerMessage } from "../../../services/LitterAI_API.js";
 import { useNavigate } from "react-router-dom";
 
-function PratiqueAutonome() {
+function PratiqueAutonome1() {
   const [exercice, setExercice] = useState(1);
   const [score, setScore] = useState(0);
   const [niveau, setNiveau] = useState(0); // 0: ax+b=c | 1: ax+b=cx+d | 2: décimaux
@@ -243,4 +243,4 @@ function PratiqueAutonome() {
       </div>
   );
 }
-export default PratiqueAutonome;
+export default PratiqueAutonome1;
