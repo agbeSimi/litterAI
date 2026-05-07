@@ -29,31 +29,18 @@ function PratiqueAutonome1() {
     return {affichage: `${a}x + ${b} = ${c}`, solution: xSolution};
   }
 
-  function genererEquationNiveau1() {
-    let a, c, xSolution = Math.floor(Math.random() * 9) + 1;
-    do {
-      a = Math.floor(Math.random() * 8) + 2;
-      c = Math.floor(Math.random() * 8) + 2;
-    } while (a === c);
-    let b = Math.floor(Math.random() * 9) + 1;
-    let d = (a * xSolution) + b - (c * xSolution);
-    return {
-      affichage: `${a}x ${b >= 0 ? '+ ' : '- '}${Math.abs(b)} = ${c}x ${d >= 0 ? '+ ' : '- '}${Math.abs(d)}`,
-      solution: xSolution
-    };
-  }
 
-  function genererEquationNiveau2() {
-    const xSolution = Math.floor(Math.random() * 10) + 1;
-    const a = (Math.floor(Math.random() * 40) + 11) / 10;
-    const b = (Math.floor(Math.random() * 50) + 10) / 10;
-    const c = parseFloat((a * xSolution + b).toFixed(1));
-
-    return {
-      affichage: `${a.toString().replace('.', ',')}x + ${b.toString().replace('.', ',')} = ${c.toString().replace('.', ',')}`,
-      solution: xSolution
-    };
-  }
+  // function genererEquationNiveau2() {
+  //   const xSolution = Math.floor(Math.random() * 10) + 1;
+  //   const a = (Math.floor(Math.random() * 40) + 11) / 10;
+  //   const b = (Math.floor(Math.random() * 50) + 10) / 10;
+  //   const c = parseFloat((a * xSolution + b).toFixed(1));
+  //
+  //   return {
+  //     affichage: `${a.toString().replace('.', ',')}x + ${b.toString().replace('.', ',')} = ${c.toString().replace('.', ',')}`,
+  //     solution: xSolution
+  //   };
+  // }
 
   // --- ACTIONS IA ---
   async function discuterErreur(messageUtilisateur = "") {
@@ -95,9 +82,7 @@ function PratiqueAutonome1() {
   function exerciceSuivant() {
     if (exercice < 4) {
       setExercice(prev => prev + 1);
-      if (niveau === 0) setCurrentEquation(genererEquationNiveau0());
-      else if (niveau === 1) setCurrentEquation(genererEquationNiveau1());
-      else setCurrentEquation(genererEquationNiveau2());
+      setCurrentEquation(genererEquationNiveau0());
       setReponseEleve("");
       setMessage("");
       setIsCorrect(null);
@@ -169,17 +154,17 @@ function PratiqueAutonome1() {
                             setExercice(1);
                             setScore(0);
                             setIsFinished(false);
-                            if (prochain === 1) setCurrentEquation(genererEquationNiveau1());
-                            else if (prochain === 2) setCurrentEquation(genererEquationNiveau2());
                             setReponseEleve("");
                             setMessage("");
                             setIsCorrect(null);
                             setConversationIA([]);
+                            navigate("/modelage2")
+
                           } else {
                             navigate("/");
                           }
                         }}>
-                          {niveau < 2 ? "Niveau Suivant" : "Terminer"}
+                          {niveau < 2 ? "Niveau Suivant -> Phase 2" : "Terminer"}
                         </button>
                       </div>
                   ) : (
