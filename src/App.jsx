@@ -21,6 +21,8 @@ import PratiqueAutonomeCL3 from "./pages/CalculLiteral/pratiqueAutonome/Pratique
 import Modelage2 from "./pages/Equation/Modelage/Modelage2.jsx";
 import PratiqueGuide2 from "./pages/Equation/pratiqueGuide/PratiqueGuide2.jsx";
 import PratiqueAutonome2 from "./pages/Equation/pratiqueAutonome/PratiqueAutonome2.jsx";
+import PratiqueGuide3 from "./pages/Equation/pratiqueGuide/PratiqueGuide3.jsx";
+import Modelage3 from "./pages/Equation/Modelage/Modelage 3.jsx";
 
 function App() {
   return (
@@ -31,6 +33,8 @@ function App() {
         <Route path="/equation" element={<PageEquation/>}/>
         <Route path="/modelage" element={<Modelage1/>}/>
         <Route path="/modelage2" element={<Modelage2/>}/>
+        <Route path="/modelage3" element={<Modelage3/>}/>
+
 
         <Route path="/calculLiteral" element={<CalculLiteral/>}/>
         <Route path="/introductionIA" element={<IntroductionIA/>}/>
@@ -45,6 +49,7 @@ function App() {
         <Route path="/pratiqueGuidePhase3CL" element={<PratiqueGuidePhase3CL/>}/>
         <Route path="/pratiqueGuide" element={<PratiqueGuide1/>}/>
         <Route path="/pratiqueGuide2" element={<PratiqueGuide2/>}/>
+        <Route path="/pratiqueGuide3" element={<PratiqueGuide3/>}/>
 
         <Route path="/pratiqueAutonome" element={<PratiqueAutonome1/>}/>
         <Route path="/pratiqueAutonome2" element={<PratiqueAutonome2/>}/>
