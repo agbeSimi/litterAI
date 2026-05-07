@@ -9,7 +9,7 @@ function ExempleResolution2() {
 
   function genererEquationAleatoire() {
     let valA = Math.floor(Math.random() * 8) + 2; // entre 2 et 9
-    let valC = Math.floor(Math.random() * 5) + 1; // entre 1 et 5
+    let valC = Math.floor(Math.random() * 5) + 2; // entre 1 et 5
 
     if (valA === valC) valA++;
 
