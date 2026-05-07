@@ -35,7 +35,7 @@ export default function PratiqueAutonomeCL2() {
     const troisiemePartie = `${operations[indexAleatoire]} ${b}`
     return {
       affichage: `${a} * x + ${b}`,
-      solution: `${resultatAttendu}`,
+      solution: resultatAttendu,
       x: x,
       a: a,
       b: b,

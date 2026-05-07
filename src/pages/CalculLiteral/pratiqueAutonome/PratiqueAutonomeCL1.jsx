@@ -23,7 +23,7 @@ export default function PratiqueAutonomeCL1() {
     let b = Math.floor(Math.random() * 9) + 1;
     let x = Math.floor(Math.random() * 5) + 1;
     let resultatAttendu = a * x + b;
-    return {affichage: `${a} * x + ${b}`, solution: `${resultatAttendu}`,
+    return {affichage: `${a} * x + ${b}`, solution: resultatAttendu,
       x: x,
       a: a,
       b: b};
