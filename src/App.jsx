@@ -20,6 +20,7 @@ import PratiqueAutonomeCL2 from "./pages/CalculLiteral/pratiqueAutonome/Pratique
 import PratiqueAutonomeCL3 from "./pages/CalculLiteral/pratiqueAutonome/PratiqueAutonomeCL3.jsx";
 import Modelage2 from "./pages/Equation/Modelage/Modelage2.jsx";
 import PratiqueGuide2 from "./pages/Equation/pratiqueGuide/PratiqueGuide2.jsx";
+import PratiqueAutonome2 from "./pages/Equation/pratiqueAutonome/PratiqueAutonome2.jsx";
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
         <Route path="/pratiqueGuide2" element={<PratiqueGuide2/>}/>
 
         <Route path="/pratiqueAutonome" element={<PratiqueAutonome1/>}/>
+        <Route path="/pratiqueAutonome2" element={<PratiqueAutonome2/>}/>
       </Routes>
     </Router>
   );
