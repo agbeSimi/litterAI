@@ -35,6 +35,9 @@ function PageEquation() {
         <button onClick={() => navigation("/modelage2")} className="btn btn-primary rounded-pill border-0 px-5 py-3 fw-bold shadow">
           Phase 2
         </button>
+        <button onClick={() => navigation("/modelage3")} className="btn btn-primary rounded-pill border-0 px-5 py-3 fw-bold shadow">
+        Phase 3
+      </button>
       </div>
     </div>
   );
