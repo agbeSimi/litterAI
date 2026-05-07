@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import PageEquation from './pages/Equation/pageEquation.jsx';
-import Modelage from "./pages/Equation/Modelage.jsx";
+import Modelage1 from "./pages/Equation/Modelage/Modelage1.jsx";
 import PratiqueGuide from "./pages/Equation/PratiqueGuide.jsx";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import PratiqueAutonome from "./pages/Equation/PratiqueAutonome.jsx";
@@ -18,6 +18,7 @@ import PratiqueAutonomeCL1 from "./pages/CalculLiteral/pratiqueAutonome/Pratique
 import PratiqueGuidePhase1CL from "./pages/CalculLiteral/pratiqueGuide/pratiqueGuidePhase1CL.jsx";
 import PratiqueAutonomeCL2 from "./pages/CalculLiteral/pratiqueAutonome/PratiqueAutonomeCL2.jsx";
 import PratiqueAutonomeCL3 from "./pages/CalculLiteral/pratiqueAutonome/PratiqueAutonomeCL3.jsx";
+import Modelage2 from "./pages/Equation/Modelage/Modelage2.jsx";
 
 function App() {
   return (
@@ -26,7 +27,9 @@ function App() {
         <Route path="/" element={<Accueil/>}/>
         <Route path="credit" element={<Credit/>}/>
         <Route path="/equation" element={<PageEquation/>}/>
-        <Route path="/modelage" element={<Modelage/>}/>
+        <Route path="/modelage" element={<Modelage1/>}/>
+        <Route path="/modelage2" element={<Modelage2/>}/>
+
         <Route path="/calculLiteral" element={<CalculLiteral/>}/>
         <Route path="/introductionIA" element={<IntroductionIA/>}/>
         <Route path="/ModelageCalculLiteralPhase1" element={<ModelageCalculLiteralPhase1/>}/>
