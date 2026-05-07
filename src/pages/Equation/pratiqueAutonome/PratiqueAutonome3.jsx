@@ -3,11 +3,11 @@ import logoRobot from "../../../assets/logo_robot.png";
 import { envoyerMessage } from "../../../services/LitterAI_API.js";
 import { useNavigate } from "react-router-dom";
 
-function PratiqueAutonome2() {
+function PratiqueAutonome3() {
   const [exercice, setExercice] = useState(1);
   const [score, setScore] = useState(0);
   const [niveau, setNiveau] = useState(0); // 0: ax+b=c | 1: ax+b=cx+d | 2: décimaux
-  const [currentEquation, setCurrentEquation] = useState(genererEquationNiveau1());
+  const [currentEquation, setCurrentEquation] = useState(genererEquationNiveau2());
   const [reponseEleve, setReponseEleve] = useState("");
   const [message, setMessage] = useState("");
   const [conversationIA, setConversationIA] = useState([]);
@@ -17,20 +17,18 @@ function PratiqueAutonome2() {
 
   const navigate = useNavigate();
   const goToModelage = () => {
-    navigate("/modelage");
+    navigate("/modelage3");
   };
 
 
-  function genererEquationNiveau1() {
-    let a, c, xSolution = Math.floor(Math.random() * 9) + 1;
-    do {
-      a = Math.floor(Math.random() * 8) + 2;
-      c = Math.floor(Math.random() * 8) + 2;
-    } while (a === c);
-    let b = Math.floor(Math.random() * 9) + 1;
-    let d = (a * xSolution) + b - (c * xSolution);
+  function genererEquationNiveau2() {
+    const xSolution = Math.floor(Math.random() * 10) + 1;
+    const a = (Math.floor(Math.random() * 20) + 11) / 10;
+    const b = (Math.floor(Math.random() * 10) + 10) / 10;
+    const c = parseFloat((a * xSolution + b).toFixed(1));
+
     return {
-      affichage: `${a}x ${b >= 0 ? '+ ' : '- '}${Math.abs(b)} = ${c}x ${d >= 0 ? '+ ' : '- '}${Math.abs(d)}`,
+      affichage: `${a}x + ${b} = ${c}`,
       solution: xSolution
     };
   }
@@ -75,7 +73,7 @@ function PratiqueAutonome2() {
   function exerciceSuivant() {
     if (exercice < 4) {
       setExercice(prev => prev + 1);
-      setCurrentEquation(genererEquationNiveau1());
+      setCurrentEquation(genererEquationNiveau2());
       setReponseEleve("");
       setMessage("");
       setIsCorrect(null);
@@ -99,7 +97,7 @@ return (
               <div className="progress-bar bg-primary" style={{width: `${((exercice - 1) / 4) * 100}%`}}></div>
             </div>
 
-            <h6 className="text-muted fw-bold text-uppercase small">Niveau 2 — Ex {exercice} / 4</h6>
+            <h6 className="text-muted fw-bold text-uppercase small">Niveau 3 — Ex {exercice} / 4</h6>
             <h2 className="display-4 display-md-2 fw-bold my-3 my-md-4 text-dark">{currentEquation.affichage}</h2>
 
             <div className="d-flex flex-column flex-sm-row gap-2 justify-content-center mb-3">
@@ -147,7 +145,7 @@ return (
                     setExercice(1);
                     setScore(0);
                     setIsFinished(false);
-                    setCurrentEquation(genererEquationNiveau1());
+                    setCurrentEquation(genererEquationNiveau2());
                     setReponseEleve("");
                     setMessage("");
                     setIsCorrect(null);
@@ -157,7 +155,7 @@ return (
                     navigate("/");
                   }
                 }}>
-                  {niveau < 2 ? "Niveau Suivant -> Phase 3" : "Terminer"}
+                  {niveau < 2 ? "Bravo tu as terminer toute les phases" : "Terminer"}
                 </button>
               </div>
             ) : (
@@ -223,4 +221,4 @@ return (
 }
 
 
-export default PratiqueAutonome2;
+export default PratiqueAutonome3;
