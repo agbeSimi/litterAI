@@ -1,9 +1,9 @@
 import  {useState} from "react";
-import {lancerExercice, envoyerMessage} from "../../services/LitterAI_API.js";
-import logoRobot from "../../assets/logo_robot.png";
+import {lancerExercice, envoyerMessage} from "../../../services/LitterAI_API.js";
+import logoRobot from "../../../assets/logo_robot.png";
 import {useNavigate} from "react-router-dom";
 
-function PratiqueGuide() {
+function PratiqueGuide1() {
   const [conversation, setConversation] = useState([]);
   const [isWorking, setIsWorking] = useState(false);
   const[input, setInput] = useState("");
@@ -106,4 +106,4 @@ function PratiqueGuide() {
   );
 }
 
-export default PratiqueGuide;
+export default PratiqueGuide1;

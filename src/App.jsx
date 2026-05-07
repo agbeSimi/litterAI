@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import PageEquation from './pages/Equation/pageEquation.jsx';
 import Modelage1 from "./pages/Equation/Modelage/Modelage1.jsx";
-import PratiqueGuide from "./pages/Equation/PratiqueGuide.jsx";
+import PratiqueGuide1 from "./pages/Equation/pratiqueGuide/PratiqueGuide1.jsx";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import PratiqueAutonome from "./pages/Equation/PratiqueAutonome.jsx";
 import Accueil from "./pages/Accueil.jsx";
@@ -41,7 +41,7 @@ function App() {
         <Route path="/PratiqueGuidePhase1CL" element={<PratiqueGuidePhase1CL/>}/>
         <Route path="/pratiqueGuidePhase2CL" element={<PratiqueGuidePhase2CL/>}/>
         <Route path="/pratiqueGuidePhase3CL" element={<PratiqueGuidePhase3CL/>}/>
-        <Route path="/pratiqueGuide" element={<PratiqueGuide/>}/>
+        <Route path="/pratiqueGuide" element={<PratiqueGuide1/>}/>
         <Route path="/pratiqueAutonome" element={<PratiqueAutonome/>}/>
       </Routes>
     </Router>
