@@ -30,7 +30,10 @@ function PageEquation() {
             ainsi que la réciproque(Annuler une multiplication par une division et inversement)"/>
       <div className="text-center mt-5">
         <button onClick={goToModelage} className="btn btn-primary rounded-pill border-0 px-5 py-3 fw-bold shadow">
-          Commencer la séance
+          Phase 1
+        </button>
+        <button onClick={() => navigation("/modelage2")} className="btn btn-primary rounded-pill border-0 px-5 py-3 fw-bold shadow">
+          Phase 2
         </button>
       </div>
     </div>
