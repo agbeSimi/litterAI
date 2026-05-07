@@ -3,15 +3,12 @@ import {lancerExercice, envoyerMessage} from "../../../services/LitterAI_API.js"
 import logoRobot from "../../../assets/logo_robot.png";
 import {useNavigate} from "react-router-dom";
 
-function PratiqueGuide1() {
+function PratiqueGuide2() {
   const [conversation, setConversation] = useState([]);
   const [isWorking, setIsWorking] = useState(false);
   const[input, setInput] = useState("");
 
   const navigate = useNavigate();
-  const goToPratiqueAutonome = () => {
-    navigate("/pratiqueAutonome")
-  }
 
   return (
     <div className="container-fluid d-flex flex-column vh-100 bg-light p-0">
@@ -30,7 +27,7 @@ function PratiqueGuide1() {
 
         {/* Utilisation de ms-auto pour pousser le bouton à droite et retrait de mt-4 */}
         <button
-          onClick={goToPratiqueAutonome}
+          onClick={() => navigate("/PratiqueAutonome2")}
           className="btn btn-sm px-4 py-2 rounded-pill fw-bold ms-auto"
           style={{ backgroundColor: 'deepskyblue', color: 'white', border: 'none' }}
         >
@@ -114,4 +111,4 @@ function PratiqueGuide1() {
   );
 }
 
-export default PratiqueGuide1;
+export default PratiqueGuide2;
