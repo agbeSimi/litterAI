@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { motion } from "framer-motion";
-import ExempleResolution from "../../../composants/ExempleResolution.jsx";
+import ExempleResolution from "../ExempleResolution/ExempleResolution.jsx";
 import {useNavigate} from "react-router-dom";
 
 
