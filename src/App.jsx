@@ -24,6 +24,8 @@ import PratiqueAutonome2 from "./pages/Equation/pratiqueAutonome/PratiqueAutonom
 import PratiqueGuide3 from "./pages/Equation/pratiqueGuide/PratiqueGuide3.jsx";
 import Modelage3 from "./pages/Equation/Modelage/Modelage 3.jsx";
 import PratiqueAutonome3 from "./pages/Equation/pratiqueAutonome/PratiqueAutonome3.jsx";
+import pratiqueAutonomeInteractif from "./pages/exoInteractif/pratiqueAutonomeInteractif.jsx";
+import PratiqueAutonomeInteractif from "./pages/exoInteractif/pratiqueAutonomeInteractif.jsx";
 
 function App() {
   return (
@@ -45,6 +47,8 @@ function App() {
         <Route path="/PratiqueAutonomeCL1" element={<PratiqueAutonomeCL1/>}/>
         <Route path="/PratiqueAutonomeCL2" element={<PratiqueAutonomeCL2/>}/>
         <Route path="/PratiqueAutonomeCL3" element={<PratiqueAutonomeCL3/>}/>
+        <Route path="/PratiqueAutonomeInteractif" element={<PratiqueAutonomeInteractif/>}/>
+
         <Route path="/PratiqueGuidePhase1CL" element={<PratiqueGuidePhase1CL/>}/>
         <Route path="/pratiqueGuidePhase2CL" element={<PratiqueGuidePhase2CL/>}/>
         <Route path="/pratiqueGuidePhase3CL" element={<PratiqueGuidePhase3CL/>}/>
