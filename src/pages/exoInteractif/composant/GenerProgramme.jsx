@@ -2,8 +2,8 @@ function GenererProgramme() {
   const operations = ['additionner', 'soustraire'];
   const operationFinal = ['multiplier', 'diviser'];
   const indexAleatoire = Math.floor(Math.random() * operations.length);
-  let a = Math.floor(Math.random() * 8) + 2;
-  let b = Math.floor(Math.random() * 9) + 1;
+  let a = Math.floor(Math.random() * 5) + 2;
+  let b = Math.floor(Math.random() * 5) + 1;
   let x = Math.floor(Math.random() * 5) + 1;
   let c;
 
