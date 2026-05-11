@@ -1,162 +1,171 @@
-import {useState} from "react";
+import { useState, useMemo } from "react"; // Ajout de useMemo
+import {DndContext} from "@dnd-kit/core";
+import ZoneADeposer from "./ZoneADeposer.jsx";
+import CarteADeposer from "./CarteADeposer.jsx";
 
 function PratiqueAutonomeInteractif() {
-  // const [donnees, setDonnees] = useState(null);
-
-  const [progression, setProgression] = useState(1);
-  const [currentEquation, setCurrentEquation] = useState(genererProgramme());
-  // const [operationPlacer, setOperationPlacer] = useState(null);
-  // const [resultatSaisi, setResultatSaisi] = useState("");
+  const [progression, setProgression] = useState(0); // On commence à l'index 0
+  const [emplacements, setEmplacements] = useState({});
+  const [currentEquation] = useState(genererProgramme()); // Retrait de setCurrentEquation si non utilisé
   const [inputEleve, setInputEleve] = useState("");
-  // const [estValide, setEstValide] = useState(false);
 
-  
-
+  // --- LOGIQUE GÉNÉRATION (Inchangée mais simplifiée pour la lecture) ---
   function genererProgramme() {
-    const operations = ['additionner', 'soustraire']
-    const operationFinal = ['multiplier', 'diviser']
+    const operations = ['additionner', 'soustraire'];
+    const operationFinal = ['multiplier', 'diviser'];
     const indexAleatoire = Math.floor(Math.random() * operations.length);
     let a = Math.floor(Math.random() * 8) + 2;
     let b = Math.floor(Math.random() * 9) + 1;
     let x = Math.floor(Math.random() * 5) + 1;
     let c;
 
+    const opSign = indexAleatoire === 0 ? "+" : "-";
+    const opFinSign = indexAleatoire === 0 ? "*" : "/";
 
+    let res1 = x * a;
+    let res2 = opSign === "+" ? res1 + b : res1 - b;
 
-    const operation = () => {
-      if (indexAleatoire === 0)
-        return `+`
-      else return `-`
-    }
-    const operationFinale = () => {
-      if (indexAleatoire === 0)
-        return `*`
-      else return `/`
-    }
-
-    let resultatPremiereEtape = x * a;
-    let resultatDeuxiemeEtape ;
-    let resultatTroisiemeEtape ;
-
-    if (operation() === "+") {
-      resultatDeuxiemeEtape = resultatPremiereEtape + b;
-    } else if (operation() === "-") {
-      resultatDeuxiemeEtape = resultatPremiereEtape - b;
-    }
-
-    if (operationFinale() === '/') {
-      // On cherche un diviseur de resultatDeuxiemeEtape
-
-      // Pour faire simple : on essaie des chiffres jusqu'à ce qu'on en trouve un qui marche
-      let diviseursPossibles = [];
-      for (let i = 2; i <= 10; i++) {
-        if (resultatDeuxiemeEtape % i === 0) {
-          diviseursPossibles.push(i);
-        }
-      }
-      // Si on a trouvé des diviseurs, on en prend un au hasard, sinon on prend 1
-      c = diviseursPossibles.length > 0
-        ? diviseursPossibles[Math.floor(Math.random() * diviseursPossibles.length)]
-        : 1;
-
+    if (opFinSign === '/') {
+      let diviseurs = [];
+      for (let i = 2; i <= 10; i++) { if (res2 % i === 0) diviseurs.push(i); }
+      c = diviseurs.length > 0 ? diviseurs[Math.floor(Math.random() * diviseurs.length)] : 1;
     } else {
       c = Math.floor(Math.random() * 9) + 1;
     }
 
-    if (operationFinale() === "*") {
-      resultatTroisiemeEtape = resultatDeuxiemeEtape * c;
-    } else if (operationFinale() === "/") {
-      resultatTroisiemeEtape = resultatDeuxiemeEtape / c;
-    }
+    let res3 = opFinSign === "*" ? res2 * c : res2 / c;
 
-    const premierePartie = `Multiplier par ${a}`
-    const deuxiemePartie = `${operations[indexAleatoire]} ${b}`
-    const troisiemePartie = `${operationFinal[indexAleatoire]} par ${c}`
-
-  return{
-    affichage: `${a} * x ${operation()} ${b} ${operationFinale()} ${c}`,
-    solutions: [resultatPremiereEtape,resultatDeuxiemeEtape,resultatTroisiemeEtape],
-    x: x,
-    a: a,
-    b: b,
-    c:c,
-    premierePartie: premierePartie,
-    deuxiemePartie: deuxiemePartie,
-    troisiemePartie: troisiemePartie,
-    operation: operation(),
-    operationFinale: operationFinale(),
-
-  }
-
+    return {
+      x, a, b, c,
+      solutions: [res1, res2, res3],
+      premierePartie: `Multiplier par ${a}`,
+      deuxiemePartie: `${operations[indexAleatoire]} ${b}`,
+      troisiemePartie: `${operationFinal[indexAleatoire]} par ${c}`,
+      operation: opSign,
+      operationFinale: opFinSign,
+    };
   }
 
   const etapes = [
-    {
-      id: 0,
-      consigne: currentEquation.premierePartie,
-      solution: currentEquation.solutions[0],
-      symbole: "*", // Car la 1ère étape est toujours ta multiplication par 'a'
-      valeurOp: currentEquation.a
-    },
-    {
-      id: 1,
-      consigne: currentEquation.deuxiemePartie,
-      solution: currentEquation.solutions[1],
-      symbole: currentEquation.operation === "+" ? "+" : "-", // Ou utilise une variable de ton générateur
-      valeurOp: currentEquation.b
-    },
-    {
-      id: 2,
-      consigne: currentEquation.troisiemePartie,
-      solution: currentEquation.solutions[2],
-      symbole: currentEquation.operationFinale === "*" ? "*" : "/", // Idem
-      valeurOp: currentEquation.c
-    }
+    { id: 0, consigne: currentEquation.premierePartie, solution: currentEquation.solutions[0] },
+    { id: 1, consigne: currentEquation.deuxiemePartie, solution: currentEquation.solutions[1] },
+    { id: 2, consigne: currentEquation.troisiemePartie, solution: currentEquation.solutions[2] }
   ];
 
+  // --- LOGIQUE INTERACTION ---
+
+  // Mélanger les cartes une seule fois au début
+  const cartesMelangees = useMemo(() => {
+    // 1. On prépare les vraies cartes avec leurs symboles
+    // On utilise l'id pour la comparaison et le texte pour l'affichage
+    const vraies = [
+      { id: etapes[0].consigne, affichage: `× ${currentEquation.a}` },
+      { id: etapes[1].consigne, affichage: `${currentEquation.operation} ${currentEquation.b}` },
+      { id: etapes[2].consigne, affichage: `${currentEquation.operationFinale === '*' ? '×' : ':'} ${currentEquation.c}` }
+    ];
+
+    // 2. On ajoute des leurres (fausses cartes)
+    const leurres = [
+      { id: "fake1", affichage: `× ${currentEquation.a + 1}` },
+      { id: "fake2", affichage: `${currentEquation.operation === "+" ? "-" : "+"} ${currentEquation.b}` },
+      { id: "fake3", affichage: `+ ${currentEquation.b + 3}` },
+      { id: "fake4", affichage: `: ${currentEquation.c + 1}` },
+      { id: "fake5", affichage: `× ${currentEquation.c + 2}` },
+      { id: "fake6", affichage: `- ${currentEquation.b - 1}` }
+    ];
+
+    return [...vraies, ...leurres].sort(() => Math.random() - 0.5);
+  }, [currentEquation]);
+
+  function handleDragEnd(event) {
+    const { active, over } = event;
+    if (!over) return;
+
+    const indexEtape = parseInt(over.id);
+
+    // On vérifie si c'est la bonne carte pour CETTE étape
+    if (active.id === etapes[indexEtape].consigne) {
+      setEmplacements(prev => ({ ...prev, [indexEtape]: active.id }));
+    } else {
+      alert("Cette opération ne va pas ici !");
+    }
+  }
+
+  function verifierResultat() {
+    if (parseInt(inputEleve) === etapes[progression].solution) {
+      setProgression(progression + 1);
+      setInputEleve("");
+    } else {
+      alert("Calcul incorrect, recompte bien !");
+    }
+  }
+
   return (
-    <div className="p-4">
-      {/* Affichage du nombre de départ */}
-      <div className="case-depart">Départ : {currentEquation.x}</div>
+    <DndContext onDragEnd={handleDragEnd}>
+      <div className="container mt-5 text-center" style={{maxWidth: '600px'}}>
+        <h2 className="mb-4">Programme de Calcul Interactif</h2>
+        <div className="p-3 bg-light border rounded mb-4">
+          <h3>Nombre de départ : <strong>{currentEquation.x}</strong></h3>
+        </div>
 
-      {etapes.map((etape, index) => (
-        <div key={index} className="d-flex flex-column align-items-center">
-          {/* 1. La flèche descendante */}
-          <div className="arrow-down">⬇️</div>
+        {etapes.map((etape, index) => (
+          <div key={index} className="mb-4">
+            <div className="fs-2">⬇️</div>
+            <div className="d-flex align-items-center justify-content-center gap-3">
 
-          <div className="d-flex align-items-center gap-3">
-            {/* 2. La Case Blanche (Le résultat à deviner) */}
-            <div className="resultat-container">
-              {progression > index ? (
-                // Étape déjà réussie
-                <div className="case-blanche valide">{currentEquation.solutions[index]}</div>
-              ) : progression === index ? (
-                // Étape en cours : on affiche l'input
-                <input
-                  type="number"
-                  value={inputEleve}
-                  onChange={(e) => setInputEleve(e.target.value)}
-                  // onBlur={verifierResultat} // On vérifie quand il quitte le champ
-                />
-              ) : (
-                // Étape future : verrouillée
-                <div className="case-blanche vide">?</div>
-              )}
-            </div>
+              {/* Zone Bleue (Opération) */}
+              <ZoneADeposer id={index} cardInside={emplacements[index]} />
 
-            {/* 3. La Case Bleue (L'opération à placer) */}
-            <div className="operation-container">
-              {/* Ici tu mets ta logique de Drag & Drop pour currentEquation.consigne[index] */}
-              <span className="badge bg-info">{etape.consigne}</span>
+              {/* Case Blanche (Résultat) */}
+              <div className="border rounded p-3 shadow-sm" style={{width: '100px', height: '60px', backgroundColor: 'white'}}>
+                {progression > index ? (
+                  <span className="text-success fw-bold">{etape.solution}</span>
+                ) : (progression === index && emplacements[index]) ? (
+                  <input
+                    type="number"
+                    className="form-control form-control-sm"
+                    value={inputEleve}
+                    onChange={(e) => setInputEleve(e.target.value)}
+                    onKeyDown={(e) => e.key === 'Enter' && verifierResultat()}
+                    autoFocus
+                  />
+                ) : (
+                  <span className="text-muted">?</span>
+                )}
+              </div>
             </div>
           </div>
+        ))}
+
+        {/* BLOC DES INSTRUCTIONS (GUIDE) */}
+        <div className="bg-light p-3 rounded border shadow-sm mb-4 text-start mx-auto" style={{maxWidth: '400px'}}>
+          <h6 className="text-primary border-bottom pb-2">Programme de calcul :</h6>
+          <ul className="list-unstyled mb-0">
+            {etapes.map((etape, idx) => (
+              <li key={idx} className={progression === idx ? "fw-bold text-dark" : "text-muted"}>
+                {progression > idx ? "✅ " : "• "}
+                {etape.consigne}
+              </li>
+            ))}
+          </ul>
         </div>
-      ))}
-    </div>
+
+        {/* Inventaire des cartes */}
+        <div className="mt-5 p-3 border-top">
+          <h5>Opérations à placer :</h5>
+          <div className="d-flex gap-2 justify-content-center flex-wrap">
+            {cartesMelangees.map((carte) => (
+              !Object.values(emplacements).includes(carte.id) && (
+                <CarteADeposer key={carte.id}
+                               id={carte.id} // L'ID reste le texte long pour la validation
+                               content={carte.affichage} />
+              )
+            ))}
+          </div>
+        </div>
+      </div>
+    </DndContext>
   );
-
-
-
-
 }
+
 export default PratiqueAutonomeInteractif;
