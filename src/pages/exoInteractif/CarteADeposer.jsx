@@ -7,7 +7,7 @@ function CarteADeposer({id, content}) {
   } : undefined;
 
   return (
-    <div ref={setNodeRef} style={style} {...listeners} {...attributes} className="card-bleue">
+    <div ref={setNodeRef} style={style} {...listeners} {...attributes} className="btn btn-info shadow-sm text-white fw-bold">
       {content}
     </div>
   )
