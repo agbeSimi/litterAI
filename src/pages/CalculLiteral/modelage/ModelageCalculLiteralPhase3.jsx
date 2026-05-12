@@ -1,6 +1,5 @@
 import {motion} from "framer-motion";
-import React, {useState} from "react";
-import ExempleResolutionLiteralPhase2 from "../ExempleResolutionLiteralPhase2.jsx";
+import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import ExempleResolutionLiteralPhase3 from "../ExempleResolutionLiteralPhase3.jsx";
 
