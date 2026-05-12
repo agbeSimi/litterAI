@@ -1,5 +1,5 @@
 import { useState} from "react";
-import {envoyerMessage} from "../services/LitterAI_API.js";
+import {envoyerMessage, handleSubmit} from "../services/LitterAI_API.js";
 import logoRobot from "../assets/logo_robot.png";
 import {useNavigate} from "react-router-dom";
 
@@ -12,15 +12,21 @@ function Contact() {
     }
   ]);
   const [isWorking, setIsWorking] = useState(false);
-  const [commentaire, setCommentaire] = useState("")
+
+  const [nom, setNom] = useState("");
+  const [prenom, setPrenom] = useState("");
+  const [email, setEmail] = useState("");
+  const [objet, setObjet] = useState("");
+  const [commentaire, setCommentaire] = useState("");
+
   const navigate = useNavigate();
 
 
-  async function contactIA(messageUtilisateur = "") {
+  async function contactIA() {
 
     setIsWorking(true);
-    const contenuUser = messageUtilisateur || `Je n'arrive pas à traduire le programme en formule. J'ai écrit "${reponseEleve}". Peux-tu m'aider étape par étape ?`;
-    const nouveauMessage = {role: "user", content: contenuUser};
+    // const contenuUser = messageUtilisateur || `Je n'arrive pas à traduire le programme en formule. J'ai écrit "${reponseEleve}". Peux-tu m'aider étape par étape ?`;
+    const nouveauMessage = {role: "user", content: ""};
     const historique = [...conversationIA, nouveauMessage];
     const promptSysteme = {
       role: "system",
@@ -120,30 +126,61 @@ RÈGLES DE FORMATAGE STRICTES
                 <span>{typeRequete === 'MATHS' ? '📚 Contact Pédagogique' : '⚙️ Support Technique'}</span>
               </div>
 
-              <form className="bg-white border border-top-0 p-4 rounded-bottom-4 shadow-sm">
+              <form onSubmit={(e) => {
+                e.preventDefault();
+                handleSubmit(setIsWorking,
+                  nom,
+                  prenom,
+                  email,
+                  objet,
+                  commentaire,
+                  typeRequete,
+                  setNom,
+                  setPrenom,
+                  setEmail,
+                  setObjet,
+                  setCommentaire,);
+              }}
+                    className="bg-white border border-top-0 p-4 rounded-bottom-4 shadow-sm">
                 <div className="row">
                   {/* Champ Nom */}
                   <div className="col-md-6 mb-3">
                     <label className="form-label small fw-bold ">Nom</label>
-                    <input type="text" className="form-control form-control-lg border-2" placeholder="Ex: Dupont" required />
+                    <input value={nom}
+                           onChange={(e) => setNom(e.target.value)}
+                           type="text"
+                           className="form-control form-control-lg border-2"
+                           placeholder="Ex: Dupont" required />
                   </div>
                   {/* Champ Prénom */}
                   <div className="col-md-6 mb-3">
                     <label className="form-label small fw-bold ">Prénom</label>
-                    <input type="text" className="form-control form-control-lg border-2" placeholder="Ex: Jean" required />
+                    <input type="text"
+                           value={prenom}
+                           onChange={(e) => setPrenom(e.target.value)}
+                           className="form-control form-control-lg border-2"
+                           placeholder="Ex: Jean" required />
                   </div>
                 </div>
 
                 {/* Champ Email */}
                 <div className="mb-3">
                   <label className="form-label small fw-bold ">Adresse Email</label>
-                  <input type="email" className="form-control form-control-lg border-2" placeholder="nom@exemple.com" required />
+                  <input type="email"
+                         value={email}
+                         onChange={(e) => setEmail(e.target.value)}
+                         className="form-control form-control-lg border-2"
+                         placeholder="nom@exemple.com" required />
                 </div>
 
                 {/* Champ Objet (Pré-rempli par l'IA ou libre) */}
                 <div className="mb-3">
                   <label className="form-label small fw-bold ">Objet</label>
-                  <input type="text" className="form-control border-2" placeholder="De quoi souhaites-tu discuter ?" required />
+                  <input type="text"
+                         value={objet}
+                         onChange={(e) => setObjet(e.target.value)}
+                         className="form-control border-2"
+                         placeholder="De quoi souhaites-tu discuter ?" required />
                 </div>
 
                 {/* Champ Message avec Compteur */}
