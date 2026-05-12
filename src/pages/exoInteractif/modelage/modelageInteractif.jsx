@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import ExempleInteractif from "../ExempleInteractif.jsx";
+import ExempleInteractif from "../composant/ExempleInteractif.jsx";
 
 function ModelageInteractif() {
   const navigate = useNavigate();

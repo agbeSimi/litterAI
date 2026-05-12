@@ -1,11 +1,11 @@
 import { useState, useMemo } from "react"; // Ajout de useMemo
 import {DndContext} from "@dnd-kit/core";
-import ZoneADeposer from "./composant/ZoneADeposer.jsx";
-import CarteADeposer from "./composant/CarteADeposer.jsx";
-import GenererProgramme from "./composant/GenerProgramme.jsx";
+import ZoneADeposer from "../composant/ZoneADeposer.jsx";
+import CarteADeposer from "../composant/CarteADeposer.jsx";
+import GenererProgramme from "../composant/GenerProgramme.jsx";
 import {useNavigate} from "react-router-dom";
-import {envoyerMessage} from "../../services/LitterAI_API.js";
-import logoRobot from "../../assets/logo_robot.png";
+import {envoyerMessage} from "../../../services/LitterAI_API.js";
+import logoRobot from "../../../assets/logo_robot.png";
 
 
 function PratiqueAutonomeInteractif() {

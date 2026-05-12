@@ -24,7 +24,7 @@ import PratiqueAutonome2 from "./pages/Equation/pratiqueAutonome/PratiqueAutonom
 import PratiqueGuide3 from "./pages/Equation/pratiqueGuide/PratiqueGuide3.jsx";
 import Modelage3 from "./pages/Equation/Modelage/Modelage 3.jsx";
 import PratiqueAutonome3 from "./pages/Equation/pratiqueAutonome/PratiqueAutonome3.jsx";
-import PratiqueAutonomeInteractif from "./pages/exoInteractif/pratiqueAutonomeInteractif.jsx";
+import PratiqueAutonomeInteractif from "./pages/exoInteractif/pratiqueAutonome/pratiqueAutonomeInteractif.jsx";
 import ModelageInteractif from "./pages/exoInteractif/modelage/modelageInteractif.jsx";
 import PratiqueGuideInteractif from "./pages/exoInteractif/pratiqueGuideInteractif/pratiqueGuideInteractif.jsx";
 
