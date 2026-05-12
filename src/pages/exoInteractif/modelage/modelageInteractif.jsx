@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import ExempleInteractif from "../ExempleInteractif.jsx";
 
-function ModelageInteractifPhase3() {
+function ModelageInteractif() {
   const navigate = useNavigate();
 
   return (
@@ -40,4 +40,4 @@ function ModelageInteractifPhase3() {
   );
 }
 
-export default ModelageInteractifPhase3;
+export default ModelageInteractif;
