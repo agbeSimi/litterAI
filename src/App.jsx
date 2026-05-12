@@ -27,6 +27,7 @@ import PratiqueAutonome3 from "./pages/Equation/pratiqueAutonome/PratiqueAutonom
 import PratiqueAutonomeInteractif from "./pages/exoInteractif/pratiqueAutonome/pratiqueAutonomeInteractif.jsx";
 import ModelageInteractif from "./pages/exoInteractif/modelage/modelageInteractif.jsx";
 import PratiqueGuideInteractif from "./pages/exoInteractif/pratiqueGuideInteractif/pratiqueGuideInteractif.jsx";
+import Contact from "./pages/Contact.jsx";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Accueil/>}/>
         <Route path="credit" element={<Credit/>}/>
+        <Route path="/Contact" element={<Contact/>}/>
         <Route path="/equation" element={<PageEquation/>}/>
         <Route path="/modelage" element={<Modelage1/>}/>
         <Route path="/modelage2" element={<Modelage2/>}/>
