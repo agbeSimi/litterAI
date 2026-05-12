@@ -35,12 +35,16 @@ function Accueil(){
           {/* Conteneur pour tes cartes */}
           <div className="d-flex  gap-3">
             <ModuleCard
-              titre="Module 0 : Calcul Littéral"
+              titre="Module 0: Exercice Interactif"
+              description="Apprends à construire des programmes de calcul en manipulant des cartes et valide chaque étape pour maîtriser le raisonnement logique."
+              path="/modelageInteractif"/>
+            <ModuleCard
+              titre="Module 1 : Calcul Littéral"
               description="Passer des phrases aux formules et comprendre le rôle des lettres."
               path="/introductionIA"
             />
             <ModuleCard
-              titre="Module 1 : Les Équations"
+              titre="Module 2 : Les Équations"
             description="Apprendre à isoler x et maîtriser la balance algébrique."
             path="/equation"
             />
