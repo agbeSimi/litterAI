@@ -48,7 +48,6 @@ function App() {
         <Route path="/PratiqueAutonomeCL1" element={<PratiqueAutonomeCL1/>}/>
         <Route path="/PratiqueAutonomeCL2" element={<PratiqueAutonomeCL2/>}/>
         <Route path="/PratiqueAutonomeCL3" element={<PratiqueAutonomeCL3/>}/>
-        <Route path="/PratiqueAutonomeInteractif" element={<PratiqueAutonomeInteractif/>}/>
 
         <Route path="/PratiqueGuidePhase1CL" element={<PratiqueGuidePhase1CL/>}/>
         <Route path="/pratiqueGuidePhase2CL" element={<PratiqueGuidePhase2CL/>}/>
@@ -63,6 +62,7 @@ function App() {
 
         <Route path="/modelageInteractif" element={<ModelageInteractif/>}/>
         <Route path="/PratiqueGuideInteractif" element={<PratiqueGuideInteractif/>}/>
+        <Route path="/PratiqueAutonomeInteractif" element={<PratiqueAutonomeInteractif/>}/>
       </Routes>
     </Router>
   );
