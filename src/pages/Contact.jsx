@@ -154,7 +154,7 @@ RÈGLES DE FORMATAGE STRICTES
                     rows="5"
                     maxLength="1000"
                     placeholder="Écris ton message ici..."
-                    onChange={(e) => setCommentaire(e.target.value)} // N'oublie pas le state [commentaire, setCommentaire]
+                    onChange={(e) => setCommentaire(e.target.value)}
                     required
                   ></textarea>
                   {/* Compteur visuel */}
