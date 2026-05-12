@@ -55,3 +55,55 @@ export function envoyerMessage(conversation, setConversation, input, setInput, s
         setIsWorking(false);
       });
 }
+
+
+export async function handleSubmit(setIsWorking,
+                                   nom,
+                                   prenom,
+                                   email,
+                                   objet,
+                                   commentaire,
+                                   typeRequete,
+                                   setNom,
+                                   setPrenom,
+                                   setEmail,
+                                   setObjet,
+                                   setCommentaire,
+)
+{
+  setIsWorking(true)
+
+  const data = {
+    nom: nom,
+    prenom: prenom,
+    email: email,
+    objet: objet,
+    commentaire: commentaire,
+    typeRequete: typeRequete
+  };
+
+  try{
+    const response = await fetch(`${URL_BASE}/contact_requests`, {
+      method :'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify(data)
+  });
+    if (response.ok) {
+      alert("Message envoyé avec succès !");
+      setNom("");
+      setPrenom("");
+      setEmail("");
+      setObjet("");
+      setCommentaire("");
+    } else {
+      alert("Erreur lors de l'envoi.");
+    }
+  } catch (error) {
+    console.error("Erreur réseau :", error);
+  } finally {
+    setIsWorking(false);
+  }
+}
