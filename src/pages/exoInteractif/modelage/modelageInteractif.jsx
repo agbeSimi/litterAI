@@ -27,7 +27,7 @@ function ModelageInteractif() {
           <footer className="d-flex justify-content-center gap-4 mt-5 pt-4 border-top">
             <motion.button
               whileHover={{ scale: 1.05 }}
-              onClick={() => navigate("/pratiqueAutonomeInteractif")}
+              onClick={() => navigate("/pratiqueGuideInteractif")}
               className="btn rounded-pill fw-bold px-4 py-2"
               style={{ backgroundColor: 'deepskyblue', color: 'white' }}
             >
