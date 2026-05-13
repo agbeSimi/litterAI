@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 import {envoyerMessage} from "../../services/LitterAI_API.js";
 import {useNavigate} from "react-router-dom";
 
-function IntroductionIA({prompt, pathSuite}) {
+function IntroductionIA({prompt}) {
   const navigate = useNavigate();
   const [conversationIA, setConversationIA] = useState([]);
   const [isWorking, setIsWorking] = useState(false);
