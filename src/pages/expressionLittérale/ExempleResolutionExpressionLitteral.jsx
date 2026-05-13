@@ -1,19 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from "framer-motion";
 
 
-function ExempleResolutionLiteralPhase2() {
-  const [valeurs, setValeurs] = useState({ a: 0, b: 0, x: 5 });
+function ExempleResolutionExpressionLitteral() {
   const [indexEtape, setIndexEtape] = useState(1);
 
-  function genererSituation() {
-    const valA = Math.floor(Math.random() * 4) + 2; // Multiplicateur simple
-    const valB = Math.floor(Math.random() * 6) + 1; // Addition simple
-    setValeurs({ a: valA, b: valB, x: 5 });
-  }
 
   useEffect(() => {
-    genererSituation();
+
   }, []);
 
   const etapes = [
@@ -21,9 +15,8 @@ function ExempleResolutionLiteralPhase2() {
       id: 1,
       jsx: (
         <div>
-          <p className="text-info fw-bold mb-1">📋 Explication :</p>
-          <p>Une lettre est une boîte qui contient un nombre qu'on ne connaît pas
-            encore.</p>
+          <p className="text-info fw-bold mb-1">🧹 Le grand ménage :</p>
+          <p>En maths, on retire tout ce qui est inutile pour aller plus vite. Le signe <strong>×</strong> peut devenir invisible !</p>
         </div>
       )
     },
@@ -31,8 +24,9 @@ function ExempleResolutionLiteralPhase2() {
       id: 2,
       jsx: (
         <p className="mb-0">
-          <span className="badge bg-primary me-2">Exemple</span>
-          (3 * <span className="text-warning fw-bold">X</span>) + 5
+          <span className="badge bg-primary me-2">Étape 1</span>
+          On supprime le <strong>×</strong> devant une lettre : <br/>
+          <del>(3 * x)</del> devient <span className="text-success fw-bold">3x</span>.
         </p>
       )
     },
@@ -40,8 +34,8 @@ function ExempleResolutionLiteralPhase2() {
       id: 3,
       jsx: (
         <p className="mb-0">
-          <span className="badge bg-primary me-2">Cela signifie</span>
-          Qu'on doit multiplier X par <span className="fw-bold">3</span>.
+          <span className="badge bg-primary me-2">Étape 2</span>
+          On enlève les parenthèses inutiles. Comme la multiplication est prioritaire, <span className="text-success fw-bold">(3x) + 5</span> s'écrit simplement <span className="text-success fw-bold">3x + 5</span>.
         </p>
       )
     },
@@ -49,12 +43,11 @@ function ExempleResolutionLiteralPhase2() {
       id: 4,
       jsx: (
         <p className="mb-0">
-          <span className="badge bg-primary me-2">Ensuite</span>
-          On additionnera <span className="fw-bold">5</span> à ce résultat.
+          <span className="badge bg-primary me-2">Étape 3</span>
+          On réordonne : on place toujours les <strong>lettres devant</strong> les nombres seuls. C'est plus propre !
         </p>
       )
     }
-
   ];
 
   function etapeSuivante() {
@@ -97,4 +90,4 @@ function ExempleResolutionLiteralPhase2() {
   );
 }
 
-export default ExempleResolutionLiteralPhase2;
+export default ExempleResolutionExpressionLitteral;
