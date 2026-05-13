@@ -83,7 +83,7 @@ function IntroductionIAEL() {
           />
         </div>
       </div>
-      <button onClick={() => navigate("/expressionLittérale")} className="btn btn-primary btn-sm px-md-5 py-md-3 px-4 rounded-pill fw-bold d-flex flex-wrap justify-content-center gap-3 mt-4 border-0" >
+      <button onClick={() => navigate("/ModelageExpressionLitterale")} className="btn btn-primary btn-sm px-md-5 py-md-3 px-4 rounded-pill fw-bold d-flex flex-wrap justify-content-center gap-3 mt-4 border-0" >
         Passer l'introduction
       </button>
     </div>
