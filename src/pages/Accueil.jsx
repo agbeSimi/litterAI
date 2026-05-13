@@ -60,6 +60,11 @@ function Accueil(){
             onClick={() => navigate("/credit")}>
             En savoir plus
           </small>
+          <br/>
+          <small
+            onClick={() => navigate("/contact")}>
+            Contact
+          </small>
         </footer>
       </div>
 
