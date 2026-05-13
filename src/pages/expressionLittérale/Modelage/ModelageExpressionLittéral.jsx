@@ -1,7 +1,7 @@
 import {motion} from "framer-motion";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
-import ExempleResolutionLiteralPhase1 from "../ExempleResolutionLiteralPhase1.jsx";
+import ExempleResolutionExpressionLitteral from "../ExempleResolutionExpressionLitteral.jsx";
 
 
 function ModelageExpressionLitteral() {
@@ -19,10 +19,10 @@ function ModelageExpressionLitteral() {
           {/* --- Header --- */}
           <header className="text-center mb-5">
             <h1 className="display-5 fw-bold text-primary">
-              Qu'est-ce qu'une expression littérale?
+              Simplifier une expression littérale.
             </h1>
             <p className="lead text-dark fw-bold mt-4">
-              Comprendre qu'une lettre cache une valeur et savoir calculer une expression.
+              Comprendre qu'on peut supprimer le signe de multiplication pour réordonner des expressions littérales.
               <br />
               <br />
             </p>
@@ -33,7 +33,7 @@ function ModelageExpressionLitteral() {
 
 
             {/* --- Résolution Sombre --- */}
-            <ExempleResolutionLiteralPhase1/>
+            <ExempleResolutionExpressionLitteral/>
 
 
             {/* --- Actions --- */}
