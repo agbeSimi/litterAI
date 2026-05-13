@@ -28,6 +28,7 @@ import PratiqueAutonomeInteractif from "./pages/exoInteractif/pratiqueAutonome/p
 import ModelageInteractif from "./pages/exoInteractif/modelage/modelageInteractif.jsx";
 import PratiqueGuideInteractif from "./pages/exoInteractif/pratiqueGuideInteractif/pratiqueGuideInteractif.jsx";
 import Contact from "./pages/Contact.jsx";
+import IntroductionIAEL from "./pages/expressionLittérale/introductionIAEL.jsx";
 
 function App() {
   return (
@@ -65,6 +66,10 @@ function App() {
         <Route path="/modelageInteractif" element={<ModelageInteractif/>}/>
         <Route path="/PratiqueGuideInteractif" element={<PratiqueGuideInteractif/>}/>
         <Route path="/PratiqueAutonomeInteractif" element={<PratiqueAutonomeInteractif/>}/>
+
+
+
+        <Route path="/IntroductionIAEL" element={<IntroductionIAEL/>}/>
       </Routes>
     </Router>
   );
