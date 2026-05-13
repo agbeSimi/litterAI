@@ -30,6 +30,7 @@ import PratiqueGuideInteractif from "./pages/exoInteractif/pratiqueGuideInteract
 import Contact from "./pages/Contact.jsx";
 import IntroductionIAEL from "./pages/expressionLittérale/introductionIAEL.jsx";
 import ModelageExpressionLitteral from "./pages/expressionLittérale/Modelage/ModelageExpressionLittéral.jsx";
+import {PratiqueGuideEL} from "./pages/expressionLittérale/PratiqueGuide/pratiqueGuideEL.jsx";
 
 function App() {
   return (
@@ -72,6 +73,7 @@ function App() {
 
         <Route path="/IntroductionIAEL" element={<IntroductionIAEL/>}/>
         <Route path="/ModelageExpressionLitterale" element={<ModelageExpressionLitteral/>}/>
+        <Route path="/PratiqueGuideEL" element={<PratiqueGuideEL/>}/>
       </Routes>
     </Router>
   );
