@@ -22,11 +22,11 @@ function Contact() {
   const navigate = useNavigate();
 
 
-  async function contactIA() {
+  async function contactIA(messageUtilisatuer) {
 
     setIsWorking(true);
     // const contenuUser = messageUtilisateur || `Je n'arrive pas à traduire le programme en formule. J'ai écrit "${reponseEleve}". Peux-tu m'aider étape par étape ?`;
-    const nouveauMessage = {role: "user", content: ""};
+    const nouveauMessage = {role: "user", content: messageUtilisatuer};
     const historique = [...conversationIA, nouveauMessage];
     const promptSysteme = {
       role: "system",
@@ -190,6 +190,7 @@ RÈGLES DE FORMATAGE STRICTES
                     className="form-control border-2"
                     rows="5"
                     maxLength="1000"
+                    value={commentaire}
                     placeholder="Écris ton message ici..."
                     onChange={(e) => setCommentaire(e.target.value)}
                     required
