@@ -39,16 +39,17 @@ function Accueil(){
               description="Apprends à construire des programmes de calcul en manipulant des cartes et valide chaque étape pour maîtriser le raisonnement logique."
               path="/modelageInteractif"/>
             <ModuleCard
-              titre="Module 1 : Calcul Littéral"
+              titre="Module 1: Calcul Littéral"
               description="Passer des phrases aux formules et comprendre le rôle des lettres."
               path="/introductionIA"
             />
 
             <ModuleCard
-              titre="Module 2:Simplifier une expression littérale"
-              description=""/>
+              titre="Module 2: Simplifier une expression littérale"
+              description="Écris plus vite, comme un pro ! Apprends à supprimer les signes 'x' inutiles pour raccourcir tes formules et simplifier tes calculs en un clin d'œil."
+              path="/IntroductionIAEL"/>
             <ModuleCard
-              titre="Module 2 : Les Équations"
+              titre="Module 3: Les Équations"
             description="Apprendre à isoler x et maîtriser la balance algébrique."
             path="/equation"
             />
