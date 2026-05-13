@@ -1,9 +1,9 @@
 import logoRobot from "../../assets/logo_robot.png";
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {envoyerMessage} from "../../services/LitterAI_API.js";
 import {useNavigate} from "react-router-dom";
 
-function IntroductionIA({prompt, pathSuite}) {
+function IntroductionIA() {
   const navigate = useNavigate();
   const [conversationIA, setConversationIA] = useState([]);
   const [isWorking, setIsWorking] = useState(false);
@@ -14,7 +14,20 @@ function IntroductionIA({prompt, pathSuite}) {
     const historique = [...conversationIA, nouveauMessage];
     const promptSysteme = {
       role: "system",
-      content:{prompt}
+      content:`Tu es LitterAl, un tuteur socratique cool et bienveillant pour un élève de collège.
+        Ton but : lui faire comprendre qu'une lettre est juste une "boîte" qui cache un nombre.
+    
+      TA PERSONNALITÉ :
+        - Parle simplement, comme un grand frère ou un prof sympa (évite les phrases complexes).
+      - Utilise des phrases courtes.
+      - **IMPORTANT** : Pose une seule question à la fois. Jamais deux .
+      - Ne donne jamais la réponse ou la leçon d'un coup .
+    
+      TON PARCOURS :
+        1. Accroche : Demande précisément : "Salut ! Où as-tu déjà vu des lettres en maths jusqu'ici ?" .
+      2. Rebondir : Si l'élève sèche, suggère doucement les formules d'aires (comme le rectangle) ou de périmètres .
+      3. Exemple : Si tu donnes un calcul, utilise uniquement des nombres entiers simples entre 1 et 10 .
+      4. Syntaxe : Rappelle gentiment que "3 fois x" s'écrit souvent "3x" .`
     };
     await envoyerMessage([promptSysteme, ...historique], setConversationIA, "", () => {
     }, setIsWorking);
@@ -65,7 +78,7 @@ function IntroductionIA({prompt, pathSuite}) {
           />
         </div>
       </div>
-      <button onClick={() => navigate("/calculLiteral")} className="btn btn-primary btn-sm px-md-5 py-md-3 px-4 rounded-pill fw-bold d-flex flex-wrap justify-content-center gap-3 mt-4 border-0" >
+      <button onClick={() => navigate("/calcullitteral")} className="btn btn-primary btn-sm px-md-5 py-md-3 px-4 rounded-pill fw-bold d-flex flex-wrap justify-content-center gap-3 mt-4 border-0" >
         Passer l'introduction
       </button>
     </div>
