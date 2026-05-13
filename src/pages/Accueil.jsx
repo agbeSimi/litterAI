@@ -33,7 +33,7 @@ function Accueil(){
           </h5>
 
           {/* Conteneur pour tes cartes */}
-          <div className="d-flex  gap-3">
+          <div className="d-flex flex-wrap justify-content-center gap-4">
             <ModuleCard
               titre="Module 0: Exercice Interactif"
               description="Apprends à construire des programmes de calcul en manipulant des cartes et valide chaque étape pour maîtriser le raisonnement logique."
@@ -43,6 +43,10 @@ function Accueil(){
               description="Passer des phrases aux formules et comprendre le rôle des lettres."
               path="/introductionIA"
             />
+
+            <ModuleCard
+              titre="Module 2:Simplifier une expression littérale"
+              description=""/>
             <ModuleCard
               titre="Module 2 : Les Équations"
             description="Apprendre à isoler x et maîtriser la balance algébrique."
