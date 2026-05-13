@@ -31,6 +31,7 @@ import Contact from "./pages/Contact.jsx";
 import IntroductionIAEL from "./pages/expressionLittérale/introductionIAEL.jsx";
 import ModelageExpressionLitteral from "./pages/expressionLittérale/Modelage/ModelageExpressionLittéral.jsx";
 import {PratiqueGuideEL} from "./pages/expressionLittérale/PratiqueGuide/pratiqueGuideEL.jsx";
+import PratiqueAutonomeEL from "./pages/expressionLittérale/PratiqueAutonome/pratiqueAutonomeEL.jsx";
 
 function App() {
   return (
@@ -74,6 +75,8 @@ function App() {
         <Route path="/IntroductionIAEL" element={<IntroductionIAEL/>}/>
         <Route path="/ModelageExpressionLitterale" element={<ModelageExpressionLitteral/>}/>
         <Route path="/PratiqueGuideEL" element={<PratiqueGuideEL/>}/>
+        <Route path="/pratiqueAutonomeEL" element={<PratiqueAutonomeEL/>}/>
+
       </Routes>
     </Router>
   );
