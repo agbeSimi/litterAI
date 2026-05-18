@@ -150,7 +150,6 @@ function PratiqueGuideTesterEgalite1() {
 
           <div className="d-flex justify-content-between align-items-center mb-3">
             <h5 className="text-primary fw-bold mb-0">Phase 2 : Pratique Guidée</h5>
-            <span className="badge bg-info text-dark p-2">Identité universelle</span>
           </div>
 
           <div className="bg-light p-3 rounded-4 border shadow-sm mb-4 text-center mx-auto w-100">
