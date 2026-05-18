@@ -222,7 +222,7 @@ function PratiqueGuideInteractif() {
                   {cartesMelangees.map((c) => {
                     const estPlacee = c.id.startsWith('vrai') ? emplacements[c.etapeRef] !== undefined : false;
                     return !estPlacee && (
-                      <CarteADeposer key={c.id} id={c.consigneSource || c.id} content={c.affichage} />
+                      <CarteADeposer key={c.id} id={c.id} content={c.affichage} />
                     );
                   })}
                 </div>

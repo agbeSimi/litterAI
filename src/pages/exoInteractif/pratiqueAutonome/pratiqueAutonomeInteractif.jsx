@@ -100,20 +100,17 @@ function PratiqueAutonomeInteractif() {
 
     const indexEtape = parseInt(over.id);
 
-    // 1. On vérifie si l'ID de la carte déplacée est bien la consigne attendue
-    if (active.id === etapes[indexEtape].consigne) {
+    const carteDansLaListe = cartesMelangees.find(c => c.id === active.id);
 
-      // 2. On cherche la carte correspondante pour récupérer son look (ex: "× 6")
-      const carteDansLaListe = cartesMelangees.find(c => c.id === active.id || c.consigneSource === active.id);
+    if (carteDansLaListe && carteDansLaListe.consigneSource === etapes[indexEtape].consigne) {
 
-      if (carteDansLaListe) {
-        setEmplacements(prev => ({
-          ...prev,
-          [indexEtape]: carteDansLaListe.affichage
-        }));
-        setIsCorrect(true);
-        setMessageErreur("");
-      }
+      setEmplacements(prev => ({
+        ...prev,
+        [indexEtape]: carteDansLaListe.affichage
+      }));
+      setIsCorrect(true);
+      setMessageErreur("");
+
     } else {
       setIsCorrect(false);
       setMessageErreur("Cette opération ne va pas ici !");
@@ -222,7 +219,7 @@ function PratiqueAutonomeInteractif() {
                           : false; // Les leurres ne disparaissent jamais (ou comme tu veux)
 
                         return !estDejaPlacer && (
-                          <CarteADeposer key={c.id} id={c.consigneSource} content={c.affichage} />
+                          <CarteADeposer key={c.id} id={c.id} content={c.affichage} />
                         );
                       })}
                     </div>
