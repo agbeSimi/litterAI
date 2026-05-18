@@ -8,7 +8,7 @@ function PratiqueGuideTesterEgalite1() {
   const [progression, setProgression] = useState(0);
   // Étapes : 0 = Remplacer à gauche, 1 = Remplacer à droite, 2 = Calculer à gauche, 3 = Calculer à droite, 4 = Conclusion
 
-  const [equation] = useState(genererEquationIdentique());
+  const [equation] = useState(() => genererEquationIdentique());
 
   const [inputGauche, setInputGauche] = useState("");
   const [inputDroite, setInputDroite] = useState("");
@@ -39,22 +39,29 @@ function PratiqueGuideTesterEgalite1() {
       solutionNumerique: coeff * xAleatoire // Les deux côtés donneront exactement ça !
     };
   }
+
   // --- ACTIONS IA (GUIDAGE ET CORRECTIONS) ---
 
   async function discuterErreur(msg = "") {
     if (!equation) return;
     setIsWorking(true);
 
+    let erreurContext ;
+    if (progression === 0 || progression === 1) {
+      erreurContext = `L'élève a fait une erreur de remplacement. Rappelle-lui qu'il doit remplacer la lettre x par ${equation.x} et remettre le signe * explicite entre le nombre et la lettre.`;
+    } else {
+      erreurContext = `L'élève a fait une erreur de calcul. Rappelle-lui de respecter les priorités opératoires : la multiplication passe toujours avant l'addition ou la soustraction.`;
+    }
+
     const promptSysteme = {
       role: "system",
       content: `RÔLE: LitterAl, tuteur de maths socratique pour un élève de 4ème.
       CONTEXTE: L'élève teste l'égalité ${equation.texteGauche} = ${equation.texteDroite} avec x = ${equation.x}.
-      Cette égalité est particulière : elle est TOUJOURS vraie pour n'importe quelle valeur de x car les deux membres se simplifient en ${equation.coeff}x.
-      Étape actuelle de l'élève : ${progression}.
+      Étape actuelle de l'élève : Étape ${progression}/4.
+      CONTEXTE D'ERREUR : ${erreurContext}
       CONSIGNES DE GUIDAGE:
-      - Si progression = 0 ou 1 (Remplacement) : Rappelle qu'on remplace la lettre x par le nombre ${equation.x}, en faisant réapparaître le signe *.
-      - Si progression = 2 ou 3 (Calcul) : Rappelle de respecter les priorités opératoires (les multiplications d'abord !).
-      - Ne donne jamais le résultat numérique (${equation.solutionNumerique}) directement.
+      - Ne donne jamais le résultat numérique directement.
+      - Reste bloqué sur l'étape actuelle tant que l'élève ne trouve pas.
       FORMAT: 2 lignes max. Une seule question. Pas de gras.`
     };
 
@@ -71,12 +78,21 @@ function PratiqueGuideTesterEgalite1() {
       return [...prev, { role: "assistant", content: texte }];
     });
   }
+
+  // --- LOGIQUE UNIQUE DE SÉLECTION DE TRAITEMENT ---
+  function executerValidationActuelle() {
+    if (progression === 0) validerRemplacementGauche();
+    else if (progression === 1) validerRemplacementDroite();
+    else if (progression === 2) validerCalculGauche();
+    else if (progression === 3) validerCalculDroite();
+  }
+
   // --- VALIDATIONS DES ÉTAPES ---
 
+  const nettoyer = (s) => s.replace(/\s/g, "").replace(/×/g, "*");
 
   function validerRemplacementGauche() {
-    const texteNettoye = inputGauche.replace(/\s/g, "");
-    if (texteNettoye === equation.attenduGauche) {
+    if (nettoyer(inputGauche) === equation.attenduGauche) {
       setMessageErreur("");
       setProgression(1);
     } else {
@@ -86,8 +102,7 @@ function PratiqueGuideTesterEgalite1() {
   }
 
   function validerRemplacementDroite() {
-    const texteNettoye = inputDroite.replace(/\s/g, "");
-    if (texteNettoye === equation.attenduDroite) {
+    if (nettoyer(inputDroite) === equation.attenduDroite) {
       setMessageErreur("");
       setProgression(2);
     } else {
@@ -97,8 +112,6 @@ function PratiqueGuideTesterEgalite1() {
   }
 
   function validerCalculGauche() {
-
-
     if (parseInt(calculGauche) === equation.solutionNumerique) {
       setMessageErreur("");
       setProgression(3);
@@ -109,9 +122,6 @@ function PratiqueGuideTesterEgalite1() {
   }
 
   function validerCalculDroite() {
-    // 3 * 4 + 2 fait bien 14
-    // const solutionAttendue = 3 * valeurs.x + 2;
-
     if (parseInt(calculDroite) === equation.solutionNumerique) {
       setMessageErreur("");
       setProgression(4);
@@ -127,7 +137,6 @@ function PratiqueGuideTesterEgalite1() {
     if (!equation) return;
 
     if (progression === 0) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       ajouterMessageIA(`Commençons ! Remplace la lettre x par ${equation.x} dans le membre de gauche (${equation.texteGauche}). N'oublie pas le signe * !`);
     } else if (progression === 1) {
       ajouterMessageIA(`Parfait. Fais maintenant la même chose pour le membre de droite (${equation.texteDroite}).`);
@@ -141,6 +150,7 @@ function PratiqueGuideTesterEgalite1() {
   }, [progression, equation]);
 
   if (!equation) return <div className="text-center mt-5">Génération de l'exercice...</div>;
+
   return (
     <div className="container-fluid d-flex flex-column flex-md-row vh-100 bg-light p-0 overflow-hidden">
 
@@ -168,10 +178,10 @@ function PratiqueGuideTesterEgalite1() {
 
                 {/* Remplacement Gauche */}
                 {progression >= 0 && (
-                  <div className="mt-3">
+                  <div className="mt-3 text-start">
                     <label className="small text-muted d-block mb-1">Remplacement :</label>
                     {progression > 0 ? (
-                      <span className="fs-6 text-success fw-bold">{inputGauche}</span>
+                      <span className="fs-6 text-success fw-bold d-block text-center">{inputGauche}</span>
                     ) : (
                       <input
                         type="text"
@@ -187,13 +197,14 @@ function PratiqueGuideTesterEgalite1() {
 
                 {/* Calcul Gauche */}
                 {progression >= 2 && (
-                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-3 pt-3 border-top">
+                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-3 pt-3 border-top text-start">
                     <label className="small text-muted d-block mb-1">Résultat final :</label>
                     {progression > 2 ? (
-                      <span className="fs-5 text-success fw-bold">{calculGauche}</span>
+                      <span className="fs-5 text-success fw-bold d-block text-center">{calculGauche}</span>
                     ) : (
                       <input
-                        type="number"
+                        type="text"
+                        inputMode="numeric"
                         className="form-control text-center form-control-sm fw-bold border-primary"
                         placeholder="?"
                         value={calculGauche}
@@ -209,16 +220,16 @@ function PratiqueGuideTesterEgalite1() {
 
             {/* MEMBRE DE DROITE */}
             <div className="col-6">
-              <div className="border rounded-4 p-3 bg-white h-100 shadow-sm border-start border-4 border-warning">
+              <div className={`border rounded-4 p-3 bg-white h-100 shadow-sm border-start border-4 border-warning ${progression < 1 ? 'opacity-50' : ''}`}>
                 <span className="text-warning small text-uppercase fw-bold">Membre de droite</span>
                 <div className="fs-5 my-2 fw-bold text-dark">{equation.texteDroite}</div>
 
                 {/* Remplacement Droite */}
                 {progression >= 1 && (
-                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-3">
+                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-3 text-start">
                     <label className="small text-muted d-block mb-1">Remplacement :</label>
                     {progression > 1 ? (
-                      <span className="fs-6 text-success fw-bold">{inputDroite}</span>
+                      <span className="fs-6 text-success fw-bold d-block text-center">{inputDroite}</span>
                     ) : (
                       <input
                         type="text"
@@ -235,13 +246,14 @@ function PratiqueGuideTesterEgalite1() {
 
                 {/* Calcul Droite */}
                 {progression >= 3 && (
-                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-3 pt-3 border-top">
+                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-3 pt-3 border-top text-start">
                     <label className="small text-muted d-block mb-1">Résultat final :</label>
                     {progression > 3 ? (
-                      <span className="fs-5 text-success fw-bold">{calculDroite}</span>
+                      <span className="fs-5 text-success fw-bold d-block text-center">{calculDroite}</span>
                     ) : (
                       <input
-                        type="number"
+                        type="text"
+                        inputMode="numeric"
                         className="form-control text-center form-control-sm fw-bold border-primary"
                         placeholder="?"
                         value={calculDroite}
@@ -255,6 +267,19 @@ function PratiqueGuideTesterEgalite1() {
               </div>
             </div>
           </div>
+
+          {/* SÉCURITÉ DU BOUTON UNIQUE DE VALIDATION D'ÉTAPE */}
+          {!isFinished && (
+            <div className="text-center mb-2">
+              <button
+                className="btn btn-primary px-5 fw-bold shadow-sm"
+                style={{ height: '48px' }}
+                onClick={executerValidationActuelle}
+              >
+                Valider l'étape
+              </button>
+            </div>
+          )}
 
           {/* BILAN DE FIN */}
           {isFinished && (
@@ -314,7 +339,6 @@ function PratiqueGuideTesterEgalite1() {
       </div>
     </div>
   );
-  }
-
+}
 
 export default PratiqueGuideTesterEgalite1;
