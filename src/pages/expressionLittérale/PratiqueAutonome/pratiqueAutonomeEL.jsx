@@ -157,7 +157,7 @@ export default function PratiqueAutonomeEL() {
               ) : (
                 <div className="alert alert-danger rounded-4 p-3 p-md-4">
                   <p className="small mb-3">Besoin de réviser la méthode.</p>
-                  <button className="btn btn-danger rounded-pill px-4 fw-bold w-100" onClick={() => navigate("/ModelageCalculLiteralPhase1")}>
+                  <button className="btn btn-danger rounded-pill px-4 fw-bold w-100" onClick={() => navigate("/ModelageExpressionLitterale")}>
                     Retour Modelage
                   </button>
                 </div>
