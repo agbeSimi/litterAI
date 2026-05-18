@@ -48,6 +48,13 @@ function Accueil(){
               titre="Module 2: Simplifier une expression littérale"
               description="Écris plus vite, comme un pro ! Apprends à supprimer les signes 'x' inutiles pour raccourcir tes formules et simplifier tes calculs en un clin d'œil."
               path="/IntroductionIAEL"/>
+
+            <ModuleCard
+              titre="Module 3: Tester une Égalité"
+              description="--"
+              path="/IntroductionEgalite"
+            />
+
             <ModuleCard
               titre="Module 3: Les Équations"
             description="Apprendre à isoler x et maîtriser la balance algébrique."
