@@ -33,6 +33,7 @@ import ModelageExpressionLitteral from "./pages/expressionLittérale/Modelage/Mo
 import {PratiqueGuideEL} from "./pages/expressionLittérale/PratiqueGuide/pratiqueGuideEL.jsx";
 import PratiqueAutonomeEL from "./pages/expressionLittérale/PratiqueAutonome/pratiqueAutonomeEL.jsx";
 import IntroductionEgalite from "./pages/testerEgalite/introductionEgalite.jsx";
+import ModelageTesterEgalite1 from "./pages/testerEgalite/Modelage/ModelageTesterEgalite1.jsx";
 
 function App() {
   return (
@@ -72,7 +73,6 @@ function App() {
         <Route path="/PratiqueAutonomeInteractif" element={<PratiqueAutonomeInteractif/>}/>
 
 
-
         <Route path="/IntroductionIAEL" element={<IntroductionIAEL/>}/>
         <Route path="/ModelageExpressionLitterale" element={<ModelageExpressionLitteral/>}/>
         <Route path="/PratiqueGuideEL" element={<PratiqueGuideEL/>}/>
@@ -80,7 +80,7 @@ function App() {
 
 
         <Route path="/introductionEgalite" element={<IntroductionEgalite/>}/>
-
+        <Route path="/ModelageTesterEgalite1" element={<ModelageTesterEgalite1/>}/>nv
       </Routes>
     </Router>
   );
