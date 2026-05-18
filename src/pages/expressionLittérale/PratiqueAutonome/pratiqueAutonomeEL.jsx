@@ -19,9 +19,9 @@ export default function PratiqueAutonomeEL() {
 
   // --- LOGIQUE MATHÉMATIQUE ---
   function genererCalculLiteral() {
-    let a = Math.floor(Math.random() * 8) + 2;
-    let b = Math.floor(Math.random() * 9) + 1;
-    let x = Math.floor(Math.random() * 5) + 1;
+    let a = Math.floor(Math.random() * 13) + 2;
+    let b = Math.floor(Math.random() * 19) + 1;
+    let x = Math.floor(Math.random() * 9) + 1;
     let resultatAttendu = `${a}x+${b}`;
     return {affichage: `${a} * x + ${b}`, solution: resultatAttendu,
       x: x,
@@ -148,21 +148,10 @@ export default function PratiqueAutonomeEL() {
                 <div className="alert alert-success rounded-4 p-3 p-md-4">
                   <p className="small mb-3">Bravo ! Prêt pour la suite ?</p>
                   <button className="btn btn-success rounded-pill px-4 fw-bold w-100" onClick={() => {
-                    const prochain = niveau + 1;
-                    if (prochain <= 2) {
-                      setNiveau(prochain);
-                      setExercice(1);
-                      setScore(0);
-                      setIsFinished(false);
-                      setReponseEleve("");
-                      setMessage("");
-                      setIsCorrect(null);
-                      setConversationIA([]);
-                    } else {
-                      navigate("/");
-                    }
+
+                    navigate("/");
                   }}>
-                    {niveau < 2 ? "Niveau Suivant" : "Terminer"}
+                    Retour a l'acceuil
                   </button>
                 </div>
               ) : (
