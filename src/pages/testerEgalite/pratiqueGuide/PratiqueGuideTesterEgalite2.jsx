@@ -9,7 +9,7 @@ function PratiqueGuideTesterEgalite2() {
   // Étapes : 0 = Remplacer à gauche, 1 = Remplacer à droite, 2 = Calculer à gauche, 3 = Calculer à droite, 4 = Conclusion
 
   // Initialisation paresseuse de l'état pour éviter une exécution en boucle au rendu
-  const [equation, setEquation] = useState(() => genererEquationNiveau2());
+  const [equation] = useState(genererEquationNiveau2());
 
   const [inputGauche, setInputGauche] = useState("");
   const [inputDroite, setInputDroite] = useState("");
@@ -24,26 +24,21 @@ function PratiqueGuideTesterEgalite2() {
   const navigate = useNavigate();
 
   function genererEquationNiveau2() {
-    const xValeur = Math.floor(Math.random() * 4) + 2;
+    const xValeur = Math.floor(Math.random() * 5) + 2; // x entre 2 et 6
 
-    const c = (Math.floor(Math.random() * 5) + 1) * 0.5;
-    const d = (Math.floor(Math.random() * 6) + 1) * 0.5;
-    const valeurCible = c * xValeur + d;
+    // On génère la gauche et la droite totalement au hasard
+    const a = (Math.floor(Math.random() * 5) + 1) * 0.5;
+    const b = (Math.floor(Math.random() * 5) + 1) * 0.5;
 
-    let a;
-    let b;
-    let securite = 0;
-
-    do {
-      a = (Math.floor(Math.random() * 5) + 1) * 0.5;
-      b = valeurCible - a * xValeur;
-      securite++;
-    } while ((a === c || b <= 0) && securite < 50);
-
-    if (b <= 0) {
-      a = 0.5;
-      b = valeurCible - a * xValeur;
+    let c = (Math.floor(Math.random() * 5) + 1) * 0.5;
+    while (c === a) {
+      c = (Math.floor(Math.random() * 5) + 1) * 0.5;
     }
+    const d = (Math.floor(Math.random() * 5) + 1) * 0.5;
+
+    // Chaque côté a son propre résultat calculé indépendamment
+    const calculG = Number((a * xValeur + b).toFixed(1));
+    const calculD = Number((c * xValeur + d).toFixed(1));
 
     const formatVisuel = (num) => num.toString().replace('.', ',');
 
@@ -53,8 +48,8 @@ function PratiqueGuideTesterEgalite2() {
       droiteTexte: `${formatVisuel(c)}x + ${formatVisuel(d)}`,
       gaucheAttendu: `${a}*${xValeur}+${b}`,
       droiteAttendu: `${c}*${xValeur}+${d}`,
-      resGaucheAttendu: valeurCible,
-      resDroiteAttendu: valeurCible
+      resGaucheAttendu: calculG,
+      resDroiteAttendu: calculD
     };
   }
 
@@ -74,7 +69,7 @@ function PratiqueGuideTesterEgalite2() {
     const promptSysteme = {
       role: "system",
       content: `RÔLE: LitterAl, tuteur de maths socratique pour un élève de 4ème.
-      CONTEXTE: L'élève teste l'égalité ${equation.gaucheTexext || equation.gaucheTexte} = ${equation.droiteTexte} avec x = ${equation.x}.
+      CONTEXTE: L'élève teste l'égalité ${equation.gaucheTexte} = ${equation.droiteTexte} avec x = ${equation.x}.
       Étape actuelle de l'élève : Étape ${progression}/4.
       CONTEXTE D'ERREUR : ${erreurContext}
       CONSIGNES DE GUIDAGE:
@@ -95,6 +90,14 @@ function PratiqueGuideTesterEgalite2() {
       if (prev.length > 0 && prev[prev.length - 1].content === texte) return prev;
       return [...prev, { role: "assistant", content: texte }];
     });
+  }
+
+  // --- LOGIQUE UNIQUE DE SÉLECTION DE TRAITEMENT ---
+  function executerValidationActuelle() {
+    if (progression === 0) validerRemplacementGauche();
+    else if (progression === 1) validerRemplacementDroite();
+    else if (progression === 2) validerCalculGauche();
+    else if (progression === 3) validerCalculDroite();
   }
 
   // --- VALIDATIONS DES ÉTAPES ---
@@ -122,7 +125,6 @@ function PratiqueGuideTesterEgalite2() {
   }
 
   function validerCalculGauche() {
-    // Utilisation de resGaucheAttendu au lieu de la variable absente solutionNumerique
     if (parseFloat(calculGauche.replace(',', '.')) === equation.resGaucheAttendu) {
       setMessageErreur("");
       setProgression(3);
@@ -133,7 +135,6 @@ function PratiqueGuideTesterEgalite2() {
   }
 
   function validerCalculDroite() {
-    // Utilisation de resDroiteAttendu au lieu de la variable absente solutionNumerique
     if (parseFloat(calculDroite.replace(',', '.')) === equation.resDroiteAttendu) {
       setMessageErreur("");
       setProgression(4);
@@ -222,6 +223,7 @@ function PratiqueGuideTesterEgalite2() {
                     ) : (
                       <input
                         type="text"
+                        inputMode="decimal"
                         className="form-control text-center form-control-sm fw-bold border-primary"
                         placeholder="?"
                         value={calculGauche}
@@ -270,6 +272,7 @@ function PratiqueGuideTesterEgalite2() {
                     ) : (
                       <input
                         type="text"
+                        inputMode="decimal"
                         className="form-control text-center form-control-sm fw-bold border-primary"
                         placeholder="?"
                         value={calculDroite}
@@ -283,6 +286,19 @@ function PratiqueGuideTesterEgalite2() {
               </div>
             </div>
           </div>
+
+          {/* AJOUT DU BOUTON CLIQUABLE DE VALIDATION D'ÉTAPE */}
+          {!isFinished && (
+            <div className="text-center mb-2">
+              <button
+                className="btn btn-primary px-5 fw-bold shadow-sm"
+                style={{ height: '48px' }}
+                onClick={executerValidationActuelle}
+              >
+                Valider l'étape
+              </button>
+            </div>
+          )}
 
           {/* BILAN DE FIN COMPLET ET ADAPTÉ */}
           {isFinished && (

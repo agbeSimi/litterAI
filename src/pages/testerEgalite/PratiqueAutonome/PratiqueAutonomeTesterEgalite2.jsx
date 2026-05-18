@@ -26,23 +26,23 @@ function PratiqueAutonomeTesterEgalite2() {
   const navigate = useNavigate();
 
   function genererEquationIdentique() {
-    let a, b, c, d, xValeur, valeurCible;
-    let valide = false;
+    const xValeur = Math.floor(Math.random() * 5) + 2; // Valeur de x entière entre 2 et 6
 
-    while (!valide) {
-      xValeur = Math.floor(Math.random() * 4) + 2;
+    // Génération de coefficients décimaux "sympas" (se terminant par ,0 ou ,5)
+    const a = (Math.floor(Math.random() * 5) + 1) * 0.5;
+    const b = (Math.floor(Math.random() * 5) + 1) * 0.5;
 
+    let c = (Math.floor(Math.random() * 5) + 1) * 0.5;
+    // On évite d'avoir exactement le même coefficient pour x des deux côtés
+    while (c === a) {
       c = (Math.floor(Math.random() * 5) + 1) * 0.5;
-      d = (Math.floor(Math.random() * 6) + 1) * 0.5;
-      valeurCible = c * xValeur + d;
-
-      a = (Math.floor(Math.random() * 6) + 1) * 0.5;
-      b = valeurCible - a * xValeur;
-
-      if (a !== c && b > 0) {
-        valide = true;
-      }
     }
+
+    const d = (Math.floor(Math.random() * 5) + 1) * 0.5;
+
+    // Calcul indépendant des deux membres (les résultats peuvent être différents)
+    const calculG = Number((a * xValeur + b).toFixed(1));
+    const calculD = Number((c * xValeur + d).toFixed(1));
 
     const formatVisuel = (num) => num.toString().replace('.', ',');
 
@@ -52,8 +52,8 @@ function PratiqueAutonomeTesterEgalite2() {
       droiteTexte: `${formatVisuel(c)}x + ${formatVisuel(d)}`,
       gaucheAttendu: `${a}*${xValeur}+${b}`,
       droiteAttendu: `${c}*${xValeur}+${d}`,
-      resGaucheAttendu: valeurCible,
-      resDroiteAttendu: valeurCible
+      resGaucheAttendu: calculG, // Résultat propre à gauche
+      resDroiteAttendu: calculD  // Résultat propre à droite
     });
 
     setInputGauche("");
@@ -127,8 +127,10 @@ function PratiqueAutonomeTesterEgalite2() {
       }
     }
     else if (progression === 2) {
-      // On compare avec resGaucheAttendu
-      if (parseInt(calculGauche) === equation.resGaucheAttendu) {
+      // Remplacement de parseInt par parseFloat pour gérer les décimaux (, ou .)
+      const valeurSaisie = parseFloat(calculGauche.toString().replace(',', '.'));
+
+      if (valeurSaisie === equation.resGaucheAttendu) {
         setIsCorrect(null);
         setProgression(3);
         setMessage("");
@@ -139,17 +141,21 @@ function PratiqueAutonomeTesterEgalite2() {
       }
     }
     else if (progression === 3) {
-      // On compare avec resDroiteAttendu
-      if (parseInt(calculDroite) === equation.resDroiteAttendu) {
+      // Même chose pour le côté droit
+      const valeurSaisie = parseFloat(calculDroite.toString().replace(',', '.'));
+
+      if (valeurSaisie === equation.resDroiteAttendu) {
         setScore(prev => prev + 1);
         setIsCorrect(true);
         setProgression(4);
 
-        // Conclusion finale selon les deux résultats
+        const resG = equation.resGaucheAttendu.toString().replace('.', ',');
+        const resD = equation.resDroiteAttendu.toString().replace('.', ',');
+
         if (equation.resGaucheAttendu === equation.resDroiteAttendu) {
-          setMessage(`Bravo ! ${equation.resGaucheAttendu} = ${equation.resDroiteAttendu}. L'égalité est VRAIE.`);
+          setMessage(`Bravo ! ${resG} = ${resD}. L'égalité est VRAIE.`);
         } else {
-          setMessage(`Bravo pour les calculs ! ${equation.resGaucheAttendu} ≠ ${equation.resDroiteAttendu}. L'égalité est donc FAUSSE.`);
+          setMessage(`Bravo pour les calculs ! ${resG} ≠ ${resD}. L'égalité est donc FAUSSE.`);
         }
       } else {
         setIsCorrect(false);
@@ -280,13 +286,13 @@ function PratiqueAutonomeTesterEgalite2() {
                       navigate("/");
                     }
                   }}>
-                    {niveau < 2 ? "Niveau Suivant -> Phase 3" : "Terminer"}
+                    {niveau < 3 ? "Niveau Suivant -> Phase 3" : "Terminer"}
                   </button>
                 </div>
               ) : (
                 <div className="alert alert-danger rounded-4 p-3 p-md-4">
                   <p className="small mb-3">Besoin de réviser la méthode.</p>
-                  <button className="btn btn-danger rounded-pill px-4 fw-bold w-100" onClick={() => navigate("/ModelageTesterEgalite1")}>
+                  <button className="btn btn-danger rounded-pill px-4 fw-bold w-100" onClick={() => navigate("/ModelageTesterEgalite2")}>
                     Retour Modelage
                   </button>
                 </div>
