@@ -20,7 +20,7 @@ function CarteConcept({description}) {
       style={{ cursor: 'pointer' }}
     >
       <h5 className="fw-bold text-primary">🛠️ Comment résoudre? : </h5>
-      <p>
+      <p style={{ whiteSpace: "pre-line" }}>
         {description}
       </p>
 
