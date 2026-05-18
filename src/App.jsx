@@ -32,6 +32,7 @@ import IntroductionIAEL from "./pages/expressionLittérale/introductionIAEL.jsx"
 import ModelageExpressionLitteral from "./pages/expressionLittérale/Modelage/ModelageExpressionLittéral.jsx";
 import {PratiqueGuideEL} from "./pages/expressionLittérale/PratiqueGuide/pratiqueGuideEL.jsx";
 import PratiqueAutonomeEL from "./pages/expressionLittérale/PratiqueAutonome/pratiqueAutonomeEL.jsx";
+import IntroductionEgalite from "./pages/testerEgalite/introductionEgalite.jsx";
 
 function App() {
   return (
@@ -76,6 +77,9 @@ function App() {
         <Route path="/ModelageExpressionLitterale" element={<ModelageExpressionLitteral/>}/>
         <Route path="/PratiqueGuideEL" element={<PratiqueGuideEL/>}/>
         <Route path="/pratiqueAutonomeEL" element={<PratiqueAutonomeEL/>}/>
+
+
+        <Route path="/introductionEgalite" element={<IntroductionEgalite/>}/>
 
       </Routes>
     </Router>
