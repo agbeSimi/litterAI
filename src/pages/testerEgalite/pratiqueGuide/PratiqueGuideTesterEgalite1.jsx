@@ -30,11 +30,11 @@ function PratiqueGuideTesterEgalite1() {
 
     return {
       x: xAleatoire,
-      texteGauche: `${m} * x * ${k}`,
-      texteDroite: `${coeff} * x - ${coeff} + ${m} * ${k}`,
+      texteGauche: `${m}x * ${k}`,
+      texteDroite: `${coeff}x - ${coeff} + ${m} * ${k}`,
       // Formes attendues pour la validation (sans espaces, accepte * ou × via nettoyage)
-      attenduGauche: `${m}*${xAleatoire}*${k}`,
-      attenduDroite: `${coeff}*${xAleatoire}-${coeff}+${m}*${k}`,
+      attenduGauche: `${m}${xAleatoire}*${k}`,
+      attenduDroite: `${coeff}${xAleatoire}-${coeff}+${m}*${k}`,
       // Calculs numériques réels
       solutionNumerique: coeff * xAleatoire // Les deux côtés donneront exactement ça !
     };
