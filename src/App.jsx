@@ -34,6 +34,7 @@ import {PratiqueGuideEL} from "./pages/expressionLittérale/PratiqueGuide/pratiq
 import PratiqueAutonomeEL from "./pages/expressionLittérale/PratiqueAutonome/pratiqueAutonomeEL.jsx";
 import IntroductionEgalite from "./pages/testerEgalite/introductionEgalite.jsx";
 import ModelageTesterEgalite1 from "./pages/testerEgalite/Modelage/ModelageTesterEgalite1.jsx";
+import PratiqueGuideTesterEgalite from "./pages/testerEgalite/pratiqueGuide/PratiqueGuideTesterEgalite.jsx";
 
 function App() {
   return (
@@ -81,6 +82,7 @@ function App() {
 
         <Route path="/introductionEgalite" element={<IntroductionEgalite/>}/>
         <Route path="/ModelageTesterEgalite1" element={<ModelageTesterEgalite1/>}/>nv
+        <Route path="/PratiqueGuideTesterEgalite" element={<PratiqueGuideTesterEgalite/>}/>nv
       </Routes>
     </Router>
   );
