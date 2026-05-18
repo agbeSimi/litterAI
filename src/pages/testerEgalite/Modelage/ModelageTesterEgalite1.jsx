@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
-import ExempleResolutionLiteralPhase1 from "../../CalculLiteral/ExempleResolutionLiteralPhase1.jsx";
 import {motion} from "framer-motion";
+import ExempleTesterEgalite from "../ExempleTesterEgalite.jsx";
 
 function ModelageTesterEgalite1() {
   const [afficheVideo, setAfficheVideo] = useState(false);
@@ -18,10 +18,10 @@ function ModelageTesterEgalite1() {
           {/* --- Header --- */}
           <header className="text-center mb-5">
             <h1 className="display-5 fw-bold text-primary">
-              Qu'est-ce qu'une expression littérale?
+              Comment Tester une égalité?
             </h1>
             <p className="lead text-dark fw-bold mt-4">
-              Comprendre qu'une lettre cache une valeur et savoir calculer une expression.
+              Pour vérifier si deux expressions mathématiques sont égales, il ne faut jamais mélanger les pinceaux ! Dans cette leçon, tu vas apprendre la méthode rigoureuse des deux colonnes.
               <br />
               <br />
             </p>
@@ -32,7 +32,7 @@ function ModelageTesterEgalite1() {
 
 
             {/* --- Résolution Sombre --- */}
-            <ExempleResolutionLiteralPhase1/>
+            <ExempleTesterEgalite/>
 
 
             {/* --- Actions --- */}
@@ -58,7 +58,7 @@ function ModelageTesterEgalite1() {
                   scale: 1.02
                 }}
               >
-                <button onClick={() => navigate("/PratiqueGuidePhase1CL")} className="btn btn-sm px-md-5 py-md-3 px-4 rounded-pill fw-bold d-flex flex-wrap justify-content-center gap-3 mt-4" style={{ backgroundColor: 'deepskyblue', color: 'white' }}>
+                <button onClick={() => navigate("/PratiqueGuideTesterEgalite")} className="btn btn-sm px-md-5 py-md-3 px-4 rounded-pill fw-bold d-flex flex-wrap justify-content-center gap-3 mt-4" style={{ backgroundColor: 'deepskyblue', color: 'white' }}>
                   Pratique Guidée
                 </button>
               </motion.div>
@@ -67,7 +67,7 @@ function ModelageTesterEgalite1() {
             {afficheVideo && (
               <div className="mt-3">
                 <video controls width="100%" className="rounded-4">
-                  <source src="/videos/Niveau-1-1-Introduction-au-calcul-litteral.mp4" type="video/mp4" />
+                  {/*<source src="/videos/Niveau-1-1-Introduction-au-calcul-litteral.mp4" type="video/mp4" />*/}
                   Votre navigateur ne supporte pas la lecture de vidéos.
                 </video>
               </div>
