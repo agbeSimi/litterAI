@@ -36,6 +36,7 @@ import IntroductionEgalite from "./pages/testerEgalite/introductionEgalite.jsx";
 import ModelageTesterEgalite1 from "./pages/testerEgalite/Modelage/ModelageTesterEgalite1.jsx";
 import PratiqueGuideTesterEgalite1 from "./pages/testerEgalite/pratiqueGuide/PratiqueGuideTesterEgalite1.jsx";
 import PratiqueAutonomeTesterEgalite1 from "./pages/testerEgalite/PratiqueAutonome/PratiqueAutonomeTesterEgalite1.jsx";
+import TesterEgalite from "./pages/testerEgalite/TesterEgalite.jsx";
 
 function App() {
   return (
@@ -50,7 +51,7 @@ function App() {
         <Route path="/modelage3" element={<Modelage3/>}/>
 
 
-        <Route path="/calculLiteral" element={<CalculLiteral/>}/>
+        <Route path="/calculLitteral" element={<CalculLiteral/>}/>
         <Route path="/introductionIA" element={<IntroductionIA/>}/>
         <Route path="/ModelageCalculLiteralPhase1" element={<ModelageCalculLiteralPhase1/>}/>
         <Route path="/modelageCalculLiteralPhase2" element={<ModelageCalculLiteralPhase2/>}/>
@@ -65,10 +66,11 @@ function App() {
         <Route path="/pratiqueGuide" element={<PratiqueGuide1/>}/>
         <Route path="/pratiqueGuide2" element={<PratiqueGuide2/>}/>
         <Route path="/pratiqueGuide3" element={<PratiqueGuide3/>}/>
-
         <Route path="/pratiqueAutonome" element={<PratiqueAutonome1/>}/>
         <Route path="/pratiqueAutonome2" element={<PratiqueAutonome2/>}/>
         <Route path="/pratiqueAutonome3" element={<PratiqueAutonome3/>}/>
+
+
 
         <Route path="/modelageInteractif" element={<ModelageInteractif/>}/>
         <Route path="/PratiqueGuideInteractif" element={<PratiqueGuideInteractif/>}/>
@@ -82,6 +84,7 @@ function App() {
 
 
         <Route path="/introductionEgalite" element={<IntroductionEgalite/>}/>
+        <Route path="/TesterEgalite" element={<TesterEgalite/>}/>
         <Route path="/ModelageTesterEgalite1" element={<ModelageTesterEgalite1/>}/>nv
         <Route path="/PratiqueGuideTesterEgalite1" element={<PratiqueGuideTesterEgalite1/>}/>nv
         <Route path="/PratiqueAutonomeTesterEgalite1" element={<PratiqueAutonomeTesterEgalite1/>}/>nv
