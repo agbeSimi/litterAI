@@ -38,6 +38,7 @@ import PratiqueGuideTesterEgalite1 from "./pages/testerEgalite/pratiqueGuide/Pra
 import PratiqueAutonomeTesterEgalite1 from "./pages/testerEgalite/PratiqueAutonome/PratiqueAutonomeTesterEgalite1.jsx";
 import TesterEgalite from "./pages/testerEgalite/TesterEgalite.jsx";
 import PratiqueGuideTesterEgalite2 from "./pages/testerEgalite/pratiqueGuide/PratiqueGuideTesterEgalite2.jsx";
+import PratiqueAutonomeTesterEgalite2 from "./pages/testerEgalite/PratiqueAutonome/PratiqueAutonomeTesterEgalite2.jsx";
 
 function App() {
   return (
@@ -90,6 +91,7 @@ function App() {
         <Route path="/PratiqueGuideTesterEgalite1" element={<PratiqueGuideTesterEgalite1/>}/>
         <Route path="/PratiqueGuideTesterEgalite2" element={<PratiqueGuideTesterEgalite2/>}/>
         <Route path="/PratiqueAutonomeTesterEgalite1" element={<PratiqueAutonomeTesterEgalite1/>}/>
+        <Route path="/PratiqueAutonomeTesterEgalite2" element={<PratiqueAutonomeTesterEgalite2/>}/>
       </Routes>
     </Router>
   );
