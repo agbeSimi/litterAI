@@ -39,6 +39,8 @@ import PratiqueAutonomeTesterEgalite1 from "./pages/testerEgalite/PratiqueAutono
 import TesterEgalite from "./pages/testerEgalite/TesterEgalite.jsx";
 import PratiqueGuideTesterEgalite2 from "./pages/testerEgalite/pratiqueGuide/PratiqueGuideTesterEgalite2.jsx";
 import PratiqueAutonomeTesterEgalite2 from "./pages/testerEgalite/PratiqueAutonome/PratiqueAutonomeTesterEgalite2.jsx";
+import PratiqueGuideTesterEgalite3 from "./pages/testerEgalite/pratiqueGuide/PratiqueGuideTesterEgalite3.jsx";
+import PratiqueAutonomeTesterEgalite3 from "./pages/testerEgalite/PratiqueAutonome/PratiqueAutonomeTesterEgalite3.jsx";
 
 function App() {
   return (
@@ -90,8 +92,10 @@ function App() {
         <Route path="/ModelageTesterEgalite1" element={<ModelageTesterEgalite1/>}/>
         <Route path="/PratiqueGuideTesterEgalite1" element={<PratiqueGuideTesterEgalite1/>}/>
         <Route path="/PratiqueGuideTesterEgalite2" element={<PratiqueGuideTesterEgalite2/>}/>
+        <Route path="/PratiqueGuideTesterEgalite3" element={<PratiqueGuideTesterEgalite3/>}/>
         <Route path="/PratiqueAutonomeTesterEgalite1" element={<PratiqueAutonomeTesterEgalite1/>}/>
         <Route path="/PratiqueAutonomeTesterEgalite2" element={<PratiqueAutonomeTesterEgalite2/>}/>
+        <Route path="/PratiqueAutonomeTesterEgalite3" element={<PratiqueAutonomeTesterEgalite3/>}/>
       </Routes>
     </Router>
   );
