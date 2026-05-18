@@ -37,6 +37,7 @@ import ModelageTesterEgalite1 from "./pages/testerEgalite/Modelage/ModelageTeste
 import PratiqueGuideTesterEgalite1 from "./pages/testerEgalite/pratiqueGuide/PratiqueGuideTesterEgalite1.jsx";
 import PratiqueAutonomeTesterEgalite1 from "./pages/testerEgalite/PratiqueAutonome/PratiqueAutonomeTesterEgalite1.jsx";
 import TesterEgalite from "./pages/testerEgalite/TesterEgalite.jsx";
+import PratiqueGuideTesterEgalite2 from "./pages/testerEgalite/pratiqueGuide/PratiqueGuideTesterEgalite2.jsx";
 
 function App() {
   return (
@@ -85,9 +86,10 @@ function App() {
 
         <Route path="/introductionEgalite" element={<IntroductionEgalite/>}/>
         <Route path="/TesterEgalite" element={<TesterEgalite/>}/>
-        <Route path="/ModelageTesterEgalite1" element={<ModelageTesterEgalite1/>}/>nv
-        <Route path="/PratiqueGuideTesterEgalite1" element={<PratiqueGuideTesterEgalite1/>}/>nv
-        <Route path="/PratiqueAutonomeTesterEgalite1" element={<PratiqueAutonomeTesterEgalite1/>}/>nv
+        <Route path="/ModelageTesterEgalite1" element={<ModelageTesterEgalite1/>}/>
+        <Route path="/PratiqueGuideTesterEgalite1" element={<PratiqueGuideTesterEgalite1/>}/>
+        <Route path="/PratiqueGuideTesterEgalite2" element={<PratiqueGuideTesterEgalite2/>}/>
+        <Route path="/PratiqueAutonomeTesterEgalite1" element={<PratiqueAutonomeTesterEgalite1/>}/>
       </Routes>
     </Router>
   );
