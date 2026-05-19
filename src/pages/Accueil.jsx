@@ -37,7 +37,7 @@ function Accueil(){
             <ModuleCard
               titre="Module 0: Exercice Interactif"
               description="Apprends à construire des programmes de calcul en manipulant des cartes et valide chaque étape pour maîtriser le raisonnement logique."
-              path="/modelageInteractif"/>
+              path="/SousAccueilExoInteractif"/>
             <ModuleCard
               titre="Module 1: Calcul Littéral"
               description="Passer des phrases aux formules et comprendre le rôle des lettres."
