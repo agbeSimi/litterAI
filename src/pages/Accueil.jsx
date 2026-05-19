@@ -41,24 +41,24 @@ function Accueil(){
             <ModuleCard
               titre="Module 1: Calcul Littéral"
               description="Passer des phrases aux formules et comprendre le rôle des lettres."
-              path="/introductionIA"
+              path="/SousAccueilCalculLitteral"
             />
 
             <ModuleCard
               titre="Module 2: Simplifier une expression littérale"
               description="Écris plus vite, comme un pro ! Apprends à supprimer les signes 'x' inutiles pour raccourcir tes formules et simplifier tes calculs en un clin d'œil."
-              path="/IntroductionIAEL"/>
+              path="/SousAccueilExpressionLitterale"/>
 
             <ModuleCard
               titre="Module 3: Tester une Égalité"
               description="--"
-              path="/IntroductionEgalite"
+              path="/SousAccueilTesterEgalite"
             />
 
             <ModuleCard
               titre="Module 3: Les Équations"
             description="Apprendre à isoler x et maîtriser la balance algébrique."
-            path="/equation"
+            path="/sousAccueilEquation"
             />
           </div>
         </div>

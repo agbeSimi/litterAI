@@ -42,6 +42,10 @@ import PratiqueAutonomeTesterEgalite2 from "./pages/testerEgalite/PratiqueAutono
 import PratiqueGuideTesterEgalite3 from "./pages/testerEgalite/pratiqueGuide/PratiqueGuideTesterEgalite3.jsx";
 import PratiqueAutonomeTesterEgalite3 from "./pages/testerEgalite/PratiqueAutonome/PratiqueAutonomeTesterEgalite3.jsx";
 import SousAccueilExoInteractif from "./pages/exoInteractif/SousAccueilExoInteractif.jsx";
+import SousAccueilCalculLitteral from "./pages/CalculLiteral/sousAccueilCalculLitteral.jsx";
+import SousAccueilExpressionLitterale from "./pages/expressionLittérale/SousAccueilExpressionLitterale.jsx";
+import SousAccueilTesterEgalite from "./pages/testerEgalite/SousAccueilTesterEgalite.jsx";
+import SousAccueilEquation from "./pages/Equation/SousAccueilEquation.jsx";
 
 function App() {
   return (
@@ -50,13 +54,17 @@ function App() {
         <Route path="/" element={<Accueil/>}/>
         <Route path="credit" element={<Credit/>}/>
         <Route path="/Contact" element={<Contact/>}/>
+
+
         <Route path="/equation" element={<PageEquation/>}/>
+        <Route path="/sousAccueilEquation" element={<SousAccueilEquation/>}/>
         <Route path="/modelage" element={<Modelage1/>}/>
         <Route path="/modelage2" element={<Modelage2/>}/>
         <Route path="/modelage3" element={<Modelage3/>}/>
 
 
         <Route path="/calculLitteral" element={<CalculLiteral/>}/>
+        <Route path="/sousAccueilCalculLitteral" element={<SousAccueilCalculLitteral/>}/>
         <Route path="/introductionIA" element={<IntroductionIA/>}/>
         <Route path="/ModelageCalculLiteralPhase1" element={<ModelageCalculLiteralPhase1/>}/>
         <Route path="/modelageCalculLiteralPhase2" element={<ModelageCalculLiteralPhase2/>}/>
@@ -84,12 +92,14 @@ function App() {
 
 
         <Route path="/IntroductionIAEL" element={<IntroductionIAEL/>}/>
+        <Route path="/SousAccueilExpressionLitterale" element={<SousAccueilExpressionLitterale/>}/>
         <Route path="/ModelageExpressionLitterale" element={<ModelageExpressionLitteral/>}/>
         <Route path="/PratiqueGuideEL" element={<PratiqueGuideEL/>}/>
         <Route path="/pratiqueAutonomeEL" element={<PratiqueAutonomeEL/>}/>
 
 
         <Route path="/introductionEgalite" element={<IntroductionEgalite/>}/>
+        <Route path="/SousAccueilTesterEgalite" element={<SousAccueilTesterEgalite/>}/>
         <Route path="/TesterEgalite" element={<TesterEgalite/>}/>
         <Route path="/ModelageTesterEgalite1" element={<ModelageTesterEgalite1/>}/>
         <Route path="/PratiqueGuideTesterEgalite1" element={<PratiqueGuideTesterEgalite1/>}/>
