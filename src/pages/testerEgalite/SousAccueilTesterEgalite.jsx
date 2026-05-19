@@ -4,6 +4,7 @@ function SousAccueilTesterEgalite() {
   return (
     <SousAccueilComposant titre="Tester une égalité  🔎"
     pathParcourComplet="/IntroductionEgalite"
+    pathMachine="/PageMachineTesterEgalite"
     />
   )
 }
