@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import PageEquation from './pages/Equation/pageEquation.jsx';
 import Modelage1 from "./pages/Equation/Modelage/Modelage1.jsx";
@@ -46,6 +45,8 @@ import SousAccueilCalculLitteral from "./pages/CalculLiteral/sousAccueilCalculLi
 import SousAccueilExpressionLitterale from "./pages/expressionLittérale/SousAccueilExpressionLitterale.jsx";
 import SousAccueilTesterEgalite from "./pages/testerEgalite/SousAccueilTesterEgalite.jsx";
 import SousAccueilEquation from "./pages/Equation/SousAccueilEquation.jsx";
+import MachineExo from "./MachineExo.jsx";
+import PageMachineEquations from "./pages/Equation/PageMachineEquations.jsx";
 
 function App() {
   return (
@@ -56,11 +57,21 @@ function App() {
         <Route path="/Contact" element={<Contact/>}/>
 
 
+        <Route path="/machineExo" element={<MachineExo/>}/>
+
+
         <Route path="/equation" element={<PageEquation/>}/>
         <Route path="/sousAccueilEquation" element={<SousAccueilEquation/>}/>
+        <Route path="/PageMachineEquations" element={<PageMachineEquations/>}/>
         <Route path="/modelage" element={<Modelage1/>}/>
         <Route path="/modelage2" element={<Modelage2/>}/>
         <Route path="/modelage3" element={<Modelage3/>}/>
+        <Route path="/pratiqueGuide" element={<PratiqueGuide1/>}/>
+        <Route path="/pratiqueGuide2" element={<PratiqueGuide2/>}/>
+        <Route path="/pratiqueGuide3" element={<PratiqueGuide3/>}/>
+        <Route path="/pratiqueAutonome" element={<PratiqueAutonome1/>}/>
+        <Route path="/pratiqueAutonome2" element={<PratiqueAutonome2/>}/>
+        <Route path="/pratiqueAutonome3" element={<PratiqueAutonome3/>}/>
 
 
         <Route path="/calculLitteral" element={<CalculLiteral/>}/>
@@ -76,12 +87,6 @@ function App() {
         <Route path="/PratiqueGuidePhase1CL" element={<PratiqueGuidePhase1CL/>}/>
         <Route path="/pratiqueGuidePhase2CL" element={<PratiqueGuidePhase2CL/>}/>
         <Route path="/pratiqueGuidePhase3CL" element={<PratiqueGuidePhase3CL/>}/>
-        <Route path="/pratiqueGuide" element={<PratiqueGuide1/>}/>
-        <Route path="/pratiqueGuide2" element={<PratiqueGuide2/>}/>
-        <Route path="/pratiqueGuide3" element={<PratiqueGuide3/>}/>
-        <Route path="/pratiqueAutonome" element={<PratiqueAutonome1/>}/>
-        <Route path="/pratiqueAutonome2" element={<PratiqueAutonome2/>}/>
-        <Route path="/pratiqueAutonome3" element={<PratiqueAutonome3/>}/>
 
 
 
