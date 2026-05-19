@@ -56,7 +56,7 @@ function Accueil(){
             />
 
             <ModuleCard
-              titre="Module 3: Les Équations"
+              titre="Module 4: Les Équations"
             description="Apprendre à isoler x et maîtriser la balance algébrique."
             path="/sousAccueilEquation"
             />
