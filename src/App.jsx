@@ -47,6 +47,7 @@ import SousAccueilTesterEgalite from "./pages/testerEgalite/SousAccueilTesterEga
 import SousAccueilEquation from "./pages/Equation/SousAccueilEquation.jsx";
 import MachineExo from "./MachineExo.jsx";
 import PageMachineEquations from "./pages/Equation/PageMachineEquations.jsx";
+import PageMachineCalculLitteral from "./pages/CalculLiteral/pageMachineCalculLitteral.jsx";
 
 function App() {
   return (
@@ -80,10 +81,10 @@ function App() {
         <Route path="/ModelageCalculLiteralPhase1" element={<ModelageCalculLiteralPhase1/>}/>
         <Route path="/modelageCalculLiteralPhase2" element={<ModelageCalculLiteralPhase2/>}/>
         <Route path="/modelageCalculLiteralPhase3" element={<ModelageCalculLiteralPhase3/>}/>
+        <Route path="pageMachineCalculLitteral" element={<PageMachineCalculLitteral/>}/>
         <Route path="/PratiqueAutonomeCL1" element={<PratiqueAutonomeCL1/>}/>
         <Route path="/PratiqueAutonomeCL2" element={<PratiqueAutonomeCL2/>}/>
         <Route path="/PratiqueAutonomeCL3" element={<PratiqueAutonomeCL3/>}/>
-
         <Route path="/PratiqueGuidePhase1CL" element={<PratiqueGuidePhase1CL/>}/>
         <Route path="/pratiqueGuidePhase2CL" element={<PratiqueGuidePhase2CL/>}/>
         <Route path="/pratiqueGuidePhase3CL" element={<PratiqueGuidePhase3CL/>}/>
