@@ -4,6 +4,7 @@ function SousAccueilAccueilExpression() {
   return (
     <SousAccueilComposant titre="Simplifier une expression littérale  🔑"
     pathParcourComplet="/IntroductionIAEL"
+    pathMachine="/pageMachineExpressionLitteral"
     />
   )
 }
