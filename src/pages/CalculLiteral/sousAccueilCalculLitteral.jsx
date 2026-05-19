@@ -4,6 +4,7 @@ function SousAccueilCalculLitteral() {
   return (
     <SousAccueilComposant titre="Le calcul littérale  🖩"
                           pathParcourComplet="/introductionIA"
+                          pathMachine="/pageMachineCalculLitteral"
     />
   )
 }
