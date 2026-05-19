@@ -5,7 +5,7 @@ function PageMachineEquations() {
   const niveauxEquations = [
     { id: 1, label: "Niveau 1 — Equations simples", pathRoute: "/pratiqueAutonome" },
     { id: 2, label: "Niveau 2 — Equations linéaire", pathRoute: "/pratiqueAutonome2" },
-    { id: 3, label: "Niveau 3 — Equation a nombres décimaux", pathRoute: "/pratiqueAutonome3" }
+    { id: 3, label: "Niveau 3 — Equations a nombres décimaux", pathRoute: "/pratiqueAutonome3" }
   ];
 
   // 2. Tu injectes ces données dans ton composant universel
