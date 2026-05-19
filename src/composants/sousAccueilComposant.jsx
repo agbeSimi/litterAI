@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-function SousAccueilComposant({ titre, pathParcourComplet }) {
+function SousAccueilComposant({ titre, pathParcourComplet, pathMachine }) {
   const navigate = useNavigate();
 
   return (
@@ -39,7 +39,7 @@ function SousAccueilComposant({ titre, pathParcourComplet }) {
                 </button>
 
                 <button
-                  onClick={() => navigate("/machineExo")}
+                  onClick={() => navigate(pathMachine)}
                   className="btn btn-outline-primary rounded-pill px-4 py-3 fw-bold d-flex align-items-center justify-content-center gap-2 transition"
                   style={{ minWidth: "200px" }}
                 >
