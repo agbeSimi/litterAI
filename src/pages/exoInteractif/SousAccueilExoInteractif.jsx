@@ -4,6 +4,7 @@ function SousAccueilExoInteractif() {
   return (
     <SousAccueilComposant titre="Le programme intéractif  🧩"
     pathParcourComplet="/modelageInteractif"
+    pathMachine="/pageMachineExoInteractif"
     />
   )
 }
