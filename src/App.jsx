@@ -48,6 +48,7 @@ import SousAccueilEquation from "./pages/Equation/SousAccueilEquation.jsx";
 import MachineExo from "./MachineExo.jsx";
 import PageMachineEquations from "./pages/Equation/PageMachineEquations.jsx";
 import PageMachineCalculLitteral from "./pages/CalculLiteral/pageMachineCalculLitteral.jsx";
+import PageMachineTesterEgalite from "./pages/testerEgalite/pageMachineTesterEgalite.jsx";
 
 function App() {
   return (
@@ -107,6 +108,8 @@ function App() {
         <Route path="/introductionEgalite" element={<IntroductionEgalite/>}/>
         <Route path="/SousAccueilTesterEgalite" element={<SousAccueilTesterEgalite/>}/>
         <Route path="/TesterEgalite" element={<TesterEgalite/>}/>
+        <Route path="pageMachineTesterEgalite" element={<PageMachineTesterEgalite/>}/>
+
         <Route path="/ModelageTesterEgalite1" element={<ModelageTesterEgalite1/>}/>
         <Route path="/PratiqueGuideTesterEgalite1" element={<PratiqueGuideTesterEgalite1/>}/>
         <Route path="/PratiqueGuideTesterEgalite2" element={<PratiqueGuideTesterEgalite2/>}/>
