@@ -51,7 +51,7 @@ function Accueil(){
 
             <ModuleCard
               titre="Module 3: Tester une Égalité"
-              description="--"
+              description="Apprends à remplacer les lettres par des nombres pour vérifier, étape par étape, si le membre de gauche et le membre de droite sont parfaitement égaux."
               path="/SousAccueilTesterEgalite"
             />
 
