@@ -4,6 +4,7 @@ function SousAccueilEquation() {
   return (
     <SousAccueilComposant titre="Résoudre une équation  🔢"
     pathParcourComplet="/equation"
+    pathMachine="/PageMachineEquations"
     />
   )
 }
