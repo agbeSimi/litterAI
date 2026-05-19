@@ -3,7 +3,7 @@ import {DndContext} from "@dnd-kit/core";
 import ZoneADeposer from "../composant/ZoneADeposer.jsx";
 import CarteADeposer from "../composant/CarteADeposer.jsx";
 import GenererProgramme from "../composant/GenerProgramme.jsx";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {envoyerMessage} from "../../../services/LitterAI_API.js";
 import logoRobot from "../../../assets/logo_robot.png";
 
@@ -24,6 +24,11 @@ function PratiqueAutonomeInteractif() {
 
 
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Si l'élève vient de la machine, on prend son choix (5 à 10). Sinon (parcours normal), c'est 4.
+  const totalQuestions = location.state?.totalQuestions || 4;
+
 
   async function discuterErreur(msg = "") {
     setIsWorking(true);
@@ -133,7 +138,7 @@ function PratiqueAutonomeInteractif() {
   }
 
   function exerciceSuivant() {
-    if (exercice < 4) {
+    if (exercice < totalQuestions) {
       if (progression === 3) setScore(s => s + 1);
       setExercice(e => e + 1);
       setCurrentEquation(GenererProgramme());
@@ -158,9 +163,9 @@ function PratiqueAutonomeInteractif() {
             {!isFinished ? (
               <>
                 <div className="progress mb-2" style={{ height: '6px' }}>
-                  <div className="progress-bar bg-primary" style={{ width: `${((exercice - 1) / 4) * 100}%` }}></div>
+                  <div className="progress-bar bg-primary" style={{ width: `${((exercice - 1) / totalQuestions) * 100}%` }}></div>
                 </div>
-                <h6 className="text-muted fw-bold small mb-3">Ex {exercice} / 4</h6>
+                <h6 className="text-muted fw-bold small mb-3">Ex {exercice} / {totalQuestions}</h6>
 
                 {/* Consignes dynamiques */}
                 <div className="bg-light p-3 rounded-4 border shadow-sm mb-3 text-start mx-auto w-100">
@@ -206,7 +211,7 @@ function PratiqueAutonomeInteractif() {
 
                 {progression === 3 ? (
                   <button className="btn btn-success rounded-pill px-5 fw-bold shadow-sm animate__animated animate__bounceIn w-100" onClick={exerciceSuivant}>
-                    {exercice < 4 ? "Suivant →" : "Voir bilan"}
+                    {exercice < totalQuestions ? "Suivant →" : "Voir bilan"}
                   </button>
                 ) : (
                   <div className="p-3 bg-white border rounded-4 w-100 shadow-sm">
@@ -230,8 +235,8 @@ function PratiqueAutonomeInteractif() {
               /* BILAN */
               <div className="text-center py-4">
                 <h2 className="fw-bold mb-4">Bilan Final</h2>
-                <div className="display-1 fw-bold text-primary mb-4">{score} / 4</div>
-                {(score / 4) >= 0.75 ? (
+                <div className="display-1 fw-bold text-primary mb-4">{score} / {totalQuestions}</div>
+                {(score / totalQuestions) >= 0.75 ? (
                   <div className="alert alert-success rounded-4 border-0 shadow-sm p-4">
                     <p className="fw-bold">Excellent ! Module validé.</p>
                     <button className="btn btn-success rounded-pill px-5 fw-bold w-100" onClick={() => navigate("/calculLiteral")}>
