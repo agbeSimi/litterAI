@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import { motion } from "framer-motion";
 import { envoyerMessage } from "../../../services/LitterAI_API.js";
 import logoRobot from "../../../assets/logo_robot.png";
@@ -24,6 +24,10 @@ function PratiqueAutonomeTesterEgalite1() {
   const [isFinished, setIsFinished] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Si l'élève vient de la machine, on prend son choix (5 à 10). Sinon (parcours normal), c'est 4.
+  const totalQuestions = location.state?.totalQuestions || 4;
 
   function genererEquationIdentique() {
     const a = Math.floor(Math.random() * 3) + 2;
@@ -149,7 +153,7 @@ function PratiqueAutonomeTesterEgalite1() {
   }
 
   function exerciceSuivant() {
-    if (exercice < 4) {
+    if (exercice < totalQuestions) {
       setExercice(prev => prev + 1);
       genererEquationIdentique();
     } else {
@@ -168,10 +172,10 @@ function PratiqueAutonomeTesterEgalite1() {
           {!isFinished ? (
             <>
               <div className="progress mb-3 mb-md-4" style={{ height: '6px' }}>
-                <div className="progress-bar bg-primary" style={{ width: `${((exercice - 1) / 4) * 100}%` }}></div>
+                <div className="progress-bar bg-primary" style={{ width: `${((exercice - 1) / totalQuestions) * 100}%` }}></div>
               </div>
 
-              <h6 className="text-muted fw-bold text-uppercase small">Niveau {niveau} — Ex {exercice} / 4</h6>
+              <h6 className="text-muted fw-bold text-uppercase small">Niveau {niveau} — Ex {exercice} / {totalQuestions}</h6>
 
               <div className="bg-light p-3 rounded-4 border my-3 text-center w-100">
                 <p className="small text-muted mb-1">Tester pour <span className="fw-bold text-primary">x = {equation.x}</span> :</p>
@@ -243,7 +247,7 @@ function PratiqueAutonomeTesterEgalite1() {
                   <div className="fw-bold mb-2 small">{message}</div>
                   {(progression === 4 || isCorrect === false) && (
                     <button className={`btn ${isCorrect === false ? 'btn-danger' : 'btn-success'} rounded-pill px-5 fw-bold w-100 w-sm-auto`} onClick={exerciceSuivant}>
-                      {exercice < 4 ? "Suivant →" : "Voir bilan"}
+                      {exercice < totalQuestions ? "Suivant →" : "Voir bilan"}
                     </button>
                   )}
                 </div>
@@ -252,9 +256,9 @@ function PratiqueAutonomeTesterEgalite1() {
           ) : (
             <div className="animate__animated animate__fadeIn">
               <h2 className="fw-bold mb-2">Bilan</h2>
-              <div className="display-3 fw-bold mb-3 text-primary">{score} / 4</div>
+              <div className="display-3 fw-bold mb-3 text-primary">{score} / {totalQuestions}</div>
 
-              {(score / 4) >= 0.75 ? (
+              {(score / totalQuestions) >= 0.75 ? (
                 <div className="alert alert-success rounded-4 p-3 p-md-4">
                   <p className="small mb-3">Bravo ! Prêt pour la suite ?</p>
                   <button className="btn btn-success rounded-pill px-4 fw-bold w-100" onClick={() => {
