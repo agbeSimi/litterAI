@@ -41,6 +41,7 @@ import PratiqueGuideTesterEgalite2 from "./pages/testerEgalite/pratiqueGuide/Pra
 import PratiqueAutonomeTesterEgalite2 from "./pages/testerEgalite/PratiqueAutonome/PratiqueAutonomeTesterEgalite2.jsx";
 import PratiqueGuideTesterEgalite3 from "./pages/testerEgalite/pratiqueGuide/PratiqueGuideTesterEgalite3.jsx";
 import PratiqueAutonomeTesterEgalite3 from "./pages/testerEgalite/PratiqueAutonome/PratiqueAutonomeTesterEgalite3.jsx";
+import SousAccueilExoInteractif from "./pages/exoInteractif/SousAccueilExoInteractif.jsx";
 
 function App() {
   return (
@@ -76,6 +77,7 @@ function App() {
 
 
 
+        <Route path="/sousAccueilExoInteractif" element={<SousAccueilExoInteractif/>}/>
         <Route path="/modelageInteractif" element={<ModelageInteractif/>}/>
         <Route path="/PratiqueGuideInteractif" element={<PratiqueGuideInteractif/>}/>
         <Route path="/PratiqueAutonomeInteractif" element={<PratiqueAutonomeInteractif/>}/>
