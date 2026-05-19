@@ -34,10 +34,10 @@ function TesterEgalite() {
           <button onClick={() => navigate("/ModelageTesterEgalite1")} className="btn btn-primary rounded-pill border-0 px-5 py-3 fw-bold shadow">
             Phase 1
           </button>
-          <button onClick={() => navigate("/PratiqueAutonomeTesterEgalite2")} className="btn btn-primary rounded-pill border-0 px-5 py-3 fw-bold shadow">
+          <button onClick={() => navigate("/PratiqueGuideTesterEgalite2")} className="btn btn-primary rounded-pill border-0 px-5 py-3 fw-bold shadow">
             Phase 2
           </button>
-          <button onClick={() => navigate("/PratiqueAutonomeTesterEgalite3")} className="btn btn-primary rounded-pill border-0 px-5 py-3 fw-bold shadow">
+          <button onClick={() => navigate("/PratiqueGuideTesterEgalite3")} className="btn btn-primary rounded-pill border-0 px-5 py-3 fw-bold shadow">
             Phase 3
           </button>
         </div>
