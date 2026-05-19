@@ -1,7 +1,7 @@
 import { useState } from "react";
 import logoRobot from "../../../assets/logo_robot.png";
 import { envoyerMessage } from "../../../services/LitterAI_API.js";
-import { useNavigate } from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 
 export default function PratiqueAutonomeCL2() {
   const [exercice, setExercice] = useState(1);
@@ -16,6 +16,11 @@ export default function PratiqueAutonomeCL2() {
   const [isFinished, setIsFinished] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Si l'élève vient de la machine, on prend son choix (5 à 10). Sinon (parcours normal), c'est 4.
+  const totalQuestions = location.state?.totalQuestions || 4;
+
 
   // --- LOGIQUE MATHÉMATIQUE ---
   function genererProgramme() {
@@ -103,7 +108,7 @@ export default function PratiqueAutonomeCL2() {
   }
 
   function exerciceSuivant() {
-    if (exercice < 4) {
+    if (exercice < totalQuestions) {
       setExercice(prev => prev + 1);
       setCurrentEquation(genererProgramme());
       setReponseEleve("");
@@ -126,10 +131,10 @@ export default function PratiqueAutonomeCL2() {
           {!isFinished ? (
             <>
               <div className="progress mb-3 mb-md-4" style={{height: '6px'}}>
-                <div className="progress-bar bg-primary" style={{width: `${((exercice - 1) / 4) * 100}%`}}></div>
+                <div className="progress-bar bg-primary" style={{width: `${((exercice - 1) / totalQuestions) * 100}%`}}></div>
               </div>
 
-              <h6 className="text-muted fw-bold text-uppercase small">Ex {exercice} / 4</h6>
+              <h6 className="text-muted fw-bold text-uppercase small">Ex {exercice} / {totalQuestions}</h6>
               <p className="display-6 display-md-2  my-3 my-md-4 text-dark">
                 Etape 1 :{currentEquation.premierePartie}<br/>
                 Etape 2 : {currentEquation.deuxiemePartie}<br/>
@@ -162,7 +167,7 @@ export default function PratiqueAutonomeCL2() {
                   <button
                     className={`btn ${isCorrect ? 'btn-success' : 'btn-outline-danger'} rounded-pill px-4 px-md-5 fw-bold w-100 w-sm-auto`}
                     onClick={exerciceSuivant}>
-                    {exercice < 4 ? "Suivant →" : "Voir bilan"}
+                    {exercice < totalQuestions ? "Suivant →" : "Voir bilan"}
                   </button>
                 </div>
               )}
@@ -171,9 +176,9 @@ export default function PratiqueAutonomeCL2() {
             /* ÉCRAN BILAN ADAPTÉ */
             <div className="animate__animated animate__fadeIn">
               <h2 className="fw-bold mb-2">Bilan</h2>
-              <div className="display-3 fw-bold mb-3 text-primary">{score} / 4</div>
+              <div className="display-3 fw-bold mb-3 text-primary">{score} / {totalQuestions}</div>
 
-              {(score / 4) >= 0.75 ? (
+              {(score / totalQuestions) >= 0.75 ? (
                 <div className="alert alert-success rounded-4 p-3 p-md-4">
                   <p className="small mb-3">Bravo ! Prêt pour la suite ?</p>
                   <button className="btn btn-success rounded-pill px-4 fw-bold w-100" onClick={() => {
