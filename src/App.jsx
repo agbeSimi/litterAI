@@ -50,6 +50,7 @@ import PageMachineEquations from "./pages/Equation/PageMachineEquations.jsx";
 import PageMachineCalculLitteral from "./pages/CalculLiteral/pageMachineCalculLitteral.jsx";
 import PageMachineTesterEgalite from "./pages/testerEgalite/pageMachineTesterEgalite.jsx";
 import PageMachineExpressionLitteral from "./pages/expressionLittérale/pageMachineExpressionLittérale.jsx";
+import PageMachineExoInteractif from "./pages/exoInteractif/pageMachineExoInteractif.jsx";
 
 function App() {
   return (
@@ -95,6 +96,7 @@ function App() {
 
         <Route path="/sousAccueilExoInteractif" element={<SousAccueilExoInteractif/>}/>
         <Route path="/modelageInteractif" element={<ModelageInteractif/>}/>
+        <Route path="/pageMachineExoInteractif" element={<PageMachineExoInteractif/>}/>
         <Route path="/PratiqueGuideInteractif" element={<PratiqueGuideInteractif/>}/>
         <Route path="/PratiqueAutonomeInteractif" element={<PratiqueAutonomeInteractif/>}/>
 
