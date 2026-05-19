@@ -1,4 +1,4 @@
-import SousAccueilComposant from "../sousAccueil.jsx";
+import SousAccueilComposant from "../../composants/sousAccueilComposant.jsx";
 
 function SousAccueilEquation() {
   return (

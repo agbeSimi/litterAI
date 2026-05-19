@@ -1,6 +1,6 @@
 import logoRobot from "../assets/logo_robot.png";
 import {useNavigate} from "react-router-dom";
-import ModuleCard from "./moduleCard.jsx";
+import ModuleCard from "../composants/moduleCard.jsx";
 
 function Accueil(){
   const navigate = useNavigate();
