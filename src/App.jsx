@@ -49,6 +49,7 @@ import MachineExo from "./MachineExo.jsx";
 import PageMachineEquations from "./pages/Equation/PageMachineEquations.jsx";
 import PageMachineCalculLitteral from "./pages/CalculLiteral/pageMachineCalculLitteral.jsx";
 import PageMachineTesterEgalite from "./pages/testerEgalite/pageMachineTesterEgalite.jsx";
+import PageMachineExpressionLitteral from "./pages/expressionLittérale/pageMachineExpressionLittérale.jsx";
 
 function App() {
   return (
@@ -100,6 +101,7 @@ function App() {
 
         <Route path="/IntroductionIAEL" element={<IntroductionIAEL/>}/>
         <Route path="/SousAccueilExpressionLitterale" element={<SousAccueilExpressionLitterale/>}/>
+        <Route path="/pageMachineExpressionLitteral" element={<PageMachineExpressionLitteral/>}/>
         <Route path="/ModelageExpressionLitterale" element={<ModelageExpressionLitteral/>}/>
         <Route path="/PratiqueGuideEL" element={<PratiqueGuideEL/>}/>
         <Route path="/pratiqueAutonomeEL" element={<PratiqueAutonomeEL/>}/>
