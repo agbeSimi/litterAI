@@ -57,6 +57,8 @@ import SousAccueilCalculerDeveloppement from "./pages/CalculerDeveloppement/Sous
 import ModelageCalculDeveloppement from "./pages/CalculerDeveloppement/Modelage/ModelageCalculDeveloppement.jsx";
 import PratiqueGuideCalculDeveloppement
   from "./pages/CalculerDeveloppement/pratiqueGuide/pratiqueGuideCalculDeveloppement.jsx";
+import PratiqueAutonomeDeveloppement
+  from "./pages/CalculerDeveloppement/pratiqueAutonome/PratiqueAutonomeDeveloppement.jsx";
 
 function App() {
   return (
@@ -132,6 +134,7 @@ function App() {
         <Route path="pageMachineCalculerDeveloppement" element={<PageMachineCalculerDeveloppement/>}/>
         <Route path="/ModelageCalculDeveloppement" element={<ModelageCalculDeveloppement/>}/>
         <Route path="/PratiqueGuideCalculDeveloppement" element={<PratiqueGuideCalculDeveloppement/>}/>
+        <Route path="/PratiqueAutonomeDeveloppement" element={<PratiqueAutonomeDeveloppement/>}/>
 
       </Routes>
     </Router>
