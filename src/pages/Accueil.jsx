@@ -35,6 +35,10 @@ function Accueil(){
           {/* Conteneur pour tes cartes */}
           <div className="d-flex flex-wrap justify-content-center gap-4">
             <ModuleCard
+              titre="Module 0: Calculer astucieusement grâce au développement"
+              description="--"
+              path="/SousAccueilCalculerDeveloppement"/>
+            <ModuleCard
               titre="Module 0: Exercice Interactif"
               description="Apprends à construire des programmes de calcul en manipulant des cartes et valide chaque étape pour maîtriser le raisonnement logique."
               path="/SousAccueilExoInteractif"/>
