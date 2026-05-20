@@ -55,6 +55,8 @@ import SousAccueilTesterEgalite from "./pages/testerEgalite/SousAccueilTesterEga
 import PageMachineCalculerDeveloppement from "./pages/CalculerDeveloppement/pageMachineCalculerDeveloppement.jsx";
 import SousAccueilCalculerDeveloppement from "./pages/CalculerDeveloppement/SousAccueilCalculerDeveloppement.jsx";
 import ModelageCalculDeveloppement from "./pages/CalculerDeveloppement/Modelage/ModelageCalculDeveloppement.jsx";
+import PratiqueGuideCalculDeveloppement
+  from "./pages/CalculerDeveloppement/pratiqueGuide/pratiqueGuideCalculDeveloppement.jsx";
 
 function App() {
   return (
@@ -129,6 +131,7 @@ function App() {
         <Route path="/SousAccueilCalculerDeveloppement" element={<SousAccueilCalculerDeveloppement/>}/>
         <Route path="pageMachineCalculerDeveloppement" element={<PageMachineCalculerDeveloppement/>}/>
         <Route path="/ModelageCalculDeveloppement" element={<ModelageCalculDeveloppement/>}/>
+        <Route path="/PratiqueGuideCalculDeveloppement" element={<PratiqueGuideCalculDeveloppement/>}/>
 
       </Routes>
     </Router>
