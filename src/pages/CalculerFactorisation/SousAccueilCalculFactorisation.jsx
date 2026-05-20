@@ -2,7 +2,7 @@ import SousAccueilComposant from "../../composants/sousAccueilComposant.jsx";
 
 function SousAccueilCalculFactorisation() {
   return (
-    <SousAccueilComposant titre="Le calcul littérale  🖩"
+    <SousAccueilComposant titre="Calculer astucieusement grâce à la factorisation  🖩"
                           pathParcourComplet="/introductionCalculFactorisation"
                           pathMachine="/pageMachineCalculFactorisation"
     />
