@@ -1,0 +1,96 @@
+import {useNavigate} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {envoyerMessage} from "../../services/LitterAI_API.js";
+import logoRobot from "../../assets/logo_robot.png";
+
+
+export default function IntroductionCalculFactorisation() {
+  const navigate = useNavigate();
+  const [conversationIA, setConversationIA] = useState([]);
+  const [isWorking, setIsWorking] = useState(false);
+
+  async function discussionIA(messageUtilisateur = "") {
+    setIsWorking(true);
+    const nouveauMessage = {role: "user", content: messageUtilisateur};
+    const historique = [...conversationIA, nouveauMessage];
+    const promptSysteme = {
+      role: "system",
+      content:`RÔLE
+          Tu es LitterAl, un tuteur socratique de maths pour un élève de 4ème. Ton but est de lui faire découvrir le calcul astucieux via la factorisation.
+          
+          MISSION : CALCUL ASTUCIEUX PAR FACTORISATION
+          1. PREMIER MESSAGE (Phase 1) : 
+             - Écris exactement : "Salut ! Prêt pour un défi ? Comment calculerais-tu de tête 13 * 5 - 3 * 5 le plus vite possible ?"
+             - ARRÊTE-TOI ICI.
+          
+          2. GESTION DE LA RÉFLEXION (Phase 2) :
+             - Si l'élève veut calculer 13 * 5 puis 3 * 5, dis-lui qu'il y a une astuce pour regrouper le calcul et aller plus vite.
+             - Demande-lui quel nombre se répète dans les deux multiplications.
+             - L'objectif est qu'il trouve le facteur commun : 5.
+             - SI L'ÉLÈVE EST COINCÉ : Dis-lui simplement que le 5 apparaît deux fois, et demande-lui comment l'utiliser pour mettre en facteur.
+          
+          3. GESTION DU CALCUL ET CONCLUSION (Phase 3) :
+             - Guide-le pour écrire l'expression avec des parenthèses : 5 * (13 - 3).
+             - Fais-lui calculer la parenthèse (10), puis le résultat de 5 * 10 (50).
+             - Conclus en expliquant que c'est le principe de la factorisation : on a utilisé la règle a * b - a * c = a * (b - c).
+          
+          RÈGLES DE FORMATAGE STRICTES
+          - DÉBLOCAGE : Si l'élève dit qu'il ne sait pas ou se trompe 2 fois de suite, donne-lui l'explication et la méthode pas à pas.
+          - MATHÉMATIQUES : N'utilise JAMAIS de code LaTeX. N'utilise absolument AUCUN symbole $ ni de barre oblique (\\\\). Pour multiplier, utilise uniquement l'astérisque (*).
+          - BRIÈVETÉ : 3 lignes maximum par message.
+          - UNE SEULE QUESTION : Ne pose jamais deux questions à la fois.
+          - ZÉRO GRAS : Pas de doubles étoiles.`
+    };
+    await envoyerMessage([promptSysteme, ...historique], setConversationIA, "", () => {
+    }, setIsWorking);
+  }
+
+  useEffect(() => {
+    const initChat = async () => {
+      await discussionIA();
+    };
+    initChat();
+  }, []);
+
+  return(
+    <div className="bg-white border-start shadow-sm d-flex flex-column"
+         style={{width: '100%', maxWidth: '100%', height: '100vh', flexBasis: '420px'}}>
+      <div className="p-2 p-md-3 border-bottom text-center bg-white d-none d-md-block">
+        <img src={logoRobot} alt="Robot" style={{width: '50px'}}/>
+        <h6 className="fw-bold mb-0">LitterAl</h6>
+      </div>
+
+      <div className="flex-grow-1 overflow-auto p-3 bg-light">
+        <>
+          {(conversationIA || []).filter(m => m.role !== 'system' && m.content.trim() !== "").map((m, i) => (
+            <div key={i}
+                 className={`mb-2 p-2 rounded-4 shadow-sm small ${m.role === 'user' ? 'bg-primary text-white ms-4' : 'bg-white me-4 border'}`}>
+              {m.content}
+            </div>
+          ))}
+          {isWorking && <div className="text-muted small p-2 text-center">LitterAl réfléchit...</div>}
+        </>
+      </div>
+
+      <div className="p-2 p-md-3 border-top bg-white">
+        <div className="input-group shadow-sm rounded-pill overflow-hidden border">
+          <input
+            type="text"
+            className="form-control border-0 px-3"
+            style={{fontSize: '0.9rem'}}
+            placeholder="Question au robot..."
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && e.target.value.trim() !== "") {
+                discussionIA(e.target.value);
+                e.target.value = "";
+              }
+            }}
+          />
+        </div>
+      </div>
+      <button onClick={() => navigate("/ModelageCalculFactorisation")} className="btn btn-primary btn-sm px-md-5 py-md-3 px-4 rounded-pill fw-bold d-flex flex-wrap justify-content-center gap-3 mt-4 border-0" >
+        Passer l'introduction
+      </button>
+    </div>
+  );
+}
