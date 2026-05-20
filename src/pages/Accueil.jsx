@@ -39,6 +39,10 @@ function Accueil(){
               description="--"
               path="/SousAccueilCalculerDeveloppement"/>
             <ModuleCard
+            titre="Module 0: Calculer astucieusement grâce à la factorisation"
+            description="--"
+            path="/SousAccueilCalculerFactorisation"/>
+            <ModuleCard
               titre="Module 0: Exercice Interactif"
               description="Apprends à construire des programmes de calcul en manipulant des cartes et valide chaque étape pour maîtriser le raisonnement logique."
               path="/SousAccueilExoInteractif"/>
