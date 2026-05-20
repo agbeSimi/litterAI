@@ -11,7 +11,7 @@ function PageMachineEquations() {
   // 2. Tu injectes ces données dans ton composant universel
   return (
     <MachineExo
-      titreModule="Chapitre : Tester les égalités"
+      titreModule="Chapitre : Résoudre des équations"
       listeNiveaux={niveauxEquations}
     />
   );
