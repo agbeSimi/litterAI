@@ -35,36 +35,36 @@ function Accueil(){
           {/* Conteneur pour tes cartes */}
           <div className="d-flex flex-wrap justify-content-center gap-4">
             <ModuleCard
-              titre="Module 0: Calculer astucieusement grâce au développement"
-              description="--"
+              titre="Module 1: Calculer astucieusement grâce au développement"
+              description="Transforme des multiplications complexes en opérations simples et super rapides de tête en apprenant à décomposer les nombres grâce à la distributivité !"
               path="/SousAccueilCalculerDeveloppement"/>
             <ModuleCard
-            titre="Module 0: Calculer astucieusement grâce à la factorisation"
-            description="--"
+            titre="Module 2: Calculer astucieusement grâce à la factorisation"
+            description="Repère le nombre qui se répète dans un calcul pour le mettre en facteur et regrouper les morceaux."
             path="/SousAccueilCalculFactorisation"/>
             <ModuleCard
-              titre="Module 0: Exercice Interactif"
+              titre="Module 3: Comprendre un programme de calcul"
               description="Apprends à construire des programmes de calcul en manipulant des cartes et valide chaque étape pour maîtriser le raisonnement logique."
               path="/SousAccueilExoInteractif"/>
             <ModuleCard
-              titre="Module 1: Calcul Littéral"
+              titre="Module 4: Introduction au calcul littéral"
               description="Passer des phrases aux formules et comprendre le rôle des lettres."
               path="/SousAccueilCalculLitteral"
             />
 
             <ModuleCard
-              titre="Module 2: Simplifier une expression littérale"
+              titre="Module 5: Simplifier une expression littérale"
               description="Écris plus vite, comme un pro ! Apprends à supprimer les signes 'x' inutiles pour raccourcir tes formules et simplifier tes calculs en un clin d'œil."
               path="/SousAccueilExpressionLitterale"/>
 
             <ModuleCard
-              titre="Module 3: Tester une Égalité"
+              titre="Module 6: Tester une Égalité"
               description="Apprends à remplacer les lettres par des nombres pour vérifier, étape par étape, si le membre de gauche et le membre de droite sont parfaitement égaux."
               path="/SousAccueilTesterEgalite"
             />
 
             <ModuleCard
-              titre="Module 4: Les Équations"
+              titre="Module 7: Résolution d'équation"
             description="Apprendre à isoler x et maîtriser la balance algébrique."
             path="/sousAccueilEquation"
             />
