@@ -59,6 +59,7 @@ import PratiqueGuideCalculDeveloppement
   from "./pages/CalculerDeveloppement/pratiqueGuide/pratiqueGuideCalculDeveloppement.jsx";
 import PratiqueAutonomeDeveloppement
   from "./pages/CalculerDeveloppement/pratiqueAutonome/PratiqueAutonomeDeveloppement.jsx";
+import IntroductionCalculFactorisation from "./pages/CalculerFactorisation/IntroductionCalculFactorisation.jsx";
 
 function App() {
   return (
@@ -135,6 +136,9 @@ function App() {
         <Route path="/ModelageCalculDeveloppement" element={<ModelageCalculDeveloppement/>}/>
         <Route path="/PratiqueGuideCalculDeveloppement" element={<PratiqueGuideCalculDeveloppement/>}/>
         <Route path="/PratiqueAutonomeDeveloppement" element={<PratiqueAutonomeDeveloppement/>}/>
+
+
+        <Route path="/IntroductionCalculFactorisation" element={<IntroductionCalculFactorisation/>}/>
 
       </Routes>
     </Router>
