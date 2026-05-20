@@ -43,7 +43,6 @@ import PratiqueAutonomeTesterEgalite3 from "./pages/testerEgalite/PratiqueAutono
 import SousAccueilExoInteractif from "./pages/exoInteractif/SousAccueilExoInteractif.jsx";
 import SousAccueilCalculLitteral from "./pages/CalculLiteral/sousAccueilCalculLitteral.jsx";
 import SousAccueilExpressionLitterale from "./pages/expressionLittérale/SousAccueilExpressionLitterale.jsx";
-import SousAccueilTesterEgalite from "./pages/testerEgalite/SousAccueilTesterEgalite.jsx";
 import SousAccueilEquation from "./pages/Equation/SousAccueilEquation.jsx";
 import MachineExo from "./MachineExo.jsx";
 import PageMachineEquations from "./pages/Equation/PageMachineEquations.jsx";
@@ -51,6 +50,10 @@ import PageMachineCalculLitteral from "./pages/CalculLiteral/pageMachineCalculLi
 import PageMachineTesterEgalite from "./pages/testerEgalite/pageMachineTesterEgalite.jsx";
 import PageMachineExpressionLitteral from "./pages/expressionLittérale/pageMachineExpressionLittérale.jsx";
 import PageMachineExoInteractif from "./pages/exoInteractif/pageMachineExoInteractif.jsx";
+import IntroductionCalculerDeveloppement from "./pages/CalculerDeveloppement/IntroductionCalculerDeveloppement.jsx";
+import SousAccueilTesterEgalite from "./pages/testerEgalite/SousAccueilTesterEgalite.jsx";
+import PageMachineCalculerDeveloppement from "./pages/CalculerDeveloppement/pageMachineCalculerDeveloppement.jsx";
+import SousAccueilCalculerDeveloppement from "./pages/CalculerDeveloppement/SousAccueilCalculerDeveloppement.jsx";
 
 function App() {
   return (
@@ -62,7 +65,6 @@ function App() {
 
 
         <Route path="/machineExo" element={<MachineExo/>}/>
-
 
         <Route path="/equation" element={<PageEquation/>}/>
         <Route path="/sousAccueilEquation" element={<SousAccueilEquation/>}/>
@@ -111,8 +113,8 @@ function App() {
 
         <Route path="/introductionEgalite" element={<IntroductionEgalite/>}/>
         <Route path="/SousAccueilTesterEgalite" element={<SousAccueilTesterEgalite/>}/>
-        <Route path="/TesterEgalite" element={<TesterEgalite/>}/>
         <Route path="pageMachineTesterEgalite" element={<PageMachineTesterEgalite/>}/>
+        <Route path="/TesterEgalite" element={<TesterEgalite/>}/>
 
         <Route path="/ModelageTesterEgalite1" element={<ModelageTesterEgalite1/>}/>
         <Route path="/PratiqueGuideTesterEgalite1" element={<PratiqueGuideTesterEgalite1/>}/>
@@ -121,6 +123,11 @@ function App() {
         <Route path="/PratiqueAutonomeTesterEgalite1" element={<PratiqueAutonomeTesterEgalite1/>}/>
         <Route path="/PratiqueAutonomeTesterEgalite2" element={<PratiqueAutonomeTesterEgalite2/>}/>
         <Route path="/PratiqueAutonomeTesterEgalite3" element={<PratiqueAutonomeTesterEgalite3/>}/>
+
+        <Route path="/IntroductionCalculerDeveloppement" element={<IntroductionCalculerDeveloppement/>}/>
+        <Route path="/SousAccueilCalculerDeveloppement" element={<SousAccueilCalculerDeveloppement/>}/>
+        <Route path="pageMachineCalculerDeveloppement" element={<PageMachineCalculerDeveloppement/>}/>
+
       </Routes>
     </Router>
   );
