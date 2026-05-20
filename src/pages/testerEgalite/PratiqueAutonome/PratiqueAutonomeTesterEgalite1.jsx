@@ -175,7 +175,7 @@ function PratiqueAutonomeTesterEgalite1() {
                 <div className="progress-bar bg-primary" style={{ width: `${((exercice - 1) / totalQuestions) * 100}%` }}></div>
               </div>
 
-              <h6 className="text-muted fw-bold text-uppercase small">Niveau {niveau} — Ex {exercice} / {totalQuestions}</h6>
+              <h6 className="text-muted fw-bold text-uppercase small">Niveau 1 — Ex {exercice} / {totalQuestions}</h6>
 
               <div className="bg-light p-3 rounded-4 border my-3 text-center w-100">
                 <p className="small text-muted mb-1">Tester pour <span className="fw-bold text-primary">x = {equation.x}</span> :</p>
