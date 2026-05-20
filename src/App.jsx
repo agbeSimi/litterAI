@@ -60,6 +60,8 @@ import PratiqueGuideCalculDeveloppement
 import PratiqueAutonomeDeveloppement
   from "./pages/CalculerDeveloppement/pratiqueAutonome/PratiqueAutonomeDeveloppement.jsx";
 import IntroductionCalculFactorisation from "./pages/CalculerFactorisation/IntroductionCalculFactorisation.jsx";
+import SousAccueilCalculFactorisation from "./pages/CalculerFactorisation/SousAccueilCalculFactorisation.jsx";
+import PageMachineCalculFactorisation from "./pages/CalculerFactorisation/pageMachineCalculFactorisation.jsx";
 
 function App() {
   return (
@@ -132,14 +134,15 @@ function App() {
 
         <Route path="/IntroductionCalculerDeveloppement" element={<IntroductionCalculerDeveloppement/>}/>
         <Route path="/SousAccueilCalculerDeveloppement" element={<SousAccueilCalculerDeveloppement/>}/>
-        <Route path="pageMachineCalculerDeveloppement" element={<PageMachineCalculerDeveloppement/>}/>
+        <Route path="/PageMachineCalculerDeveloppement" element={<PageMachineCalculerDeveloppement/>}/>
         <Route path="/ModelageCalculDeveloppement" element={<ModelageCalculDeveloppement/>}/>
         <Route path="/PratiqueGuideCalculDeveloppement" element={<PratiqueGuideCalculDeveloppement/>}/>
         <Route path="/PratiqueAutonomeDeveloppement" element={<PratiqueAutonomeDeveloppement/>}/>
 
 
         <Route path="/IntroductionCalculFactorisation" element={<IntroductionCalculFactorisation/>}/>
-
+        <Route path="/SousAccueilCalculerFactorisation" element={<SousAccueilCalculFactorisation/>}/>
+        <Route path="/PageMachineCalculerFactorisation" element={<PageMachineCalculFactorisation/>}/>
       </Routes>
     </Router>
   );
