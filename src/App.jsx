@@ -54,6 +54,7 @@ import IntroductionCalculerDeveloppement from "./pages/CalculerDeveloppement/Int
 import SousAccueilTesterEgalite from "./pages/testerEgalite/SousAccueilTesterEgalite.jsx";
 import PageMachineCalculerDeveloppement from "./pages/CalculerDeveloppement/pageMachineCalculerDeveloppement.jsx";
 import SousAccueilCalculerDeveloppement from "./pages/CalculerDeveloppement/SousAccueilCalculerDeveloppement.jsx";
+import ModelageCalculDeveloppement from "./pages/CalculerDeveloppement/Modelage/ModelageCalculDeveloppement.jsx";
 
 function App() {
   return (
@@ -127,6 +128,7 @@ function App() {
         <Route path="/IntroductionCalculerDeveloppement" element={<IntroductionCalculerDeveloppement/>}/>
         <Route path="/SousAccueilCalculerDeveloppement" element={<SousAccueilCalculerDeveloppement/>}/>
         <Route path="pageMachineCalculerDeveloppement" element={<PageMachineCalculerDeveloppement/>}/>
+        <Route path="/ModelageCalculDeveloppement" element={<ModelageCalculDeveloppement/>}/>
 
       </Routes>
     </Router>
