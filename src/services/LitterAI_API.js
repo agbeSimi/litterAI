@@ -6,8 +6,8 @@ export function lancerExercice(conversation, setConversation, setIsWorking, prom
   fetch(`${URL_BASE}/ia/groq`, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
+      'Content-Type': 'application/ld+json',
+      'Accept': 'application/ld+json',
     },
     body: JSON.stringify({
       question: prompt,
@@ -37,8 +37,8 @@ export function envoyerMessage(conversation, setConversation, input, setInput, s
   fetch(`${URL_BASE}/ia/groq`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
+        'Content-Type': 'application/ld+json',
+        'Accept': 'application/ld+json',
       },
       body: JSON.stringify({
         question: input,
@@ -86,8 +86,8 @@ export async function handleSubmit(setIsWorking,
     const response = await fetch(`${URL_BASE}/contact_requests`, {
       method :'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
+        'Content-Type': 'application/ld+json',
+        'Accept': 'application/ld+json',
       },
       body: JSON.stringify(data)
   });
