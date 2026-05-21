@@ -8,7 +8,7 @@ function PratiqueAutonomeTesterEgalite1() {
 
     const [exercice, setExercice] = useState(1);
   const [score, setScore] = useState(0);
-  const [niveau, setNiveau] = useState(0);
+  const [niveau, setNiveau] = useState(1);
   const [equation, setEquation] = useState(null);
   const [progression, setProgression] = useState(0);
 

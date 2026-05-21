@@ -8,7 +8,7 @@ function PratiqueAutonomeTesterEgalite2() {
 
     const [exercice, setExercice] = useState(1);
   const [score, setScore] = useState(0);
-  const [niveau, setNiveau] = useState(0);
+  const [niveau, setNiveau] = useState(2);
   const [equation, setEquation] = useState(null);
   const [progression, setProgression] = useState(0);
 
@@ -280,9 +280,8 @@ function PratiqueAutonomeTesterEgalite2() {
                   <p className="small mb-3">Bravo ! Prêt pour la suite ?</p>
                   <button className="btn btn-success rounded-pill px-4 fw-bold w-100" onClick={() => {
                     const prochain = niveau + 1;
-                    if (prochain <= 2) {
+                    if (prochain <= 3) {
                       setNiveau(prochain);
-                      setExercice(1);
                       setScore(0);
                       setIsFinished(false);
                       navigate("/PratiqueGuideTesterEgalite3");

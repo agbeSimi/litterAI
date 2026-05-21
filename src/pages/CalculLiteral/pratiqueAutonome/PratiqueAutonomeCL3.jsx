@@ -208,7 +208,7 @@ export default function PratiqueAutonomeCL3() {
               <h2 className="fw-bold mb-2">Bilan</h2>
               <div className="display-3 fw-bold mb-3 text-primary">{score} / {totalQuestions}</div>
 
-              {(score / totalQuestions) >= 0 ? (
+              {(score / totalQuestions) >= 0.75? (
                 <div className="alert alert-success rounded-4 p-3 p-md-4">
                   <p className="small mb-3">Bravo ! Prêt pour la suite ?</p>
                   <button className="btn btn-success rounded-pill px-4 fw-bold w-100" onClick={() => {
