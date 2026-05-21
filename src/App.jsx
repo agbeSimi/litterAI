@@ -8,7 +8,6 @@ import Accueil from "./pages/Accueil.jsx";
 import Credit from "./pages/Credit.jsx";
 import ModelageCalculLiteralPhase2 from "./pages/CalculLiteral/modelage/ModelageCalculLiteralPhase2.jsx";
 import CalculLiteral from "./pages/CalculLiteral/CalculLiteral.jsx";
-import IntroductionIA from "./pages/CalculLiteral/introductionIA.jsx";
 import PratiqueGuidePhase2CL from "./pages/CalculLiteral/pratiqueGuide/pratiqueGuidePhase2CL.jsx";
 import ModelageCalculLiteralPhase1 from "./pages/CalculLiteral/modelage/ModelageCalculLiteralPhase1.jsx";
 import ModelageCalculLiteralPhase3 from "./pages/CalculLiteral/modelage/ModelageCalculLiteralPhase3.jsx";
@@ -67,6 +66,7 @@ import PratiqueGuideCalculFactorisation
   from "./pages/CalculerFactorisation/pratiqueGuide/pratiqueGuideCalculFactorisation.jsx";
 import PratiqueAutonomeFactorisation
   from "./pages/CalculerFactorisation/pratiqueAutonome/PratiqueAutonomeFactorisation.jsx";
+import IntroductionCalculLitteral from "./pages/CalculLiteral/introductionCalculLitteral.jsx";
 
 function App() {
   return (
@@ -95,7 +95,7 @@ function App() {
 
         <Route path="/calculLitteral" element={<CalculLiteral/>}/>
         <Route path="/sousAccueilCalculLitteral" element={<SousAccueilCalculLitteral/>}/>
-        <Route path="/introductionIA" element={<IntroductionIA/>}/>
+        <Route path="/IntroductionCalculLitteral" element={<IntroductionCalculLitteral/>}/>
         <Route path="/ModelageCalculLiteralPhase1" element={<ModelageCalculLiteralPhase1/>}/>
         <Route path="/modelageCalculLiteralPhase2" element={<ModelageCalculLiteralPhase2/>}/>
         <Route path="/modelageCalculLiteralPhase3" element={<ModelageCalculLiteralPhase3/>}/>
