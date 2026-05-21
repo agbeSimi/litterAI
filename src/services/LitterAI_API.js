@@ -1,5 +1,5 @@
 
-const URL_BASE = 'https://127.0.0.1:8000/api'
+const URL_BASE = 'https://litter-api.onrender.com/api'
 
 export function lancerExercice(conversation, setConversation, setIsWorking, prompt) {
   setIsWorking(true);
