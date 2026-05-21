@@ -69,7 +69,7 @@ function ModelageCalculFactorisation() {
             {afficheVideo && (
               <div className="mt-3">
                 <video controls width="100%" className="rounded-4">
-                  {/*<source src="/videos/Niveau-1-1-Introduction-au-calcul-litteral.mp4" type="video/mp4" />*/}
+                  <source src="/videos/Niveau-3-2-La-factorisation-pour-calculer.mp4" type="video/mp4" />
                   Votre navigateur ne supporte pas la lecture de vidéos.
                 </video>
               </div>
