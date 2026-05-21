@@ -6,7 +6,7 @@ import {useLocation, useNavigate} from "react-router-dom";
 export default function PratiqueAutonomeCL3() {
   const [exercice, setExercice] = useState(1);
   const [score, setScore] = useState(0);
-  const [niveau, setNiveau] = useState(0);
+  const [niveau, setNiveau] = useState(3);
   const [currentEquation, setCurrentEquation] = useState(genererProgramme());
   const [reponseEtape1, setReponseEtape1] = useState("");
   const [reponseEtape2, setReponseEtape2] = useState("");
@@ -208,12 +208,12 @@ export default function PratiqueAutonomeCL3() {
               <h2 className="fw-bold mb-2">Bilan</h2>
               <div className="display-3 fw-bold mb-3 text-primary">{score} / {totalQuestions}</div>
 
-              {(score / totalQuestions) >= 0.75 ? (
+              {(score / totalQuestions) >= 0 ? (
                 <div className="alert alert-success rounded-4 p-3 p-md-4">
                   <p className="small mb-3">Bravo ! Prêt pour la suite ?</p>
                   <button className="btn btn-success rounded-pill px-4 fw-bold w-100" onClick={() => {
                     const prochain = niveau + 1;
-                    if (prochain <= 2) {
+                    if (prochain <= 3) {
                       setNiveau(prochain);
                       setExercice(1);
                       setScore(0);
@@ -228,7 +228,7 @@ export default function PratiqueAutonomeCL3() {
                       navigate("/");
                     }
                   }}>
-                    {niveau < 2 ? "Niveau Suivant" : "Terminer"}
+                    {niveau < 3 ? "Niveau Suivant" : "Terminer"}
                   </button>
                 </div>
               ) : (

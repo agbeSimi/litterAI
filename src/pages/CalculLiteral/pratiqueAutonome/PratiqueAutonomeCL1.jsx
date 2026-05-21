@@ -6,7 +6,7 @@ import {useLocation, useNavigate} from "react-router-dom";
 export default function PratiqueAutonomeCL1() {
   const [exercice, setExercice] = useState(1);
   const [score, setScore] = useState(0);
-  const [niveau, setNiveau] = useState(0);
+  const [niveau, setNiveau] = useState(1);
   const [currentEquation, setCurrentEquation] = useState(genererCalculLiteral());
   const [reponseEleve, setReponseEleve] = useState("");
   const [message, setMessage] = useState("");
@@ -156,6 +156,7 @@ export default function PratiqueAutonomeCL1() {
                       setMessage("");
                       setIsCorrect(null);
                       setConversationIA([]);
+                      navigate("/modelageCalculLiteralPhase2")
                     } else {
                       navigate("/");
                     }

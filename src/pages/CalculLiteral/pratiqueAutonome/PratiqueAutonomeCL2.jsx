@@ -6,7 +6,7 @@ import {useLocation, useNavigate} from "react-router-dom";
 export default function PratiqueAutonomeCL2() {
   const [exercice, setExercice] = useState(1);
   const [score, setScore] = useState(0);
-  const [niveau, setNiveau] = useState(0);
+  const [niveau, setNiveau] = useState(2);
   const [currentEquation, setCurrentEquation] = useState(genererProgramme());
   const [reponseEleve, setReponseEleve] = useState("");
   const [message, setMessage] = useState("");
@@ -55,7 +55,7 @@ export default function PratiqueAutonomeCL2() {
     setIsWorking(true);
 
     const a = currentEquation.a;
-    const b = currentEquation.b;
+    // const b = currentEquation.b;
     // const x = currentEquation.x;
 
     const contenuUser = messageUtilisateur || `Je n'arrive pas à traduire le programme en formule. J'ai écrit "${reponseEleve}". Peux-tu m'aider étape par étape ?`;
@@ -183,7 +183,7 @@ export default function PratiqueAutonomeCL2() {
                   <p className="small mb-3">Bravo ! Prêt pour la suite ?</p>
                   <button className="btn btn-success rounded-pill px-4 fw-bold w-100" onClick={() => {
                     const prochain = niveau + 1;
-                    if (prochain <= 2) {
+                    if (prochain <= 3) {
                       setNiveau(prochain);
                       setExercice(1);
                       setScore(0);
@@ -192,11 +192,12 @@ export default function PratiqueAutonomeCL2() {
                       setMessage("");
                       setIsCorrect(null);
                       setConversationIA([]);
+                      navigate("/modelageCalculLiteralPhase3")
                     } else {
                       navigate("/");
                     }
                   }}>
-                    {niveau < 2 ? "Niveau Suivant" : "Terminer"}
+                    {niveau < 3 ? "Niveau Suivant" : "Terminer"}
                   </button>
                 </div>
               ) : (
