@@ -69,6 +69,7 @@ import PratiqueAutonomeFactorisation
 import IntroductionCalculLitteral from "./pages/CalculLiteral/introductionCalculLitteral.jsx";
 import PageMachineDevExp from "./pages/DevelopperUneExpressionSimple/pageMachineDevExp.jsx";
 import SousAccueilDevExp from "./pages/DevelopperUneExpressionSimple/sousAccueilDevExp.jsx";
+import IntroductionDevExp from "./pages/DevelopperUneExpressionSimple/introductionDevExp.jsx";
 
 function App() {
   return (
@@ -156,6 +157,8 @@ function App() {
 
         <Route path="/PageMachineDevExp" element={<PageMachineDevExp/>}/>
         <Route path="/SousAccueilDevExp" element={<SousAccueilDevExp/>}/>
+        <Route path="/IntroductionDevExp" element={<IntroductionDevExp/>}/>
+
 
       </Routes>
     </Router>
