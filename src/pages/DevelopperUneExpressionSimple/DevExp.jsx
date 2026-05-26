@@ -29,10 +29,10 @@ function DevExp() {
           <button onClick={() => navigate("/ModelageDevExp")} className="btn btn-primary rounded-pill border-0 px-5 py-3 fw-bold shadow">
             Phase 1
           </button>
-        <button onClick={() => navigate("/ModelageDevExp")} className="btn btn-primary rounded-pill border-0 px-5 py-3 fw-bold shadow">
+        <button onClick={() => navigate("/ModelageDevExp2")} className="btn btn-primary rounded-pill border-0 px-5 py-3 fw-bold shadow">
           Phase 2
         </button>
-          <button onClick={() => navigate("/ModelageDevExp")} className="btn btn-primary rounded-pill border-0 px-5 py-3 fw-bold shadow">
+          <button onClick={() => navigate("/ModelageDevExp3")} className="btn btn-primary rounded-pill border-0 px-5 py-3 fw-bold shadow">
             Phase 3
           </button>
       </div>
