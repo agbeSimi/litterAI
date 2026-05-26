@@ -1,9 +1,9 @@
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {motion} from "framer-motion";
-import ExempleResolutionDevExp from "../ExempleResolutionDevExp.jsx";
+import ExempleResolutionDevExp2 from "../ExempleResolutionDevExp2.jsx";
 
-function ModelageDevExp() {
+function ModelageDevExp2() {
   const [afficheVideo, setAfficheVideo] = useState(false);
   const goToVideo = () => {
     setAfficheVideo( !afficheVideo );
@@ -36,7 +36,7 @@ function ModelageDevExp() {
 
 
             {/* --- Résolution Sombre --- */}
-            <ExempleResolutionDevExp/>
+            <ExempleResolutionDevExp2/>
 
 
             {/* --- Actions --- */}
@@ -62,7 +62,7 @@ function ModelageDevExp() {
                   scale: 1.02
                 }}
               >
-                <button onClick={() => navigate("/PratiqueGuideDevExpP1")} className="btn btn-sm px-md-5 py-md-3 px-4 rounded-pill fw-bold d-flex flex-wrap justify-content-center gap-3 mt-4" style={{ backgroundColor: 'deepskyblue', color: 'white' }}>
+                <button onClick={() => navigate("/PratiqueGuideDevExpP2")} className="btn btn-sm px-md-5 py-md-3 px-4 rounded-pill fw-bold d-flex flex-wrap justify-content-center gap-3 mt-4" style={{ backgroundColor: 'deepskyblue', color: 'white' }}>
                   Pratique Guidée
                 </button>
               </motion.div>
@@ -83,4 +83,4 @@ function ModelageDevExp() {
   )
 }
 
-export default ModelageDevExp;
+export default ModelageDevExp2;
