@@ -71,6 +71,7 @@ import PageMachineDevExp from "./pages/DevelopperUneExpressionSimple/pageMachine
 import SousAccueilDevExp from "./pages/DevelopperUneExpressionSimple/sousAccueilDevExp.jsx";
 import IntroductionDevExp from "./pages/DevelopperUneExpressionSimple/introductionDevExp.jsx";
 import DevExp from "./pages/DevelopperUneExpressionSimple/DevExp.jsx";
+import ModelageDevExp from "./pages/DevelopperUneExpressionSimple/Modelage/ModelageDevExp.jsx";
 
 function App() {
   return (
@@ -160,6 +161,8 @@ function App() {
         <Route path="/SousAccueilDevExp" element={<SousAccueilDevExp/>}/>
         <Route path="/IntroductionDevExp" element={<IntroductionDevExp/>}/>
         <Route path="/DevExp" element={<DevExp/>}/>
+        <Route path="/ModelageDevExp" element={<ModelageDevExp/>}/>
+
 
 
       </Routes>
