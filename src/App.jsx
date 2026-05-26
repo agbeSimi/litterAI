@@ -72,6 +72,7 @@ import SousAccueilDevExp from "./pages/DevelopperUneExpressionSimple/sousAccueil
 import IntroductionDevExp from "./pages/DevelopperUneExpressionSimple/introductionDevExp.jsx";
 import DevExp from "./pages/DevelopperUneExpressionSimple/DevExp.jsx";
 import ModelageDevExp from "./pages/DevelopperUneExpressionSimple/Modelage/ModelageDevExp.jsx";
+import PratiqueGuideDevExp from "./pages/DevelopperUneExpressionSimple/PratiqueGuide/pratiqueGuideDevExp.jsx";
 
 function App() {
   return (
@@ -162,6 +163,7 @@ function App() {
         <Route path="/IntroductionDevExp" element={<IntroductionDevExp/>}/>
         <Route path="/DevExp" element={<DevExp/>}/>
         <Route path="/ModelageDevExp" element={<ModelageDevExp/>}/>
+        <Route path="/PratiqueGuideDevExp" element={<PratiqueGuideDevExp/>}/>
 
 
 
