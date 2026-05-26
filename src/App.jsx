@@ -72,7 +72,9 @@ import SousAccueilDevExp from "./pages/DevelopperUneExpressionSimple/sousAccueil
 import IntroductionDevExp from "./pages/DevelopperUneExpressionSimple/introductionDevExp.jsx";
 import DevExp from "./pages/DevelopperUneExpressionSimple/DevExp.jsx";
 import ModelageDevExp from "./pages/DevelopperUneExpressionSimple/Modelage/ModelageDevExp.jsx";
-import PratiqueGuideDevExp from "./pages/DevelopperUneExpressionSimple/PratiqueGuide/pratiqueGuideDevExp.jsx";
+import PratiqueGuideDevExpP1 from "./pages/DevelopperUneExpressionSimple/PratiqueGuide/pratiqueGuideDevExpP1.jsx";
+import PratiqueGuideDevExpP2 from "./pages/DevelopperUneExpressionSimple/PratiqueGuide/pratiqueGuideDevExpP2.jsx";
+import PratiqueGuideDevExpP3 from "./pages/DevelopperUneExpressionSimple/PratiqueGuide/pratiqueGuideDevExpP3.jsx";
 
 function App() {
   return (
@@ -163,7 +165,9 @@ function App() {
         <Route path="/IntroductionDevExp" element={<IntroductionDevExp/>}/>
         <Route path="/DevExp" element={<DevExp/>}/>
         <Route path="/ModelageDevExp" element={<ModelageDevExp/>}/>
-        <Route path="/PratiqueGuideDevExp" element={<PratiqueGuideDevExp/>}/>
+        <Route path="/PratiqueGuideDevExpP1" element={<PratiqueGuideDevExpP1/>}/>
+        <Route path="/PratiqueGuideDevExpP2" element={<PratiqueGuideDevExpP2/>}/>
+        <Route path="/PratiqueGuideDevExpP3" element={<PratiqueGuideDevExpP3/>}/>
 
 
 
