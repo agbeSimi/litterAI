@@ -1,6 +1,6 @@
 import {PratiqueGuide} from "../../../composants/pratiqueGuide.jsx";
 
-export default function PratiqueGuideDevExp() {
+export default function PratiqueGuideDevExpP1() {
   return(
     <PratiqueGuide titre={"Développer un expression"}
                    lienPratiqueAutonome={""}
