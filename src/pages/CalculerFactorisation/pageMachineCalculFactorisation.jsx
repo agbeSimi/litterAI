@@ -2,7 +2,7 @@ import MachineExo from "../../MachineExo.jsx"; // Assure-toi que le chemin est c
 
 function PageMachineCalculFactorisation() {
   // 1. Tu définis la liste des niveaux de ce chapitre
-  const niveauxEquations = [
+  const niveaux = [
     { id: 1, label: "Niveau 1 — Factorisation simple", pathRoute: "/PratiqueAutonomeFactorisation" },
      ];
 
@@ -10,7 +10,7 @@ function PageMachineCalculFactorisation() {
   return (
     <MachineExo
       titreModule="Chapitre : Calcul astucieux via la factorisation"
-      listeNiveaux={niveauxEquations}
+      listeNiveaux={niveaux}
     />
   );
 }

@@ -2,7 +2,7 @@ import MachineExo from "../../MachineExo.jsx";
 
 function PageMachineExoInteractif() {
   // 1. Tu définis la liste des niveaux de ce chapitre
-  const niveauxEquations = [
+  const niveaux = [
     { id: 1, label: "Niveau 1", pathRoute: "/PratiqueAutonomeInteractif" },
     ];
 
@@ -10,7 +10,7 @@ function PageMachineExoInteractif() {
   return (
     <MachineExo
       titreModule="Chapitre : Exercices Intéractifs"
-      listeNiveaux={niveauxEquations}
+      listeNiveaux={niveaux}
     />
   );
 }

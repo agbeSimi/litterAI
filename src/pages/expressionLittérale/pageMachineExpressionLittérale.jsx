@@ -2,7 +2,7 @@ import MachineExo from "../../MachineExo.jsx";
 
 function PageMachineExpressionLitteral() {
   // 1. Tu définis la liste des niveaux de ce chapitre
-  const niveauxEquations = [
+  const niveaux = [
     { id: 1, label: "Niveau 1 — Expression Simple", pathRoute: "/PratiqueAutonomeEL" },
     ];
 
@@ -10,7 +10,7 @@ function PageMachineExpressionLitteral() {
   return (
     <MachineExo
       titreModule="Chapitre : Simplifier une expression"
-      listeNiveaux={niveauxEquations}
+      listeNiveaux={niveaux}
     />
   );
 }

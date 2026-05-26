@@ -2,7 +2,7 @@ import MachineExo from "../../MachineExo.jsx"; // Assure-toi que le chemin est c
 
 function PageMachineEquations() {
   // 1. Tu définis la liste des niveaux de ce chapitre
-  const niveauxEquations = [
+  const niveaux = [
     { id: 1, label: "Niveau 1 — Equations simples", pathRoute: "/pratiqueAutonome" },
     { id: 2, label: "Niveau 2 — Equations linéaire", pathRoute: "/pratiqueAutonome2" },
     { id: 3, label: "Niveau 3 — Equations a nombres décimaux", pathRoute: "/pratiqueAutonome3" }
@@ -12,7 +12,7 @@ function PageMachineEquations() {
   return (
     <MachineExo
       titreModule="Chapitre : Résoudre des équations"
-      listeNiveaux={niveauxEquations}
+      listeNiveaux={niveaux}
     />
   );
 }

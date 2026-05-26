@@ -2,7 +2,7 @@ import MachineExo from "../../MachineExo.jsx"; // Assure-toi que le chemin est c
 
 function PageMachineTesterEgalite() {
   // 1. Tu définis la liste des niveaux de ce chapitre
-  const niveauxEquations = [
+  const niveaux = [
     { id: 1, label: "Niveau 1 — Multiplications simples", pathRoute: "/PratiqueAutonomeTesterEgalite1" },
     { id: 2, label: "Niveau 2 — Nombres décimaux", pathRoute: "/PratiqueAutonomeTesterEgalite2" },
     { id: 3, label: "Niveau 3 — Deux variables (x, y)", pathRoute: "/PratiqueAutonomeTesterEgalite3" }  ];
@@ -11,7 +11,7 @@ function PageMachineTesterEgalite() {
   return (
     <MachineExo
       titreModule="Chapitre : Tester une égalité"
-      listeNiveaux={niveauxEquations}
+      listeNiveaux={niveaux}
     />
   );
 }
