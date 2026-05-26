@@ -79,7 +79,15 @@ function Accueil(){
 
             <div className="col-12 col-md-6 col-xl-4 d-flex">
               <ModuleCard
-                titre="Module 7 : Résolution d'équations"
+                titre="Module 7 : Développer une expression simple"
+                description="Apprends à isoler x et à maîtriser la balance algébrique."
+                path="/sousAccueilDevExp"
+              />
+            </div>
+
+            <div className="col-12 col-md-6 col-xl-4 d-flex">
+              <ModuleCard
+                titre="Module 8 : Résolution d'équations"
                 description="Apprends à isoler x et à maîtriser la balance algébrique."
                 path="/sousAccueilEquation"
               />
