@@ -67,6 +67,8 @@ import PratiqueGuideCalculFactorisation
 import PratiqueAutonomeFactorisation
   from "./pages/CalculerFactorisation/pratiqueAutonome/PratiqueAutonomeFactorisation.jsx";
 import IntroductionCalculLitteral from "./pages/CalculLiteral/introductionCalculLitteral.jsx";
+import PageMachineDevExp from "./pages/DevelopperUneExpressionSimple/pageMachineDevExp.jsx";
+import SousAccueilDevExp from "./pages/DevelopperUneExpressionSimple/sousAccueilDevExp.jsx";
 
 function App() {
   return (
@@ -151,6 +153,10 @@ function App() {
         <Route path="/ModelageCalculFactorisation" element={<ModelageCalculFactorisation/>}/>
         <Route path="/PratiqueGuideCalculFactorisation" element={<PratiqueGuideCalculFactorisation/>}/>
         <Route path="/PratiqueAutonomeFactorisation" element={<PratiqueAutonomeFactorisation/>}/>
+
+        <Route path="/PageMachineDevExp" element={<PageMachineDevExp/>}/>
+        <Route path="/SousAccueilDevExp" element={<SousAccueilDevExp/>}/>
+
       </Routes>
     </Router>
   );
