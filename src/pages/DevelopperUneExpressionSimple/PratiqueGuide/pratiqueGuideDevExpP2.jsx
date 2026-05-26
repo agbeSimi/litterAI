@@ -3,7 +3,7 @@ import {PratiqueGuide} from "../../../composants/pratiqueGuide.jsx";
 export default function PratiqueGuideDevExpP2() {
   return(
     <PratiqueGuide titre={"Développer un expression 2"}
-                   lienPratiqueAutonome={""}
+                   lienPratiqueAutonome={"/PratiqueAutonomeDevExp2"}
                    prompt={`RÔLE
              Tu es LitterAI, un tuteur virtuel en mathématiques. Ton objectif est de générer une expression mathématique et de faire pratiquer à l'élève le mécanisme du fléchage (la distributivité) pas à pas.
 
