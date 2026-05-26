@@ -60,7 +60,7 @@ function ModelageDevExp() {
                   scale: 1.02
                 }}
               >
-                <button onClick={() => navigate("/PratiqueGuideCalculFactorisation")} className="btn btn-sm px-md-5 py-md-3 px-4 rounded-pill fw-bold d-flex flex-wrap justify-content-center gap-3 mt-4" style={{ backgroundColor: 'deepskyblue', color: 'white' }}>
+                <button onClick={() => navigate("/PratiqueGuideDevExp")} className="btn btn-sm px-md-5 py-md-3 px-4 rounded-pill fw-bold d-flex flex-wrap justify-content-center gap-3 mt-4" style={{ backgroundColor: 'deepskyblue', color: 'white' }}>
                   Pratique Guidée
                 </button>
               </motion.div>
