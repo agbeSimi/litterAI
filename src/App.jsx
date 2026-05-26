@@ -77,6 +77,12 @@ import PratiqueGuideDevExpP2 from "./pages/DevelopperUneExpressionSimple/Pratiqu
 import PratiqueGuideDevExpP3 from "./pages/DevelopperUneExpressionSimple/PratiqueGuide/pratiqueGuideDevExpP3.jsx";
 import ModelageDevExp2 from "./pages/DevelopperUneExpressionSimple/Modelage/ModelageDevExp2.jsx";
 import ModelageDevExp3 from "./pages/DevelopperUneExpressionSimple/Modelage/ModelageDevExp3.jsx";
+import PratiqueAutonomeDevExp1
+  from "./pages/DevelopperUneExpressionSimple/PratiqueAutonome/pratiqueAutonomeDevExp1.jsx";
+import PratiqueAutonomeDevExp2
+  from "./pages/DevelopperUneExpressionSimple/PratiqueAutonome/pratiqueAutonomeDevExp2.jsx";
+import PratiqueAutonomeDevExp3
+  from "./pages/DevelopperUneExpressionSimple/PratiqueAutonome/pratiqueAutonomeDevExp3.jsx";
 
 function App() {
   return (
@@ -172,6 +178,9 @@ function App() {
         <Route path="/PratiqueGuideDevExpP1" element={<PratiqueGuideDevExpP1/>}/>
         <Route path="/PratiqueGuideDevExpP2" element={<PratiqueGuideDevExpP2/>}/>
         <Route path="/PratiqueGuideDevExpP3" element={<PratiqueGuideDevExpP3/>}/>
+        <Route path="/PratiqueAutonomeDevExp1" element={<PratiqueAutonomeDevExp1/>}/>
+        <Route path="/PratiqueAutonomeDevExp2" element={<PratiqueAutonomeDevExp2/>}/>
+        <Route path="/PratiqueAutonomeDevExp3" element={<PratiqueAutonomeDevExp3/>}/>
 
 
 
