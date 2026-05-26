@@ -70,6 +70,7 @@ import IntroductionCalculLitteral from "./pages/CalculLiteral/introductionCalcul
 import PageMachineDevExp from "./pages/DevelopperUneExpressionSimple/pageMachineDevExp.jsx";
 import SousAccueilDevExp from "./pages/DevelopperUneExpressionSimple/sousAccueilDevExp.jsx";
 import IntroductionDevExp from "./pages/DevelopperUneExpressionSimple/introductionDevExp.jsx";
+import DevExp from "./pages/DevelopperUneExpressionSimple/DevExp.jsx";
 
 function App() {
   return (
@@ -158,6 +159,7 @@ function App() {
         <Route path="/PageMachineDevExp" element={<PageMachineDevExp/>}/>
         <Route path="/SousAccueilDevExp" element={<SousAccueilDevExp/>}/>
         <Route path="/IntroductionDevExp" element={<IntroductionDevExp/>}/>
+        <Route path="/DevExp" element={<DevExp/>}/>
 
 
       </Routes>
