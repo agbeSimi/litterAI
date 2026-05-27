@@ -83,6 +83,7 @@ import PratiqueAutonomeDevExp2
   from "./pages/DevelopperUneExpressionSimple/PratiqueAutonome/pratiqueAutonomeDevExp2.jsx";
 import PratiqueAutonomeDevExp3
   from "./pages/DevelopperUneExpressionSimple/PratiqueAutonome/pratiqueAutonomeDevExp3.jsx";
+import Login from "./pages/Login.jsx";
 
 function App() {
   return (
@@ -91,6 +92,7 @@ function App() {
         <Route path="/" element={<Accueil/>}/>
         <Route path="credit" element={<Credit/>}/>
         <Route path="/Contact" element={<Contact/>}/>
+        <Route path="/Login" element={<Login/>}/>
 
 
         <Route path="/machineExo" element={<MachineExo/>}/>
