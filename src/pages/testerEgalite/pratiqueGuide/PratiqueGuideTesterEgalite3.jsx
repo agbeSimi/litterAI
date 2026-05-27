@@ -138,6 +138,7 @@ function PratiqueGuideTesterEgalite3() {
     }
   }
 
+
   // --- ENCLENCHEMENT DE L'IA EN FONCTION DE LA PROGRESSION ---
   useEffect(() => {
     if (!equation) return;
