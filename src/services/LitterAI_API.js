@@ -142,3 +142,16 @@ export async function handleSubmitLogin(event, userName, password) {
   }
 
 }
+
+
+export function handleLogout(setConversation) {
+  // 1. On supprime le jeton du localStorage
+  localStorage.removeItem("jwt_token");
+
+  // 2. Optionnel : On vide l'historique de la conversation en cours pour le prochain utilisateur
+  if (setConversation) {
+    setConversation([]);
+  }
+
+  alert("Vous avez été déconnecté avec succès !");
+}
