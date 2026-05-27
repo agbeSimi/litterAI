@@ -14,7 +14,7 @@ function Login() {
       handleSubmitLogin(event,userName,password)}}>
       <input
         type="text"
-        placeholder="Pseudo"
+        placeholder="Login"
         value={userName}
         onChange={(event) => setUserName(event.target.value)}
       />
