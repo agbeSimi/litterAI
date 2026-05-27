@@ -6,11 +6,13 @@ const URL_BASE = 'https://127.0.0.1:8000/api'
 
 export function lancerExercice(conversation, setConversation, setIsWorking, prompt) {
   setIsWorking(true);
+  const token = localStorage.getItem("jwt_token");
   fetch(`${URL_BASE}/ia/groq`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/ld+json',
       'Accept': 'application/ld+json',
+      'Authorization': `Bearer ${token}`,
     },
     body: JSON.stringify({
       question: prompt,
@@ -31,17 +33,18 @@ export function lancerExercice(conversation, setConversation, setIsWorking, prom
 
 
 export function envoyerMessage(conversation, setConversation, input, setInput, setIsWorking) {
-  const inputEleve = { role: 'user', content: input };
-
-  const convMisAJour = [...conversation, inputEleve];
   setInput("");
 
+
   setIsWorking(true);
+  const token = localStorage.getItem("jwt_token");
   fetch(`${URL_BASE}/ia/groq`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/ld+json',
         'Accept': 'application/ld+json',
+        'Authorization': `Bearer ${token}`,
+
       },
       body: JSON.stringify({
         question: input,
@@ -115,7 +118,7 @@ export async function handleSubmitLogin(event, userName, password) {
   event.preventDefault();
 
   try {
-    const response = await fetch(`${URL_BASE}/api/login`, {
+    const response = await fetch(`${URL_BASE}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
