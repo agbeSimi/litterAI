@@ -110,3 +110,29 @@ export async function handleSubmit(setIsWorking,
     setIsWorking(false);
   }
 }
+
+export async function handleSubmitLogin(event, userName, password) {
+  event.preventDefault();
+
+  const response = await fetch(`${URL_BASE}/api/login`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        username: userName,
+        password: password
+      })
+
+    });
+    if (response.ok){
+      const data = await response.json();
+      localStorage.setItem("jwt_token", data.token)
+      alert("Connexion réussie !");
+    } else {
+      alert("Identifiants incorrects.");
+    }
+
+
+}
