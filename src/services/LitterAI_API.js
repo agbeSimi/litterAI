@@ -114,8 +114,8 @@ export async function handleSubmit(setIsWorking,
 export async function handleSubmitLogin(event, userName, password) {
   event.preventDefault();
 
-  const response = await fetch(`${URL_BASE}/api/login`,
-    {
+  try {
+    const response = await fetch(`${URL_BASE}/api/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -124,15 +124,18 @@ export async function handleSubmitLogin(event, userName, password) {
         username: userName,
         password: password
       })
-
     });
-    if (response.ok){
+
+    if (response.ok) {
       const data = await response.json();
-      localStorage.setItem("jwt_token", data.token)
-      alert("Connexion réussie !");
+      localStorage.setItem("jwt_token", data.token);
+      alert("Connexion réussie ! Jeton enregistré.");
     } else {
       alert("Identifiants incorrects.");
     }
-
+  } catch (error) {
+    console.error("Erreur de connexion :", error);
+    alert("Impossible de joindre le serveur.");
+  }
 
 }
