@@ -129,6 +129,7 @@ export async function handleSubmitLogin(event, userName, password) {
       })
     });
 
+
     if (response.ok) {
       const data = await response.json();
       localStorage.setItem("jwt_token", data.token);
