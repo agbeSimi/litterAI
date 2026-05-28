@@ -84,14 +84,15 @@ import PratiqueAutonomeDevExp2
 import PratiqueAutonomeDevExp3
   from "./pages/DevelopperUneExpressionSimple/PratiqueAutonome/pratiqueAutonomeDevExp3.jsx";
 import Login from "./pages/Login.jsx";
-import ProtectedRoute from "./composants/ProtectedRoute.jsx";
+import Navbar from "./composants/Navbar.jsx";
 
 function App() {
   return (
     <Router>
+      <Navbar />
       <Routes>
         <Route path="/Login" element={<Login/>}/>
-        <Route element={<ProtectedRoute/>}>
+
           <Route path="/" element={<Accueil/>}/>
           <Route path="credit" element={<Credit/>}/>
           <Route path="/Contact" element={<Contact/>}/>
@@ -183,14 +184,6 @@ function App() {
           <Route path="/PratiqueAutonomeDevExp1" element={<PratiqueAutonomeDevExp1/>}/>
           <Route path="/PratiqueAutonomeDevExp2" element={<PratiqueAutonomeDevExp2/>}/>
           <Route path="/PratiqueAutonomeDevExp3" element={<PratiqueAutonomeDevExp3/>}/>
-
-        </Route>
-
-
-
-
-
-
       </Routes>
     </Router>
   );
