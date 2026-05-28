@@ -9,7 +9,7 @@ function Navbar() {
   const isAuthenticated = !!localStorage.getItem("jwt_token");
 
   const onLogoutSuccess = () => {
-    navigate("/login");
+    navigate("/");
   };
 
   const toggleMenu = () => {
