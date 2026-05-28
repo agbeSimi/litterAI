@@ -85,6 +85,8 @@ import PratiqueAutonomeDevExp3
   from "./pages/DevelopperUneExpressionSimple/PratiqueAutonome/pratiqueAutonomeDevExp3.jsx";
 import Login from "./pages/Login.jsx";
 import Navbar from "./composants/Navbar.jsx";
+import Inscription from "./pages/Inscription.jsx";
+import VerificationProf from "./pages/VerificationProf.jsx";
 
 function App() {
   return (
@@ -92,6 +94,9 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/Login" element={<Login/>}/>
+        <Route path="/Inscription" element={<Inscription/>}/>
+        <Route path="/VerificationProf" element={<VerificationProf/>}/>
+
 
           <Route path="/" element={<Accueil/>}/>
           <Route path="credit" element={<Credit/>}/>
