@@ -1,5 +1,7 @@
 import {useState} from "react";
+import {handleLogout} from "../services/LitterAI_API.js";
 import {handleSubmitLogin} from "../services/LitterAI_API.js";
+import {Form} from "react-router-dom";
 
 function Login() {
   const [userName, setUserName] = useState("");
@@ -10,7 +12,8 @@ function Login() {
 
 
   return(
-    <form onSubmit={event => {
+    <>
+      <form onSubmit={event => {
       handleSubmitLogin(event,userName,password)}}>
       <input
         type="text"
@@ -25,7 +28,12 @@ function Login() {
         onChange={(event) => setPassword(event.target.value)}
       />
       <button type="submit">Se connecter</button>
-    </form>
+      </form>
+      <form>
+        <button onClick={handleLogout} type="submit">Se deconnecter</button>
+      </form>
+    </>
+
   )
 
 }
