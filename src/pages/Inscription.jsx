@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {handleSubmitRegister} from "../services/LitterAI_API.js";
-// import { handleSubmitRegister } from "../services/LitterAI_API.js";
+import { handleSubmitRegister } from "../services/LitterAI_API.js";
 
 function Inscription() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("eleve");
+  const [role, setRole] = useState("USER_ELEVE"); // Aligné avec la valeur des options
   const [emailPro, setEmailPro] = useState("");
+  const [errorMessage, setErrorMessage] = useState(""); // Pour afficher les erreurs de l'API
   const navigate = useNavigate();
 
   return (
@@ -16,13 +16,43 @@ function Inscription() {
         <div className="card-body">
           <h2 className="card-title text-center mb-4 fw-bold">Inscription</h2>
 
+          {/* Affichage du message d'erreur s'il y en a un */}
+          {errorMessage && (
+            <div className="alert alert-danger rounded-pill text-center py-2 fs-6" role="alert">
+              {errorMessage}
+            </div>
+          )}
+
           <form
             onSubmit={async (event) => {
-              await handleSubmitRegister(event, email, password, role, emailPro);
-              if (role === "eleve") {
-                navigate("/login");
-              } else {
-                navigate("/verification-prof");
+              event.preventDefault(); // Sécurité pour éviter le rechargement de page natif
+              setErrorMessage(""); // Réinitialise l'erreur à chaque tentative
+
+              try {
+                // On attend la réponse de l'API
+                await handleSubmitRegister(event, email, password, role, emailPro);
+
+                // Si tout s'est bien passé, on redirige selon le rôle
+                if (role === "USER_ELEVE") {
+                  navigate("/login");
+                } else {
+                  navigate("/verification-prof");
+                }
+              } catch (error) {
+                // Si l'API renvoie une erreur (Ex: email non académique ou utilisateur existant)
+                if (error.response && error.response.data) {
+                  const message = error.response.data['hydra:description'] || "Une erreur est survenue.";
+                  setErrorMessage(message);
+
+                  // Si le message renvoyé par Symfony indique que le login existe déjà
+                  if (message.includes("déjà utilisé") || message.includes("déjà un compte")) {
+                    setTimeout(() => {
+                      navigate("/login"); // Redirection automatique après 3 secondes vers la connexion
+                    }, 3000);
+                  }
+                } else {
+                  setErrorMessage("Impossible de contacter le serveur.");
+                }
               }
             }}
           >
