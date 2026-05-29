@@ -156,3 +156,55 @@ export function handleLogout(setConversation) {
 
   alert("Vous avez été déconnecté avec succès !");
 }
+
+export async function handleSubmitRegister(event, email, password, role, emailPro) {
+  event.preventDefault();
+
+  const payload = {
+    email: email,
+    password: password,
+    role: role
+  };
+
+  if (role === "professeur") {
+    payload.emailPro = emailPro;
+  }
+
+  try {
+    const response = await fetch(`${URL_BASE}/api/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify(payload)
+    });
+
+    if (!response.ok) {
+      throw new Error("Erreur");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Erreur réseau :", error);
+    return false;
+  }
+}
+
+export async function handleVerifyCode(code) {
+  try {
+    const response = await fetch(`${URL_BASE}/api/verify-teacher-code`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({ code })
+    });
+
+    return response.ok;
+  } catch (error) {
+    console.error("Erreur réseau :", error);
+    return false;
+  }
+}

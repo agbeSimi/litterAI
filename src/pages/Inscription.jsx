@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {handleSubmitRegister} from "../services/LitterAI_API.js";
 // import { handleSubmitRegister } from "../services/LitterAI_API.js";
 
 function Inscription() {
@@ -16,14 +17,14 @@ function Inscription() {
           <h2 className="card-title text-center mb-4 fw-bold">Inscription</h2>
 
           <form
-            // onSubmit={async (event) => {
-            //   await handleSubmitRegister(event, email, password, role, emailPro);
-            //   if (role === "eleve") {
-            //     navigate("/login");
-            //   } else {
-            //     navigate("/verification-prof");
-            //   }
-            // }}
+            onSubmit={async (event) => {
+              await handleSubmitRegister(event, email, password, role, emailPro);
+              if (role === "eleve") {
+                navigate("/login");
+              } else {
+                navigate("/verification-prof");
+              }
+            }}
           >
             <div className="mb-3">
               <label className="form-label text-muted fw-semibold">Email personnel</label>
