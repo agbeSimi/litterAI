@@ -6,7 +6,19 @@ function Navbar() {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
 
-  const isAuthenticated = !!localStorage.getItem("jwt_token");
+  const token = localStorage.getItem("jwt_token");
+  const isAuthenticated = !!token;
+
+  // Extraction du login depuis le token JWT si l'utilisateur est connecté
+  let userLogin = "";
+  if (isAuthenticated) {
+    try {
+      const payload = JSON.parse(atob(token.split(".")[1]));
+      userLogin = payload.username || payload.login || "";
+    } catch (e) {
+      console.error("Erreur lors du décodage du token", e);
+    }
+  }
 
   const onLogoutSuccess = () => {
     navigate("/");
@@ -46,16 +58,20 @@ function Navbar() {
           </ul>
 
           {isAuthenticated ? (
-            <div className="d-flex flex-column flex-lg-row gap-2 mt-3 mt-lg-0">
-                <button
-                  className="btn btn-outline-danger px-4 py-2 mt-3 mt-lg-0 rounded-pill fw-semibold shadow-sm w-100 w-lg-auto"
-                  onClick={() => {
-                    handleLogout(onLogoutSuccess);
-                    closeMenu();
-                  }}
-                >
-                  Se déconnecter
-                </button>
+            <div className="d-flex flex-column flex-lg-row align-items-center gap-3 mt-3 mt-lg-0">
+              {/* Affichage du login de l'utilisateur connecté */}
+              {userLogin && (
+                <span className="text-muted fw-semibold">Bonjour, {userLogin}</span>
+              )}
+              <button
+                className="btn btn-outline-danger px-4 py-2 mt-3 mt-lg-0 rounded-pill fw-semibold shadow-sm w-100 w-lg-auto"
+                onClick={() => {
+                  handleLogout(onLogoutSuccess);
+                  closeMenu();
+                }}
+              >
+                Se déconnecter
+              </button>
             </div>
           ) : (
             <div className="d-flex flex-column flex-lg-row gap-2 mt-3 mt-lg-0">
