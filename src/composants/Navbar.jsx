@@ -24,6 +24,7 @@ function Navbar() {
     navigate("/");
   };
 
+
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
