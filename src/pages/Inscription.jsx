@@ -57,12 +57,12 @@ function Inscription() {
                 value={role}
                 onChange={(event) => setRole(event.target.value)}
               >
-                <option value="eleve">Un élève</option>
-                <option value="professeur">Un professeur</option>
+                <option value="USER_ELEVE">Un élève</option>
+                <option value="USER_PROF">Un professeur</option>
               </select>
             </div>
 
-            {role === "professeur" && (
+            {role === "USER_PROF" && (
               <div className="mb-4">
                 <label className="form-label text-primary fw-semibold">Email académique de vérification</label>
                 <input
