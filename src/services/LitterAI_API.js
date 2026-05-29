@@ -186,7 +186,7 @@ export async function handleSubmitRegister(event, email, password, role, emailPr
 
     return await response.json();
   } catch (error) {
-    console.error("Erreur réseau :", error);
+    console.error("Erreur d'inscription :", error);
     return false;
   }
 }
@@ -204,7 +204,7 @@ export async function handleVerifyCode(code) {
 
     return response.ok;
   } catch (error) {
-    console.error("Erreur réseau :", error);
+    console.error("Mauvais code :", error);
     return false;
   }
 }
