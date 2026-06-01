@@ -3,10 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { handleSubmitRegister } from "../services/LitterAI_API.js";
 
 function Inscription() {
+  const [login, setLogin] = useState(""); // État pour l'identifiant
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("USER_ELEVE"); // Aligné avec la valeur des options
-  const [emailPro, setEmailPro] = useState("");
+  const [role, setRole] = useState("ROLE_USER_ELEVE"); // Aligné avec la valeur des options
+  const [mail_academique, setmail_academique] = useState("");
   const [errorMessage, setErrorMessage] = useState(""); // Pour afficher les erreurs de l'API
   const navigate = useNavigate();
 
@@ -29,12 +30,12 @@ function Inscription() {
               setErrorMessage(""); // Réinitialise l'erreur à chaque tentative
 
               try {
-                // On attend la réponse de l'API
-                await handleSubmitRegister(event, email, password, role, emailPro);
+                // Intégration de la variable login dans les paramètres envoyés à l'API
+                await handleSubmitRegister(event, login, email, password, role, mail_academique);
 
                 // Si tout s'est bien passé, on redirige selon le rôle
-                if (role === "USER_ELEVE") {
-                  navigate("/login");
+                if (role === "ROLE_USER_ELEVE") {
+                  navigate("/");
                 } else {
                   navigate("/verification-prof");
                 }
@@ -56,6 +57,19 @@ function Inscription() {
               }
             }}
           >
+            {/* Champ ajouté : Identifiant (Login) */}
+            <div className="mb-3">
+              <label className="form-label text-muted fw-semibold">Identifiant (Login)</label>
+              <input
+                type="text"
+                className="form-control form-control-lg rounded-pill bg-light border-0"
+                placeholder="Votre identifiant"
+                value={login}
+                onChange={(event) => setLogin(event.target.value)}
+                required
+              />
+            </div>
+
             <div className="mb-3">
               <label className="form-label text-muted fw-semibold">Email personnel</label>
               <input
@@ -87,20 +101,20 @@ function Inscription() {
                 value={role}
                 onChange={(event) => setRole(event.target.value)}
               >
-                <option value="USER_ELEVE">Un élève</option>
-                <option value="USER_PROF">Un professeur</option>
+                <option value="ROLE_USER_ELEVE">Un élève</option>
+                <option value="ROLE_USER_PROF">Un professeur</option>
               </select>
             </div>
 
-            {role === "USER_PROF" && (
+            {role === "ROLE_USER_PROF" && (
               <div className="mb-4">
                 <label className="form-label text-primary fw-semibold">Email académique de vérification</label>
                 <input
                   type="email"
                   className="form-control form-control-lg rounded-pill bg-light border-0 border-primary"
                   placeholder="prenom.nom@ac-academie.fr"
-                  value={emailPro}
-                  onChange={(event) => setEmailPro(event.target.value)}
+                  value={mail_academique}
+                  onChange={(event) => setmail_academique(event.target.value)}
                   required
                 />
               </div>
