@@ -18,10 +18,13 @@ function VerificationProf() {
           <form
             onSubmit={async (event) => {
               event.preventDefault();
-              const success = await handleVerifyCode(code);
-              if (success) {
-                navigate("/login");
-              } else {
+              const response = await handleVerifyCode(code);
+              if (response && response.token) {
+                localStorage.setItem("jwt_token", response.token);
+                navigate("/");
+                window.location.reload();
+              }
+              else {
                 alert("Code invalide ou expiré.");
               }
             }}

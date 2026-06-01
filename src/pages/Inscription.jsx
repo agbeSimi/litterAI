@@ -31,11 +31,15 @@ function Inscription() {
 
               try {
                 // Intégration de la variable login dans les paramètres envoyés à l'API
-                await handleSubmitRegister(event, login, email, password, role, mail_academique);
+                const response = await handleSubmitRegister(event, login, email, password, role, mail_academique);
 
                 // Si tout s'est bien passé, on redirige selon le rôle
                 if (role === "ROLE_USER_ELEVE") {
+                  if (response && response.token) {
+                    localStorage.setItem("jwt_token", response.token);
+                  }
                   navigate("/");
+                  window.location.reload();
                 } else {
                   navigate("/verification-prof");
                 }
