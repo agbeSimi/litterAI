@@ -157,21 +157,22 @@ export function handleLogout(setConversation) {
   alert("Vous avez été déconnecté avec succès !");
 }
 
-export async function handleSubmitRegister(event, email, password, role, emailPro) {
+export async function handleSubmitRegister(event, login, email, password, role, mail_academique) {
   event.preventDefault();
 
   const payload = {
     email: email,
+    login: login,
     password: password,
     role: role
   };
 
-  if (role === "professeur") {
-    payload.emailPro = emailPro;
+  if (role === "ROLE_USER_PROF") {
+    payload.mail_academique = mail_academique;
   }
 
   try {
-    const response = await fetch(`${URL_BASE}/api/register`, {
+    const response = await fetch(`${URL_BASE}/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
