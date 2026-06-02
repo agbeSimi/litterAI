@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { jsPDF } from 'jspdf';
+import autoTable from 'jspdf-autotable';
 import {classeSubmit} from "../services/LitterAI_API.js";
 
 export default function CreerClasse() {
@@ -7,6 +9,34 @@ export default function CreerClasse() {
   const [effectif, setEffectif] = useState(0);
   const [eleves, setEleves] = useState([]);
   const [chargement, setChargement] = useState(false);
+
+  const nomComplet = `${niveau} ${lettre}`.trim();
+
+  function genererPDF() {
+    const doc = new jsPDF();
+
+    doc.setFontSize(18);
+    doc.text(`Liste des comptes eleves - ${nomComplet}`, 14, 20);
+
+    doc.setFontSize(12);
+    doc.setTextColor(100);
+    doc.text(`Document genere le : ${new Date().toLocaleDateString()}`, 14, 28);
+
+    const colonnes = ["Identifiant (Login)", "Mot de passe en clair"];
+    const lignes = eleves.map(eleve => [eleve.login, eleve.motDePasse]);
+
+    autoTable(doc, {
+      startY: 35,
+      head: [colonnes],
+      body: lignes,
+      theme: 'striped',
+      headStyles: { fillColor: [13, 110, 253] },
+      styles: { font: "courier", fontSize: 10 }
+    });
+
+    const nomFichier = `comptes_${nomComplet.replace(/\s+/g, '_')}.pdf`;
+    doc.save(nomFichier);
+  }
 
   return (
     <div className="container mt-5" style={{ maxWidth: '650px' }}>
@@ -20,6 +50,12 @@ export default function CreerClasse() {
               Voici les identifiants générés pour vos élèves.
               <span className="text-danger fw-bold"> Notez-les précieusement</span>, ils ne seront plus affichés par la suite.
             </p>
+
+            <div className="mt-3 mb-4">
+              <button className="btn btn-outline-danger w-100 fw-bold d-flex align-items-center justify-content-center gap-2" onClick={genererPDF}>
+                Télécharger la liste en PDF
+              </button>
+            </div>
 
             <div className="table-responsive mt-3">
               <table className="table table-striped table-bordered align-middle">
@@ -54,11 +90,7 @@ export default function CreerClasse() {
             <h3 className="card-title mb-0 h5">Création d'une nouvelle classe</h3>
           </div>
           <div className="card-body">
-            <form onSubmit={(e) => {
-              const nomComplet = `${niveau} ${lettre}`.trim();
-              classeSubmit(e, nomComplet, effectif, setEleves, setChargement);
-            }}>
-
+            <form onSubmit={(e) => classeSubmit(e, nomComplet, effectif, setEleves, setChargement)}>
               <div className="mb-3">
                 <label htmlFor="niveau" className="form-label fw-semibold">Niveau :</label>
                 <select
@@ -80,7 +112,7 @@ export default function CreerClasse() {
                   id="lettre"
                   type="text"
                   className="form-control form-control-lg"
-                  placeholder="Ex: A, B, Spécial..."
+                  placeholder="Ex: A, B, Rouge, Allemand..."
                   value={lettre}
                   onChange={event => setLettre(event.target.value)}
                   required
