@@ -1,12 +1,12 @@
-import {useState} from "react";
+import { useState } from 'react';
 import {classeSubmit} from "../services/LitterAI_API.js";
 
 export default function CreerClasse() {
-  const [nom, setNom] = useState('');
+  const [niveau, setNiveau] = useState('6ème');
+  const [lettre, setLettre] = useState('');
   const [effectif, setEffectif] = useState(0);
   const [eleves, setEleves] = useState([]);
   const [chargement, setChargement] = useState(false);
-
 
   return (
     <div className="container mt-5" style={{ maxWidth: '650px' }}>
@@ -42,7 +42,7 @@ export default function CreerClasse() {
 
             <button
               className="btn btn-primary w-100 mt-3"
-              onClick={() => { setEleves([]); setNom(''); setEffectif(0); }}
+              onClick={() => { setEleves([]); setNiveau('6ème'); setLettre(''); setEffectif(0); }}
             >
               Créer une autre classe
             </button>
@@ -54,16 +54,35 @@ export default function CreerClasse() {
             <h3 className="card-title mb-0 h5">Création d'une nouvelle classe</h3>
           </div>
           <div className="card-body">
-            <form onSubmit={(e) => classeSubmit(e, nom, effectif, setEleves, setChargement)}>
+            <form onSubmit={(e) => {
+              const nomComplet = `${niveau} ${lettre}`.trim();
+              classeSubmit(e, nomComplet, effectif, setEleves, setChargement);
+            }}>
+
               <div className="mb-3">
-                <label htmlFor="nom" className="form-label fw-semibold">Nom de la classe :</label>
+                <label htmlFor="niveau" className="form-label fw-semibold">Niveau :</label>
+                <select
+                  id="niveau"
+                  className="form-select form-select-lg"
+                  value={niveau}
+                  onChange={event => setNiveau(event.target.value)}
+                >
+                  <option value="6ème">6ème</option>
+                  <option value="5ème">5ème</option>
+                  <option value="4ème">4ème</option>
+                  <option value="3ème">3ème</option>
+                </select>
+              </div>
+
+              <div className="mb-3">
+                <label htmlFor="lettre" className="form-label fw-semibold">Intitulé / Lettre de la classe :</label>
                 <input
-                  id="nom"
+                  id="lettre"
                   type="text"
                   className="form-control form-control-lg"
-                  placeholder="Ex: 4ème B, CM2..."
-                  value={nom}
-                  onChange={event => setNom(event.target.value)}
+                  placeholder="Ex: A, B..."
+                  value={lettre}
+                  onChange={event => setLettre(event.target.value)}
                   required
                 />
               </div>
