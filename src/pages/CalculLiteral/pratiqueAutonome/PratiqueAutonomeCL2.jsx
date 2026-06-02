@@ -1,7 +1,7 @@
 import { useState } from "react";
 import logoRobot from "../../../assets/logo_robot.png";
 import { envoyerMessage } from "../../../services/LitterAI_API.js";
-import {useLocation, useNavigate} from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function PratiqueAutonomeCL2() {
   const [exercice, setExercice] = useState(1);
@@ -18,9 +18,7 @@ export default function PratiqueAutonomeCL2() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Si l'élève vient de la machine, on prend son choix (5 à 10). Sinon (parcours normal), c'est 4.
   const totalQuestions = location.state?.totalQuestions || 4;
-
 
   // --- LOGIQUE MATHÉMATIQUE ---
   function genererProgramme() {
@@ -53,10 +51,7 @@ export default function PratiqueAutonomeCL2() {
   // --- ACTIONS IA ---
   async function discuterErreur(messageUtilisateur = "") {
     setIsWorking(true);
-
     const a = currentEquation.a;
-    // const b = currentEquation.b;
-    // const x = currentEquation.x;
 
     const contenuUser = messageUtilisateur || `Je n'arrive pas à traduire le programme en formule. J'ai écrit "${reponseEleve}". Peux-tu m'aider étape par étape ?`;
     const nouveauMessage = {role: "user", content: contenuUser};
@@ -89,9 +84,8 @@ export default function PratiqueAutonomeCL2() {
       - CALCUL LITTÉRAL : Utilise toujours le signe * pour la multiplication. Jamais de forme collée comme "${a}x".
       - ZÉRO GRAS : N'utilise jamais de doubles étoiles (**).
       - INTERDICTION ABSOLUE : Ne parle JAMAIS de "résoudre une équation" ou d'"isoler X". Le but est uniquement de traduire du texte en expression, pas de calculer la valeur de x.`
-        };
-    await envoyerMessage([promptSysteme, ...historique], setConversationIA, "", () => {
-    }, setIsWorking);
+    };
+    await envoyerMessage([promptSysteme, ...historique], setConversationIA, "", () => {}, setIsWorking);
   }
 
   // --- LOGIQUE DE VALIDATION ---
@@ -123,10 +117,9 @@ export default function PratiqueAutonomeCL2() {
   return (
     <div className="container-fluid d-flex flex-column flex-md-row vh-100 bg-light p-0 overflow-hidden">
 
-      {/* ZONE GAUCHE (HAUT SUR MOBILE) : EXERCICE */}
-      <div
-        className="flex-grow-1 p-3 p-md-4 d-flex flex-column align-items-center justify-content-center border-bottom border-md-0">
-        <div className="card shadow-lg p-3 p-md-5 rounded-4 text-center border-0 w-100" style={{maxWidth: '600px'}}>
+      {/* ZONE GAUCHE : EXERCICE */}
+      <div className="flex-grow-1 p-3 p-md-4 d-flex flex-column align-items-center overflow-auto h-100">
+        <div className="card shadow-lg p-3 p-md-5 rounded-4 text-center border-0 w-100 my-auto" style={{maxWidth: '600px'}}>
 
           {!isFinished ? (
             <>
@@ -135,12 +128,12 @@ export default function PratiqueAutonomeCL2() {
               </div>
 
               <h6 className="text-muted fw-bold text-uppercase small">Ex {exercice} / {totalQuestions}</h6>
-              <p className="display-6 display-md-2  my-3 my-md-4 text-dark">
-                Etape 1 :{currentEquation.premierePartie}<br/>
-                Etape 2 : {currentEquation.deuxiemePartie}<br/>
-                Etape 3: {currentEquation.troisiemePartie}<br/>
+              <p className="display-6 display-md-5 my-3 my-md-4 text-dark text-start bg-light p-3 rounded-3 border">
+                <strong>Étape 1 :</strong> {currentEquation.premierePartie}<br/>
+                <strong>Étape 2 :</strong> {currentEquation.deuxiemePartie}<br/>
+                <strong>Étape 3 :</strong> {currentEquation.troisiemePartie}<br/>
               </p>
-              <p> Transforme ces instructions en expression littéral </p>
+              <p className="text-muted">Transforme ces instructions en expression littérale :</p>
 
               <div className="d-flex flex-column flex-sm-row gap-2 justify-content-center mb-3">
                 <input
@@ -151,7 +144,6 @@ export default function PratiqueAutonomeCL2() {
                   onChange={(e) => setReponseEleve(e.target.value)}
                   placeholder="Ex: 4 * x + 1"
                   disabled={isCorrect === true}
-
                 />
                 {isCorrect !== true && (
                   <button className="btn btn-primary px-4 fw-bold shadow-sm" onClick={verifierReponse}>
@@ -161,8 +153,7 @@ export default function PratiqueAutonomeCL2() {
               </div>
 
               {message && (
-                <div
-                  className={`alert ${isCorrect ? 'alert-success' : 'alert-danger'} rounded-4 py-3 shadow-sm animate__animated animate__fadeIn`}>
+                <div className={`alert ${isCorrect ? 'alert-success' : 'alert-danger'} rounded-4 py-3 shadow-sm animate__animated animate__fadeIn`}>
                   <div className="fw-bold mb-2 small mb-md-3">{message}</div>
                   <button
                     className={`btn ${isCorrect ? 'btn-success' : 'btn-outline-danger'} rounded-pill px-4 px-md-5 fw-bold w-100 w-sm-auto`}
@@ -173,7 +164,7 @@ export default function PratiqueAutonomeCL2() {
               )}
             </>
           ) : (
-            /* ÉCRAN BILAN ADAPTÉ */
+            /* ÉCRAN BILAN */
             <div className="animate__animated animate__fadeIn">
               <h2 className="fw-bold mb-2">Bilan</h2>
               <div className="display-3 fw-bold mb-3 text-primary">{score} / {totalQuestions}</div>
@@ -213,9 +204,8 @@ export default function PratiqueAutonomeCL2() {
         </div>
       </div>
 
-      {/* ZONE DROITE (BAS SUR MOBILE) : CHAT */}
-      <div className="bg-white border-start shadow-sm d-flex flex-column"
-           style={{width: '100%', maxWidth: '100%', height: '40vh', flexBasis: '420px'}}>
+      {/* ZONE DROITE : CHAT */}
+      <div className="bg-white border-start shadow-sm d-flex flex-column h-100" style={{width: '100%', maxWidth: '100%', flexBasis: '420px'}}>
         <div className="p-2 p-md-3 border-bottom text-center bg-white d-none d-md-block">
           <img src={logoRobot} alt="Robot" style={{width: '50px'}}/>
           <h6 className="fw-bold mb-0">LitterAl</h6>
@@ -225,15 +215,14 @@ export default function PratiqueAutonomeCL2() {
           {isCorrect === false && !isFinished ? (
             <>
               {conversationIA.filter(m => m.role !== 'system' && m.content.trim() !== "").map((m, i) => (
-                <div key={i}
-                     className={`mb-2 p-2 rounded-4 shadow-sm small ${m.role === 'user' ? 'bg-primary text-white ms-4' : 'bg-white me-4 border'}`}>
+                <div key={i} className={`mb-2 p-2 rounded-4 shadow-sm small ${m.role === 'user' ? 'bg-primary text-white ms-4' : 'bg-white me-4 border'}`}>
                   {m.content}
                 </div>
               ))}
               {isWorking && <div className="text-muted small p-2 text-center">LitterAl réfléchit...</div>}
             </>
           ) : (
-            <div className="text-center text-muted mt-2">
+            <div className="text-center text-muted mt-5">
               <p className="small">Je t'aide ici en cas d'erreur !</p>
             </div>
           )}

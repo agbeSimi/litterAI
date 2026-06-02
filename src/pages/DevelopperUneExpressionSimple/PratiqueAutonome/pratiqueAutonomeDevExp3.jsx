@@ -1,12 +1,12 @@
 import { useState } from "react";
 import logoRobot from "../../../assets/logo_robot.png";
 import { envoyerMessage } from "../../../services/LitterAI_API.js";
-import {useLocation, useNavigate} from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function PratiqueAutonomeDevExp3() {
   const [exercice, setExercice] = useState(1);
   const [score, setScore] = useState(0);
-  const [niveau] = useState(3); // 0: ax+b=c | 1: ax+b=cx+d | 2: décimaux
+  const [niveau] = useState(3);
   const [currentEquation, setCurrentEquation] = useState(genererExpressionNiveau3());
   const [reponseEleve, setReponseEleve] = useState("");
   const [message, setMessage] = useState("");
@@ -16,24 +16,19 @@ function PratiqueAutonomeDevExp3() {
   const [isFinished, setIsFinished] = useState(false);
 
   const location = useLocation();
-
-  // Si l'élève vient de la machine, on prend son choix (5 à 10). Sinon (parcours normal), c'est 4.
   const totalQuestions = location.state?.totalQuestions || 4;
-
   const navigate = useNavigate();
+
   const goToModelage = () => {
     navigate("/modelage");
   };
 
-  // --- LOGIQUE MATHÉMATIQUE ---
   function genererExpressionNiveau3() {
-    const type = Math.random() < 0.5 ? 1 : 2; // 50% de chance pour chaque format
+    const type = Math.random() < 0.5 ? 1 : 2;
     const variables = ['a', 'b', 'x', 'y'];
 
     if (type === 1) {
-      // Format 1 : 2 variables -> ex: 5(x + y)
       const a = Math.floor(Math.random() * 8) + 2;
-      // On prend deux variables différentes au hasard
       const shuffledVars = [...variables].sort(() => 0.5 - Math.random());
       const v1 = shuffledVars[0];
       const v2 = shuffledVars[1];
@@ -43,17 +38,15 @@ function PratiqueAutonomeDevExp3() {
 
       return { affichage, solution };
     } else {
-      // Format 2 : Décimaux -> ex: 10,5(10 + a)
-      const baseDecimal = Math.floor(Math.random() * 9) + 2; // 2 à 10
-      const aDecimal = baseDecimal + 0.5; // ex: 2.5, 10.5
-      const aStr = aDecimal.toString().replace('.', ','); // Pour l'affichage français
+      const baseDecimal = Math.floor(Math.random() * 9) + 2;
+      const aDecimal = baseDecimal + 0.5;
+      const aStr = aDecimal.toString().replace('.', ',');
 
-      const b = Math.floor(Math.random() * 9) + 2; // ex: 10, 4, 8
+      const b = Math.floor(Math.random() * 9) + 2;
       const varUnique = variables[Math.floor(Math.random() * variables.length)];
 
       const affichage = `${aStr}(${b} + ${varUnique})`;
 
-      // Calcul de la solution
       const produitB = aDecimal * b;
       const produitBStr = produitB.toString().replace('.', ',');
       const solution = `${produitBStr} + ${aStr}${varUnique}`;
@@ -62,7 +55,6 @@ function PratiqueAutonomeDevExp3() {
     }
   }
 
-  // --- ACTIONS IA ---
   async function discuterErreur(messageUtilisateur = "") {
     setIsWorking(true);
     const contenuUser = messageUtilisateur || `J'ai proposé ${reponseEleve} pour ${currentEquation.affichage}, pourquoi c'est faux ?`;
@@ -80,15 +72,11 @@ function PratiqueAutonomeDevExp3() {
       3. RAPPEL DU MÉCANISME : Utilise l'analogie du "fléchage" ou du nombre "attaquant" vue dans la leçon (ex: "Rappelle-toi, le nombre collé devant la parenthèse doit attaquer le premier nombre à l'intérieur, puis le deuxième").
       4. RESTE BLOQUÉ SUR L'ÉTAPE : Pose une seule question à la fois pour le débloquer (ex: "Quelle est la première multiplication que tu dois faire pour commencer ?") et attends sa réponse pour avancer pas à pas.
       5. LANGAGE : Simple, direct et très concis (2 à 3 phrases maximum).`
-
     };
-    await envoyerMessage([promptSysteme, ...historique], setConversationIA, "", () => {
-    }, setIsWorking);
+    await envoyerMessage([promptSysteme, ...historique], setConversationIA, "", () => {}, setIsWorking);
   }
 
-  // --- LOGIQUE DE VALIDATION ---
   function verifierReponse() {
-    // On retire tous les espaces et on remplace les points par des virgules pour la comparaison
     const reponsePropre = reponseEleve.replace(/\s+/g, "").replace(/\./g, ",");
     const solutionPropre = currentEquation.solution.replace(/\s+/g, "");
 
@@ -107,7 +95,7 @@ function PratiqueAutonomeDevExp3() {
     if (exercice < totalQuestions) {
       setExercice(prev => prev + 1);
       setCurrentEquation(genererExpressionNiveau3());
-      setReponseEleve(" ");
+      setReponseEleve("");
       setMessage("");
       setIsCorrect(null);
       setConversationIA([]);
@@ -119,9 +107,9 @@ function PratiqueAutonomeDevExp3() {
   return (
     <div className="container-fluid d-flex flex-column flex-md-row vh-100 bg-light p-0 overflow-hidden">
 
-      {/* ZONE GAUCHE (HAUT SUR MOBILE) : EXERCICE */}
-      <div className="flex-grow-1 p-3 p-md-4 d-flex flex-column align-items-center justify-content-center border-bottom border-md-0">
-        <div className="card shadow-lg p-3 p-md-5 rounded-4 text-center border-0 w-100" style={{ maxWidth: '600px' }}>
+      {/* ZONE GAUCHE : EXERCICE */}
+      <div className="flex-grow-1 p-3 p-md-4 d-flex flex-column align-items-center overflow-auto h-100">
+        <div className="card shadow-lg p-3 p-md-5 rounded-4 text-center border-0 w-100 my-auto" style={{ maxWidth: '600px' }}>
 
           {!isFinished ? (
             <>
@@ -134,12 +122,12 @@ function PratiqueAutonomeDevExp3() {
 
               <div className="d-flex flex-column flex-sm-row gap-2 justify-content-center mb-3">
                 <input
-                  type="text" // Changé en 'text' pour accepter les lettres et virgules
+                  type="text"
                   className="form-control form-control-lg text-center fw-bold mx-auto mx-sm-0"
                   style={{ maxWidth: '200px', height: '60px', fontSize: '1.5rem' }}
-                  value={reponseEleve === "" ? "" : reponseEleve}
+                  value={reponseEleve}
                   onChange={(e) => setReponseEleve(e.target.value)}
-                  disabled={isCorrect === false}
+                  disabled={isCorrect === true}
                 />
                 {isCorrect !== true && (
                   <button className="btn btn-primary px-4 fw-bold shadow-sm" onClick={verifierReponse}>
@@ -160,7 +148,6 @@ function PratiqueAutonomeDevExp3() {
               )}
             </>
           ) : (
-            /* ÉCRAN BILAN ADAPTÉ */
             <div className="animate__animated animate__fadeIn">
               <h2 className="fw-bold mb-2">Bilan</h2>
               <div className="display-3 fw-bold mb-3 text-primary">{score} / {totalQuestions}</div>
@@ -185,8 +172,8 @@ function PratiqueAutonomeDevExp3() {
         </div>
       </div>
 
-      {/* ZONE DROITE (BAS SUR MOBILE) : CHAT */}
-      <div className="bg-white border-start shadow-sm d-flex flex-column" style={{ width: '100%', maxWidth: '100%', height: '40vh', flexBasis: '420px' }}>
+      {/* ZONE DROITE : CHAT */}
+      <div className="bg-white border-start shadow-sm d-flex flex-column h-100" style={{ width: '100%', maxWidth: '100%', flexBasis: '420px' }}>
         <div className="p-2 p-md-3 border-bottom text-center bg-white d-none d-md-block">
           <img src={logoRobot} alt="Robot" style={{ width: '50px' }} />
           <h6 className="fw-bold mb-0">LitterAl</h6>
@@ -203,7 +190,7 @@ function PratiqueAutonomeDevExp3() {
               {isWorking && <div className="text-muted small p-2 text-center">LitterAl réfléchit...</div>}
             </>
           ) : (
-            <div className="text-center text-muted mt-2">
+            <div className="text-center text-muted mt-5">
               <p className="small">Je t'aide ici en cas d'erreur !</p>
             </div>
           )}

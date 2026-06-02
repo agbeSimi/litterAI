@@ -5,8 +5,7 @@ import { envoyerMessage } from "../../../services/LitterAI_API.js";
 import logoRobot from "../../../assets/logo_robot.png";
 
 function PratiqueAutonomeTesterEgalite2() {
-
-    const [exercice, setExercice] = useState(1);
+  const [exercice, setExercice] = useState(1);
   const [score, setScore] = useState(0);
   const [niveau, setNiveau] = useState(2);
   const [equation, setEquation] = useState(null);
@@ -26,25 +25,21 @@ function PratiqueAutonomeTesterEgalite2() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Si l'élève vient de la machine, on prend son choix (5 à 10). Sinon (parcours normal), c'est 4.
   const totalQuestions = location.state?.totalQuestions || 4;
 
   function genererEquationIdentique() {
-    const xValeur = Math.floor(Math.random() * 5) + 2; // Valeur de x entière entre 2 et 6
+    const xValeur = Math.floor(Math.random() * 5) + 2;
 
-    // Génération de coefficients décimaux "sympas" (se terminant par ,0 ou ,5)
     const a = (Math.floor(Math.random() * 5) + 1) * 0.5;
     const b = (Math.floor(Math.random() * 5) + 1) * 0.5;
 
     let c = (Math.floor(Math.random() * 5) + 1) * 0.5;
-    // On évite d'avoir exactement le même coefficient pour x des deux côtés
     while (c === a) {
       c = (Math.floor(Math.random() * 5) + 1) * 0.5;
     }
 
     const d = (Math.floor(Math.random() * 5) + 1) * 0.5;
 
-    // Calcul indépendant des deux membres (les résultats peuvent être différents)
     const calculG = Number((a * xValeur + b).toFixed(1));
     const calculD = Number((c * xValeur + d).toFixed(1));
 
@@ -56,8 +51,8 @@ function PratiqueAutonomeTesterEgalite2() {
       droiteTexte: `${formatVisuel(c)}x + ${formatVisuel(d)}`,
       gaucheAttendu: `${a}*${xValeur}+${b}`,
       droiteAttendu: `${c}*${xValeur}+${d}`,
-      resGaucheAttendu: calculG, // Résultat propre à gauche
-      resDroiteAttendu: calculD  // Résultat propre à droite
+      resGaucheAttendu: calculG,
+      resDroiteAttendu: calculD
     });
 
     setInputGauche("");
@@ -82,7 +77,6 @@ function PratiqueAutonomeTesterEgalite2() {
     if (progression === 0 || progression === 1) {
       erreurContext = `L'élève a fait une erreur de remplacement. Rappelle-lui qu'il doit remplacer la lettre x par ${equation.x} et remettre le signe * explicite entre le nombre et la lettre.`;
     } else {
-      // CORRECTION ICI : On ne parle plus des parenthèses
       erreurContext = `L'élève a fait une erreur de calcul. Rappelle-lui de respecter les priorités opératoires : la multiplication passe toujours avant l'addition.`;
     }
 
@@ -131,7 +125,6 @@ function PratiqueAutonomeTesterEgalite2() {
       }
     }
     else if (progression === 2) {
-      // Remplacement de parseInt par parseFloat pour gérer les décimaux (, ou .)
       const valeurSaisie = parseFloat(calculGauche.toString().replace(',', '.'));
 
       if (valeurSaisie === equation.resGaucheAttendu) {
@@ -145,7 +138,6 @@ function PratiqueAutonomeTesterEgalite2() {
       }
     }
     else if (progression === 3) {
-      // Même chose pour le côté droit
       const valeurSaisie = parseFloat(calculDroite.toString().replace(',', '.'));
 
       if (valeurSaisie === equation.resDroiteAttendu) {
@@ -183,8 +175,8 @@ function PratiqueAutonomeTesterEgalite2() {
   return (
     <div className="container-fluid d-flex flex-column flex-md-row vh-100 bg-light p-0 overflow-hidden">
 
-      <div className="flex-grow-1 p-3 p-md-4 d-flex flex-column align-items-center justify-content-center border-bottom border-md-0">
-        <div className="card shadow-lg p-3 p-md-5 rounded-4 text-center border-0 w-100" style={{ maxWidth: '700px' }}>
+      <div className="flex-grow-1 p-3 p-md-4 d-flex flex-column align-items-center overflow-auto h-100">
+        <div className="card shadow-lg p-3 p-md-5 rounded-4 text-center border-0 w-100 my-auto" style={{ maxWidth: '700px' }}>
 
           {!isFinished ? (
             <>
@@ -200,9 +192,8 @@ function PratiqueAutonomeTesterEgalite2() {
               </div>
 
               <div className="row g-3 text-center mb-4">
-
                 <div className="col-6">
-                  <div className={`p-3 rounded-4 border-start border-4 border-info bg-white shadow-sm`}>
+                  <div className="p-3 rounded-4 border-start border-4 border-info bg-white shadow-sm">
                     <span className="text-info small text-uppercase fw-bold">Membre de gauche</span>
                     <div className="fs-5 my-2 fw-bold text-dark">{equation.gaucheTexte}</div>
 
@@ -250,7 +241,6 @@ function PratiqueAutonomeTesterEgalite2() {
                     )}
                   </div>
                 </div>
-
               </div>
 
               {progression < 4 && isCorrect !== false && (
@@ -305,7 +295,7 @@ function PratiqueAutonomeTesterEgalite2() {
         </div>
       </div>
 
-      <div className="bg-white border-start shadow-sm d-flex flex-column" style={{ width: '100%', maxWidth: '100%', height: '40vh', flexBasis: '420px' }}>
+      <div className="bg-white border-start shadow-sm d-flex flex-column h-100" style={{ width: '100%', maxWidth: '100%', flexBasis: '420px' }}>
         <div className="p-2 p-md-3 border-bottom text-center bg-white d-none d-md-block">
           <img src={logoRobot} alt="Robot" style={{ width: '50px' }} />
           <h6 className="fw-bold mb-0">LitterAl</h6>
@@ -322,7 +312,7 @@ function PratiqueAutonomeTesterEgalite2() {
               {isWorking && <div className="text-muted small p-2 text-center">LitterAl réfléchit...</div>}
             </>
           ) : (
-            <div className="text-center text-muted mt-2">
+            <div className="text-center text-muted mt-5">
               <p className="small">Je t'aide ici en cas d'erreur !</p>
             </div>
           )}
@@ -351,5 +341,4 @@ function PratiqueAutonomeTesterEgalite2() {
   );
 }
 
-
-export default PratiqueAutonomeTesterEgalite2
+export default PratiqueAutonomeTesterEgalite2;

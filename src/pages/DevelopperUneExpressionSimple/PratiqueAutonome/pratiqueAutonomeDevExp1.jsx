@@ -1,12 +1,12 @@
 import { useState } from "react";
 import logoRobot from "../../../assets/logo_robot.png";
 import { envoyerMessage } from "../../../services/LitterAI_API.js";
-import {useLocation, useNavigate} from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function PratiqueAutonomeDevExp1() {
   const [exercice, setExercice] = useState(1);
   const [score, setScore] = useState(0);
-  const [niveau, setNiveau] = useState(0); // 0: ax+b=c | 1: ax+b=cx+d | 2: décimaux
+  const [niveau, setNiveau] = useState(0);
   const [currentEquation, setCurrentEquation] = useState(genererExpressionNiveau1());
   const [reponseEleve, setReponseEleve] = useState("");
   const [message, setMessage] = useState("");
@@ -16,16 +16,13 @@ function PratiqueAutonomeDevExp1() {
   const [isFinished, setIsFinished] = useState(false);
 
   const location = useLocation();
-
-  // Si l'élève vient de la machine, on prend son choix (5 à 10). Sinon (parcours normal), c'est 4.
   const totalQuestions = location.state?.totalQuestions || 4;
-
   const navigate = useNavigate();
+
   const goToModelage = () => {
     navigate("/modelage");
   };
 
-  // --- LOGIQUE MATHÉMATIQUE ---
   function genererExpressionNiveau1() {
     let a = Math.floor(Math.random() * 8) + 2;
     let b = Math.floor(Math.random() * 9) + 1;
@@ -34,7 +31,6 @@ function PratiqueAutonomeDevExp1() {
     return {affichage: `${a} * (${b} + ${c})`, solution: xSolution};
   }
 
-  // --- ACTIONS IA ---
   async function discuterErreur(messageUtilisateur = "") {
     setIsWorking(true);
     const contenuUser = messageUtilisateur || `J'ai proposé ${reponseEleve} pour ${currentEquation.affichage}, pourquoi c'est faux ?`;
@@ -52,13 +48,10 @@ function PratiqueAutonomeDevExp1() {
       3. RAPPEL DU MÉCANISME : Utilise l'analogie du "fléchage" ou du nombre "attaquant" vue dans la leçon (ex: "Rappelle-toi, le nombre collé devant la parenthèse doit attaquer le premier nombre à l'intérieur, puis le deuxième").
       4. RESTE BLOQUÉ SUR L'ÉTAPE : Pose une seule question à la fois pour le débloquer (ex: "Quelle est la première multiplication que tu dois faire pour commencer ?") et attends sa réponse pour avancer pas à pas.
       5. LANGAGE : Simple, direct et très concis (2 à 3 phrases maximum).`
-
     };
-    await envoyerMessage([promptSysteme, ...historique], setConversationIA, "", () => {
-    }, setIsWorking);
+    await envoyerMessage([promptSysteme, ...historique], setConversationIA, "", () => {}, setIsWorking);
   }
 
-  // --- LOGIQUE DE VALIDATION ---
   function verifierReponse() {
     if (Number(reponseEleve) === currentEquation.solution) {
       setScore(prev => prev + 1);
@@ -75,7 +68,7 @@ function PratiqueAutonomeDevExp1() {
     if (exercice < totalQuestions) {
       setExercice(prev => prev + 1);
       setCurrentEquation(genererExpressionNiveau1());
-      setReponseEleve(" ");
+      setReponseEleve("");
       setMessage("");
       setIsCorrect(null);
       setConversationIA([]);
@@ -87,10 +80,9 @@ function PratiqueAutonomeDevExp1() {
   return (
     <div className="container-fluid d-flex flex-column flex-md-row vh-100 bg-light p-0 overflow-hidden">
 
-      {/* ZONE GAUCHE (HAUT SUR MOBILE) : EXERCICE */}
-      <div
-        className="flex-grow-1 p-3 p-md-4 d-flex flex-column align-items-center justify-content-center border-bottom border-md-0">
-        <div className="card shadow-lg p-3 p-md-5 rounded-4 text-center border-0 w-100" style={{maxWidth: '600px'}}>
+      {/* ZONE GAUCHE : EXERCICE */}
+      <div className="flex-grow-1 p-3 p-md-4 d-flex flex-column align-items-center overflow-auto h-100">
+        <div className="card shadow-lg p-3 p-md-5 rounded-4 text-center border-0 w-100 my-auto" style={{maxWidth: '600px'}}>
 
           {!isFinished ? (
             <>
@@ -108,9 +100,7 @@ function PratiqueAutonomeDevExp1() {
                   style={{maxWidth: '160px', height: '60px', fontSize: '1.5rem'}}
                   value={reponseEleve}
                   onChange={(e) => setReponseEleve(e.target.value)}
-                  disabled={isCorrect === false}
-
-
+                  disabled={isCorrect === true}
                 />
                 {isCorrect !== true && (
                   <button className="btn btn-primary px-4 fw-bold shadow-sm" onClick={verifierReponse}>
@@ -120,8 +110,7 @@ function PratiqueAutonomeDevExp1() {
               </div>
 
               {message && (
-                <div
-                  className={`alert ${isCorrect ? 'alert-success' : 'alert-danger'} rounded-4 py-3 shadow-sm animate__animated animate__fadeIn`}>
+                <div className={`alert ${isCorrect ? 'alert-success' : 'alert-danger'} rounded-4 py-3 shadow-sm animate__animated animate__fadeIn`}>
                   <div className="fw-bold mb-2 small mb-md-3">{message}</div>
                   <button
                     className={`btn ${isCorrect ? 'btn-success' : 'btn-outline-danger'} rounded-pill px-4 px-md-5 fw-bold w-100 w-sm-auto`}
@@ -132,7 +121,6 @@ function PratiqueAutonomeDevExp1() {
               )}
             </>
           ) : (
-            /* ÉCRAN BILAN ADAPTÉ */
             <div className="animate__animated animate__fadeIn">
               <h2 className="fw-bold mb-2">Bilan</h2>
               <div className="display-3 fw-bold mb-3 text-primary">{score} / {totalQuestions}</div>
@@ -151,8 +139,7 @@ function PratiqueAutonomeDevExp1() {
                       setMessage("");
                       setIsCorrect(null);
                       setConversationIA([]);
-                      navigate("/modelage2")
-
+                      navigate("/modelage2");
                     } else {
                       navigate("/");
                     }
@@ -173,9 +160,8 @@ function PratiqueAutonomeDevExp1() {
         </div>
       </div>
 
-      {/* ZONE DROITE (BAS SUR MOBILE) : CHAT */}
-      <div className="bg-white border-start shadow-sm d-flex flex-column"
-           style={{width: '100%', maxWidth: '100%', height: '40vh', flexBasis: '420px'}}>
+      {/* ZONE DROITE : CHAT */}
+      <div className="bg-white border-start shadow-sm d-flex flex-column h-100" style={{width: '100%', maxWidth: '100%', flexBasis: '420px'}}>
         <div className="p-2 p-md-3 border-bottom text-center bg-white d-none d-md-block">
           <img src={logoRobot} alt="Robot" style={{width: '50px'}}/>
           <h6 className="fw-bold mb-0">LitterAl</h6>
@@ -185,15 +171,14 @@ function PratiqueAutonomeDevExp1() {
           {isCorrect === false && !isFinished ? (
             <>
               {conversationIA.filter(m => m.role !== 'system' && m.content.trim() !== "").map((m, i) => (
-                <div key={i}
-                     className={`mb-2 p-2 rounded-4 shadow-sm small ${m.role === 'user' ? 'bg-primary text-white ms-4' : 'bg-white me-4 border'}`}>
+                <div key={i} className={`mb-2 p-2 rounded-4 shadow-sm small ${m.role === 'user' ? 'bg-primary text-white ms-4' : 'bg-white me-4 border'}`}>
                   {m.content}
                 </div>
               ))}
               {isWorking && <div className="text-muted small p-2 text-center">LitterAl réfléchit...</div>}
             </>
           ) : (
-            <div className="text-center text-muted mt-2">
+            <div className="text-center text-muted mt-5">
               <p className="small">Je t'aide ici en cas d'erreur !</p>
             </div>
           )}

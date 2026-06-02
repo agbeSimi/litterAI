@@ -139,7 +139,7 @@ export default function PratiqueAutonomeFactorisation() {
     <div className="container-fluid d-flex flex-column flex-md-row vh-100 bg-light p-0 overflow-hidden">
 
       {/* ZONE GAUCHE : EXERCICE */}
-      <div className="flex-grow-1 p-3 p-md-4 d-flex flex-column align-items-center justify-content-center border-bottom border-md-0">
+      <div className="flex-grow-1 p-3 p-md-4 d-flex flex-column align-items-center overflow-auto h-100">
         <div className="card shadow-lg p-3 p-md-5 rounded-4 text-center border-0 w-100" style={{maxWidth: '600px'}}>
 
           {!isFinished ? (
@@ -257,7 +257,7 @@ export default function PratiqueAutonomeFactorisation() {
       </div>
 
       {/* ZONE DROITE : CHAT */}
-      <div className="bg-white border-start shadow-sm d-flex flex-column" style={{width: '100%', maxWidth: '100%', height: '40vh', flexBasis: '420px'}}>
+      <div className="bg-white border-start shadow-sm d-flex flex-column h-100" style={{width: '100%', maxWidth: '100%', flexBasis: '420px'}}>
         <div className="p-2 p-md-3 border-bottom text-center bg-white d-none d-md-block">
           <img src={logoRobot} alt="Robot" style={{width: '50px'}}/>
           <h6 className="fw-bold mb-0">LitterAl</h6>

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import logoRobot from "../../../assets/logo_robot.png";
 import { envoyerMessage } from "../../../services/LitterAI_API.js";
-import {useLocation, useNavigate} from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function PratiqueAutonomeCL3() {
   const [exercice, setExercice] = useState(1);
@@ -20,9 +20,7 @@ export default function PratiqueAutonomeCL3() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Si l'élève vient de la machine, on prend son choix (5 à 10). Sinon (parcours normal), c'est 4.
   const totalQuestions = location.state?.totalQuestions || 4;
-
 
   // --- LOGIQUE MATHÉMATIQUE ---
   function genererProgramme() {
@@ -56,7 +54,8 @@ export default function PratiqueAutonomeCL3() {
   async function discuterErreur(messageUtilisateur = "") {
     setIsWorking(true);
 
-    const contenuUser = messageUtilisateur || `Je n'arrive pas à trouver les instructions pour ${currentEquation.solution}. J'ai écrit : 1) ${reponseEtape1}, 2) ${reponseEtape2}, 3) ${reponseEtape3}. Peux-tu m'aider ?`;    const nouveauMessage = {role: "user", content: contenuUser};
+    const contenuUser = messageUtilisateur || `Je n'arrive pas à trouver les instructions pour ${currentEquation.solution}. J'ai écrit : 1) ${reponseEtape1}, 2) ${reponseEtape2}, 3) ${reponseEtape3}. Peux-tu m'aider ?`;
+    const nouveauMessage = {role: "user", content: contenuUser};
     const historique = [...conversationIA, nouveauMessage];
     const promptSysteme = {
       role: "system",
@@ -84,12 +83,11 @@ export default function PratiqueAutonomeCL3() {
       - UNE SEULE QUESTION à la fois.
       - ZÉRO GRAS : N'utilise jamais de doubles étoiles (**).`
     };
-    await envoyerMessage([promptSysteme, ...historique], setConversationIA, "", () => {
-    }, setIsWorking);
+    await envoyerMessage([promptSysteme, ...historique], setConversationIA, "", () => {}, setIsWorking);
   }
 
-  // Fonction pour nettoyer le texte (enlève les espaces multiples et met en minuscules)
   const nettoyerTexte = (texte) => texte.trim().toLowerCase().replace(/\s+/g, " ");
+
   // --- LOGIQUE DE VALIDATION ---
   function verifierReponse() {
     const etape1Attendue = nettoyerTexte("Choisir X");
@@ -129,10 +127,9 @@ export default function PratiqueAutonomeCL3() {
   return (
     <div className="container-fluid d-flex flex-column flex-md-row vh-100 bg-light p-0 overflow-hidden">
 
-      {/* ZONE GAUCHE (HAUT SUR MOBILE) : EXERCICE */}
-      <div
-        className="flex-grow-1 p-3 p-md-4 d-flex flex-column align-items-center justify-content-center border-bottom border-md-0">
-        <div className="card shadow-lg p-3 p-md-5 rounded-4 text-center border-0 w-100" style={{maxWidth: '600px'}}>
+      {/* ZONE GAUCHE : EXERCICE */}
+      <div className="flex-grow-1 p-3 p-md-4 d-flex flex-column align-items-center overflow-auto h-100">
+        <div className="card shadow-lg p-3 p-md-5 rounded-4 text-center border-0 w-100 my-auto" style={{maxWidth: '600px'}}>
 
           {!isFinished ? (
             <>
@@ -144,11 +141,11 @@ export default function PratiqueAutonomeCL3() {
               <p className="display-4 fw-bold text-primary my-4">
                 {currentEquation.solution}
               </p>
-              <p className="mb-4">Retrouve le programme de calcul correspondant :</p>
+              <p className="mb-4 text-muted">Retrouve le programme de calcul correspondant :</p>
 
               <div className="d-flex flex-column gap-3 mb-4 mx-auto" style={{maxWidth: '350px'}}>
-                <div className="input-group">
-                  <span className="input-group-text fw-bold">Étape 1</span>
+                <div className="input-group shadow-sm">
+                  <span className="input-group-text fw-bold" style={{width: '90px'}}>Étape 1</span>
                   <input
                     type="text"
                     className="form-control text-center"
@@ -159,8 +156,8 @@ export default function PratiqueAutonomeCL3() {
                   />
                 </div>
 
-                <div className="input-group">
-                  <span className="input-group-text fw-bold">Étape 2</span>
+                <div className="input-group shadow-sm">
+                  <span className="input-group-text fw-bold" style={{width: '90px'}}>Étape 2</span>
                   <input
                     type="text"
                     className="form-control text-center"
@@ -171,8 +168,8 @@ export default function PratiqueAutonomeCL3() {
                   />
                 </div>
 
-                <div className="input-group">
-                  <span className="input-group-text fw-bold">Étape 3</span>
+                <div className="input-group shadow-sm">
+                  <span className="input-group-text fw-bold" style={{width: '90px'}}>Étape 3</span>
                   <input
                     type="text"
                     className="form-control text-center"
@@ -185,14 +182,13 @@ export default function PratiqueAutonomeCL3() {
               </div>
 
               {isCorrect !== true && (
-                <button className="btn btn-primary px-5 fw-bold shadow-sm mb-3" onClick={verifierReponse}>
+                <button className="btn btn-primary px-5 fw-bold shadow-sm mb-3 rounded-pill" onClick={verifierReponse}>
                   Valider mon programme
                 </button>
               )}
 
               {message && (
-                <div
-                  className={`alert ${isCorrect ? 'alert-success' : 'alert-danger'} rounded-4 py-3 shadow-sm animate__animated animate__fadeIn`}>
+                <div className={`alert ${isCorrect ? 'alert-success' : 'alert-danger'} rounded-4 py-3 shadow-sm animate__animated animate__fadeIn`}>
                   <div className="fw-bold mb-2 small mb-md-3">{message}</div>
                   <button
                     className={`btn ${isCorrect ? 'btn-success' : 'btn-outline-danger'} rounded-pill px-4 px-md-5 fw-bold w-100 w-sm-auto`}
@@ -203,12 +199,12 @@ export default function PratiqueAutonomeCL3() {
               )}
             </>
           ) : (
-            /* ÉCRAN BILAN ADAPTÉ */
+            /* ÉCRAN BILAN */
             <div className="animate__animated animate__fadeIn">
               <h2 className="fw-bold mb-2">Bilan</h2>
               <div className="display-3 fw-bold mb-3 text-primary">{score} / {totalQuestions}</div>
 
-              {(score / totalQuestions) >= 0.75? (
+              {(score / totalQuestions) >= 0.75 ? (
                 <div className="alert alert-success rounded-4 p-3 p-md-4">
                   <p className="small mb-3">Bravo ! Prêt pour la suite ?</p>
                   <button className="btn btn-success rounded-pill px-4 fw-bold w-100" onClick={() => {
@@ -244,9 +240,8 @@ export default function PratiqueAutonomeCL3() {
         </div>
       </div>
 
-      {/* ZONE DROITE (BAS SUR MOBILE) : CHAT */}
-      <div className="bg-white border-start shadow-sm d-flex flex-column"
-           style={{width: '100%', maxWidth: '100%', height: '40vh', flexBasis: '420px'}}>
+      {/* ZONE DROITE : CHAT */}
+      <div className="bg-white border-start shadow-sm d-flex flex-column h-100" style={{width: '100%', maxWidth: '100%', flexBasis: '420px'}}>
         <div className="p-2 p-md-3 border-bottom text-center bg-white d-none d-md-block">
           <img src={logoRobot} alt="Robot" style={{width: '50px'}}/>
           <h6 className="fw-bold mb-0">LitterAl</h6>
@@ -256,15 +251,14 @@ export default function PratiqueAutonomeCL3() {
           {isCorrect === false && !isFinished ? (
             <>
               {conversationIA.filter(m => m.role !== 'system' && m.content.trim() !== "").map((m, i) => (
-                <div key={i}
-                     className={`mb-2 p-2 rounded-4 shadow-sm small ${m.role === 'user' ? 'bg-primary text-white ms-4' : 'bg-white me-4 border'}`}>
+                <div key={i} className={`mb-2 p-2 rounded-4 shadow-sm small ${m.role === 'user' ? 'bg-primary text-white ms-4' : 'bg-white me-4 border'}`}>
                   {m.content}
                 </div>
               ))}
               {isWorking && <div className="text-muted small p-2 text-center">LitterAl réfléchit...</div>}
             </>
           ) : (
-            <div className="text-center text-muted mt-2">
+            <div className="text-center text-muted mt-5">
               <p className="small">Je t'aide ici en cas d'erreur !</p>
             </div>
           )}

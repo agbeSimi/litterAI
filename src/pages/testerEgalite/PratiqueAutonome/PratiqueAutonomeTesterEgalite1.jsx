@@ -5,8 +5,7 @@ import { envoyerMessage } from "../../../services/LitterAI_API.js";
 import logoRobot from "../../../assets/logo_robot.png";
 
 function PratiqueAutonomeTesterEgalite1() {
-
-    const [exercice, setExercice] = useState(1);
+  const [exercice, setExercice] = useState(1);
   const [score, setScore] = useState(0);
   const [niveau, setNiveau] = useState(1);
   const [equation, setEquation] = useState(null);
@@ -26,7 +25,6 @@ function PratiqueAutonomeTesterEgalite1() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Si l'élève vient de la machine, on prend son choix (5 à 10). Sinon (parcours normal), c'est 4.
   const totalQuestions = location.state?.totalQuestions || 4;
 
   function genererEquationIdentique() {
@@ -45,8 +43,8 @@ function PratiqueAutonomeTesterEgalite1() {
       droiteTexte: `${c}x + ${d}`,
       gaucheAttendu: `${a}*${xValeur}+${b}`,
       droiteAttendu: `${c}*${xValeur}+${d}`,
-      resGaucheAttendu: calculG, // Résultat unique pour la gauche
-      resDroiteAttendu: calculD  // Résultat unique pour la droite
+      resGaucheAttendu: calculG,
+      resDroiteAttendu: calculD
     });
 
     setInputGauche("");
@@ -71,7 +69,6 @@ function PratiqueAutonomeTesterEgalite1() {
     if (progression === 0 || progression === 1) {
       erreurContext = `L'élève a fait une erreur de remplacement. Rappelle-lui qu'il doit remplacer la lettre x par ${equation.x} et remettre le signe * explicite entre le nombre et la lettre.`;
     } else {
-      // CORRECTION ICI : On ne parle plus des parenthèses
       erreurContext = `L'élève a fait une erreur de calcul. Rappelle-lui de respecter les priorités opératoires : la multiplication passe toujours avant l'addition.`;
     }
 
@@ -120,7 +117,6 @@ function PratiqueAutonomeTesterEgalite1() {
       }
     }
     else if (progression === 2) {
-      // On compare avec resGaucheAttendu
       if (parseInt(calculGauche) === equation.resGaucheAttendu) {
         setIsCorrect(null);
         setProgression(3);
@@ -132,13 +128,11 @@ function PratiqueAutonomeTesterEgalite1() {
       }
     }
     else if (progression === 3) {
-      // On compare avec resDroiteAttendu
       if (parseInt(calculDroite) === equation.resDroiteAttendu) {
         setScore(prev => prev + 1);
         setIsCorrect(true);
         setProgression(4);
 
-        // Conclusion finale selon les deux résultats
         if (equation.resGaucheAttendu === equation.resDroiteAttendu) {
           setMessage(`Bravo ! ${equation.resGaucheAttendu} = ${equation.resDroiteAttendu}. L'égalité est VRAIE.`);
         } else {
@@ -166,8 +160,8 @@ function PratiqueAutonomeTesterEgalite1() {
   return (
     <div className="container-fluid d-flex flex-column flex-md-row vh-100 bg-light p-0 overflow-hidden">
 
-      <div className="flex-grow-1 p-3 p-md-4 d-flex flex-column align-items-center justify-content-center border-bottom border-md-0">
-        <div className="card shadow-lg p-3 p-md-5 rounded-4 text-center border-0 w-100" style={{ maxWidth: '700px' }}>
+      <div className="flex-grow-1 p-3 p-md-4 d-flex flex-column align-items-center overflow-auto h-100">
+        <div className="card shadow-lg p-3 p-md-5 rounded-4 text-center border-0 w-100 my-auto" style={{ maxWidth: '700px' }}>
 
           {!isFinished ? (
             <>
@@ -183,9 +177,8 @@ function PratiqueAutonomeTesterEgalite1() {
               </div>
 
               <div className="row g-3 text-center mb-4">
-
                 <div className="col-6">
-                  <div className={`p-3 rounded-4 border-start border-4 border-info bg-white shadow-sm`}>
+                  <div className="p-3 rounded-4 border-start border-4 border-info bg-white shadow-sm">
                     <span className="text-info small text-uppercase fw-bold">Membre de gauche</span>
                     <div className="fs-5 my-2 fw-bold text-dark">{equation.gaucheTexte}</div>
 
@@ -233,7 +226,6 @@ function PratiqueAutonomeTesterEgalite1() {
                     )}
                   </div>
                 </div>
-
               </div>
 
               {progression < 4 && isCorrect !== false && (
@@ -289,7 +281,7 @@ function PratiqueAutonomeTesterEgalite1() {
         </div>
       </div>
 
-      <div className="bg-white border-start shadow-sm d-flex flex-column" style={{ width: '100%', maxWidth: '100%', height: '40vh', flexBasis: '420px' }}>
+      <div className="bg-white border-start shadow-sm d-flex flex-column h-100" style={{ width: '100%', maxWidth: '100%', flexBasis: '420px' }}>
         <div className="p-2 p-md-3 border-bottom text-center bg-white d-none d-md-block">
           <img src={logoRobot} alt="Robot" style={{ width: '50px' }} />
           <h6 className="fw-bold mb-0">LitterAl</h6>
@@ -306,7 +298,7 @@ function PratiqueAutonomeTesterEgalite1() {
               {isWorking && <div className="text-muted small p-2 text-center">LitterAl réfléchit...</div>}
             </>
           ) : (
-            <div className="text-center text-muted mt-2">
+            <div className="text-center text-muted mt-5">
               <p className="small">Je t'aide ici en cas d'erreur !</p>
             </div>
           )}
@@ -335,5 +327,4 @@ function PratiqueAutonomeTesterEgalite1() {
   );
 }
 
-
-export default PratiqueAutonomeTesterEgalite1
+export default PratiqueAutonomeTesterEgalite1;
