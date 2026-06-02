@@ -80,7 +80,7 @@ export default function CreerClasse() {
                   id="lettre"
                   type="text"
                   className="form-control form-control-lg"
-                  placeholder="Ex: A, B..."
+                  placeholder="Ex: A, B, Spécial..."
                   value={lettre}
                   onChange={event => setLettre(event.target.value)}
                   required
