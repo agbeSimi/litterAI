@@ -87,6 +87,8 @@ import Login from "./pages/Login.jsx";
 import Navbar from "./composants/Navbar.jsx";
 import Inscription from "./pages/Inscription.jsx";
 import VerificationProf from "./pages/VerificationProf.jsx";
+import ProtectedProfRoute from "./pages/ProtectedProfRoute.jsx";
+import CreerClasse from "./pages/CreerClasse.jsx";
 
 function App() {
   return (
@@ -96,6 +98,15 @@ function App() {
         <Route path="/Login" element={<Login/>}/>
         <Route path="/Inscription" element={<Inscription/>}/>
         <Route path="/VerificationProf" element={<VerificationProf/>}/>
+
+        <Route
+          path="/creer-classe"
+          element={
+            <ProtectedProfRoute>
+              <CreerClasse />
+            </ProtectedProfRoute>
+          }
+        />
 
 
           <Route path="/" element={<Accueil/>}/>
