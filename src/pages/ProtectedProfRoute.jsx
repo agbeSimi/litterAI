@@ -14,7 +14,7 @@ const ProtectedProfRoute = ({ children }) => {
     const userRoles = decodedToken.roles || [];
 
     // Si c'est un prof, on affiche directement la page (children)
-    if (userRoles.includes('ROLE_PROFESSEUR')) {
+    if (userRoles.includes('USER_ROLE_PROFESSEUR')) {
       return children;
     }
   } catch (error) {
