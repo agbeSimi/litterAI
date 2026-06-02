@@ -205,3 +205,33 @@ export async function handleVerifyCode(code) {
     return false;
   }
 }
+
+export async function classeSubmit(event, nom, effectif, setEleves) {
+  event.preventDefault();
+  const token = localStorage.getItem("jwt_token");
+  try {
+    const response = await fetch(`${URL_BASE}/classes`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify(
+        {
+          nom: nom,
+          effectif: parseInt(effectif,10)
+        }
+      )
+    })
+    if (response.ok) {
+      const data = await response.json();
+      setEleves(data.eleves);
+    } else {
+      alert("Une erreur est survenue lors de la création de la classe.");
+    }
+  }
+  catch (error) {
+    console.error("Erreur réseau :", error);
+  }
+}
