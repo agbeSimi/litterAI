@@ -1,12 +1,12 @@
-import React from 'react';
+import 'react';
 import { Navigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 
 const ProtectedProfRoute = ({ children }) => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('jwt_token');
 
   if (!token) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/Login" replace />;
   }
 
   try {
@@ -19,8 +19,9 @@ const ProtectedProfRoute = ({ children }) => {
     }
   } catch (error) {
     // Si le token est expiré ou corrompu
-    localStorage.removeItem('token');
-    return <Navigate to="/login" replace />;
+    console.error("Erreur dans le ProtectedRoute :", error);
+    localStorage.removeItem('jwt_token');
+    return <Navigate to="/Login" replace />;
   }
 
   // Si le try s'est exécuté mais que le rôle n'y était pas, on arrive ici
