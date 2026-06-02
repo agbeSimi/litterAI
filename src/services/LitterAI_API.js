@@ -6,13 +6,11 @@ const URL_BASE = 'https://127.0.0.1:8000/api'
 
 export function lancerExercice(conversation, setConversation, setIsWorking, prompt) {
   setIsWorking(true);
-  const token = localStorage.getItem("jwt_token");
   fetch(`${URL_BASE}/ia/groq`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/ld+json',
       'Accept': 'application/ld+json',
-      'Authorization': `Bearer ${token}`,
     },
     body: JSON.stringify({
       question: prompt,
@@ -37,13 +35,11 @@ export function envoyerMessage(conversation, setConversation, input, setInput, s
 
 
   setIsWorking(true);
-  const token = localStorage.getItem("jwt_token");
   fetch(`${URL_BASE}/ia/groq`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/ld+json',
         'Accept': 'application/ld+json',
-        'Authorization': `Bearer ${token}`,
 
       },
       body: JSON.stringify({
