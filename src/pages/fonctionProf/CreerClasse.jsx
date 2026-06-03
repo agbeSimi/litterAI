@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import {classeSubmit} from "../services/LitterAI_API.js";
+import {classeSubmit} from "../../services/LitterAI_API.js";
 
 export default function CreerClasse() {
   const [niveau, setNiveau] = useState('6ème');
