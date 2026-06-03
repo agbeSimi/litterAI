@@ -307,6 +307,7 @@ function PratiqueAutonomeTesterEgalite3() {
         </div>
 
 
+
         {isCorrect === false && !isFinished && (
           <div className="p-2 p-md-3 border-top bg-white">
             <div className="input-group shadow-sm rounded-pill overflow-hidden border">
