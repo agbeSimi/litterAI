@@ -5,7 +5,17 @@ function ListeClasse() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // 1. Récupération des classes créées par le prof
+  const modulesDisponibles = [
+    { id: 1, nom: "Module 1 : Développement" },
+    { id: 2, nom: "Module 2 : Factorisation" },
+    { id: 3, nom: "Module 3 : Prog. de calcul" },
+    { id: 4, nom: "Module 4 : Intro calcul littéral" },
+    { id: 5, nom: "Module 5 : Simplifier expression" },
+    { id: 6, nom: "Module 6 : Tester égalité" },
+    { id: 7, nom: "Module 7 : Dév. expression simple" },
+    { id: 8, nom: "Module 8 : Équations" }
+  ];
+
   useEffect(() => {
     const token = localStorage.getItem('jwt_token');
 
@@ -22,8 +32,6 @@ function ListeClasse() {
         return response.json();
       })
       .then(data => {
-        // 🔴 CORRECTION ICI : API Platform enveloppe souvent les tableaux dans "hydra:member"
-        // On extrait le tableau brut pour que le .map() fonctionne parfaitement
         const tableauClasses = data['hydra:member'] ? data['hydra:member'] : data;
         setClasses(tableauClasses);
         setLoading(false);
@@ -34,18 +42,19 @@ function ListeClasse() {
       });
   }, []);
 
-  // 2. Gestion du clic sur l’interrupteur (Toggle basé sur modeApprentissage)
-  const handleToggleActive = async (classeId) => {
+  const handleToggleModule = async (classeId, moduleId) => {
     const classeActuelle = classes.find(c => c.id === classeId);
     if (!classeActuelle) return;
 
-    // On s'assure de gérer le cas où le champ est vide au premier chargement
-    const currentMode = classeActuelle.modeApprentissage || 'complet';
-    const newMode = currentMode === 'complet' ? 'desactive' : 'complet';
+    const modulesActuels = classeActuelle.modulesAutoriser || [];
+    const isCurrentlyActive = modulesActuels.includes(moduleId);
 
-    // Mise à jour de l'interface
+    const newModules = isCurrentlyActive
+      ? modulesActuels.filter(id => id !== moduleId)
+      : [...modulesActuels, moduleId];
+
     setClasses(prevClasses =>
-      prevClasses.map(c => c.id === classeId ? { ...c, modeApprentissage: newMode } : c)
+      prevClasses.map(c => c.id === classeId ? { ...c, modulesAutoriser: newModules } : c)
     );
 
     try {
@@ -56,17 +65,16 @@ function ListeClasse() {
           'Content-Type': 'application/merge-patch+json',
         },
         body: JSON.stringify({
-          modeApprentissage: newMode
+          modulesAutoriser: newModules
         })
       });
 
       if (!response.ok) {
-        throw new Error('Erreur serveur lors du PATCH');
+        throw new Error('Erreur API');
       }
     } catch (err) {
-      alert("L'enregistrement a échoué, retour à l'état précédent.");
       setClasses(prevClasses =>
-        prevClasses.map(c => c.id === classeId ? { ...c, modeApprentissage: currentMode } : c)
+        prevClasses.map(c => c.id === classeId ? { ...c, modulesAutoriser: modulesActuels } : c)
       );
     }
   };
@@ -83,32 +91,44 @@ function ListeClasse() {
       ) : (
         <div className="row">
           {classes.map((classe) => (
-            <div className="col-md-4 mb-4" key={classe.id}>
+            <div className="col-md-6 mb-4" key={classe.id}>
               <div className="card shadow-sm h-100">
-                <div className="card-body d-flex flex-column justify-content-between">
-                  <div>
+                <div className="card-body">
+                  <div className="mb-3">
                     <h5 className="card-title fw-bold text-primary">{classe.nom}</h5>
                     <p className="text-muted small mb-0">Identifiant unique : {classe.nomPurifie}</p>
                     <p className="text-muted small mb-0">Effectif : {classe.effectif} élèves</p>
                   </div>
 
-                  {/* Section de l'interrupteur */}
-                  <div className="form-check form-switch mt-4 d-flex align-items-center justify-content-between">
-                    <span className="text-secondary small">
-                      {classe.modeApprentissage === 'complet' ? '🟢 Session Activée' : '🔴 Session Désactivée'}
-                    </span>
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      role="switch"
-                      id={`switch-${classe.id}`}
-                      checked={classe.modeApprentissage === 'complet'}
-                      // 🟢 On passe uniquement l'ID maintenant, la fonction s'occupe du reste
-                      onChange={() => {}} // 🟢 AJOUTE CETTE LIGNE (Fait taire l'avertissement React)
-                      onClick={() => handleToggleActive(classe.id)}
-                      style={{ cursor: 'pointer', width: '2.5em', height: '1.25em' }}
-                    />
+                  <div className="border-top pt-3">
+                    <h6 className="fw-bold mb-3 small text-uppercase text-secondary">Gestion des modules</h6>
+                    <div className="row g-2">
+                      {modulesDisponibles.map(mod => {
+                        const isChecked = (classe.modulesAutoriser || []).includes(mod.id);
+                        return (
+                          <div key={mod.id} className="col-12 col-xl-6">
+                            <div className="p-2 border rounded bg-light d-flex align-items-center justify-content-between h-100">
+                              <span className="small text-dark text-truncate me-2" title={mod.nom}>
+                                {mod.nom}
+                              </span>
+                              <div className="form-check form-switch m-0 flex-shrink-0">
+                                <input
+                                  className="form-check-input"
+                                  type="checkbox"
+                                  role="switch"
+                                  checked={isChecked}
+                                  onChange={() => {}}
+                                  onClick={() => handleToggleModule(classe.id, mod.id)}
+                                  style={{ cursor: 'pointer' }}
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
+
                 </div>
               </div>
             </div>
