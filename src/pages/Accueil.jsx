@@ -5,7 +5,7 @@ import ModuleCard from "../composants/moduleCard.jsx";
 
 function Accueil() {
   const navigate = useNavigate();
-  const [modulesAutorises, setModulesAutorises] = useState([1,2,3,4,5,6,7,8]);
+  const [modulesAutorises, setModulesAutorises] = useState([1, 2, 3, 4, 5, 6, 7, 8]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -18,27 +18,15 @@ function Accueil() {
         'Accept': 'application/json'
       }
     })
-      .then(response => {
-        if (!response.ok) {
-          console.error("Alerte : L'API a renvoyé une erreur", response.status);
-        }
-        return response.json();
-      })
+      .then(response => response.json())
       .then(data => {
-        // 🔴 LE MOUCHARD EST ICI : On regarde ce que Symfony nous renvoie vraiment
-        console.log("Données de l'élève reçues depuis Symfony :", data);
-
         if (data.classe && data.classe.modulesAutoriser) {
-          // On s'assure de convertir les valeurs en nombres (au cas où Symfony renvoie des chaînes de caractères comme ["1", "2"])
           const modulesNettoyes = data.classe.modulesAutoriser.map(Number);
           setModulesAutorises(modulesNettoyes);
-        } else {
-          console.warn("Attention : Impossible de trouver data.classe.modulesAutoriser dans la réponse");
         }
         setLoading(false);
       })
-      .catch(err => {
-        console.error("Erreur réseau ou fetch :", err);
+      .catch(() => {
         setLoading(false);
       });
   }, []);
