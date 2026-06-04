@@ -5,7 +5,7 @@ import ModuleCard from "../composants/moduleCard.jsx";
 
 function Accueil() {
   const navigate = useNavigate();
-  const [modulesAutorises, setModulesAutorises] = useState([]);
+  const [modulesAutorises, setModulesAutorises] = useState([1,2,3,4,5,6,7,8]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
