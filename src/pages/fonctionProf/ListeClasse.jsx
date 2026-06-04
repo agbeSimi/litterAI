@@ -15,11 +15,13 @@ function ListeClasse() {
     { id: 7, nom: "Module 7 : Dév. expression simple" },
     { id: 8, nom: "Module 8 : Équations" }
   ];
+  const URL_BASE = 'https://127.0.0.1:8000/api'
 
   useEffect(() => {
+
     const token = localStorage.getItem('jwt_token');
 
-    fetch('https://127.0.0.1:8000/api/classes', {
+    fetch(`${URL_BASE}/classes`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -58,7 +60,7 @@ function ListeClasse() {
     );
 
     try {
-      const response = await fetch(`https://127.0.0.1:8000/api/classes/${classeId}`, {
+      const response = await fetch(`${URL_BASE}/classes/${classeId}`, {
         method: 'PATCH',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('jwt_token')}`,
