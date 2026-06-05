@@ -39,7 +39,7 @@ export default function CreerClasse() {
   }
 
   return (
-    <div className="container py-5 mt-4 min-vh-100 d-flex justify-content-center align-items-start">
+    <div className="container py-5 mt-5 min-vh-100 d-flex justify-content-center align-items-start">
       <div className="w-100" style={{ maxWidth: '650px' }}>
         {eleves.length > 0 ? (
           <div className="card shadow-lg border-0 rounded-4 overflow-hidden animate__animated animate__fadeIn">
