@@ -6,11 +6,20 @@ import { classeSubmit } from "../../services/LitterAI_API.js";
 export default function CreerClasse() {
   const [niveau, setNiveau] = useState('6ème');
   const [lettre, setLettre] = useState('');
-  const [effectif, setEffectif] = useState(0);
+  const [effectif, setEffectif] = useState(''); // Initialisé à vide pour que le placeholder s'affiche
   const [eleves, setEleves] = useState([]);
   const [chargement, setChargement] = useState(false);
 
   const nomComplet = `${niveau} ${lettre}`.trim();
+
+  // --- NOUVELLE FONCTION POUR GÉRER LA SOUMISSION ---
+  const handleCreation = async (e) => {
+    e.preventDefault(); // 🛑 EMPÊCHE LE RAFRAÎCHISSEMENT DE LA PAGE
+    setChargement(true); // ⏳ AFFICHE L'ÉCRAN DE CHARGEMENT
+
+    // On lance la requête à l'API (assure-toi que ta fonction gère bien setChargement(false) à la fin)
+    await classeSubmit(e, nomComplet, effectif, setEleves, setChargement);
+  };
 
   function genererPDF() {
     const doc = new jsPDF();
@@ -42,6 +51,7 @@ export default function CreerClasse() {
     <div className="container py-5 mt-5 min-vh-100 d-flex justify-content-center align-items-start">
       <div className="w-100" style={{ maxWidth: '650px' }}>
         {eleves.length > 0 ? (
+          /* --- ÉCRAN DE SUCCÈS --- */
           <div className="card shadow-lg border-0 rounded-4 overflow-hidden animate__animated animate__fadeIn">
             <div className="bg-success bg-opacity-10 border-bottom border-success border-opacity-25 p-4 text-center">
               <h3 className="mb-0 h4 fw-bolder text-success">🎉 Classe créée avec succès !</h3>
@@ -84,20 +94,34 @@ export default function CreerClasse() {
 
               <button
                 className="btn btn-primary btn-gradient-primary w-100 py-3 rounded-pill fw-bold btn-hover-scale"
-                onClick={() => { setEleves([]); setNiveau('6ème'); setLettre(''); setEffectif(0); }}
+                onClick={() => { setEleves([]); setNiveau('6ème'); setLettre(''); setEffectif(''); }}
               >
                 ➕ Créer une autre classe
               </button>
             </div>
           </div>
+        ) : chargement ? (
+          /* --- ÉCRAN DE CHARGEMENT --- */
+          <div className="card shadow-lg border-0 rounded-4 overflow-hidden animate__animated animate__fadeIn">
+            <div className="card-body p-5 d-flex flex-column align-items-center justify-content-center text-center" style={{ minHeight: '400px' }}>
+              <div className="spinner-border text-primary mb-4" style={{ width: '4rem', height: '4rem', borderWidth: '0.25rem' }} role="status">
+                <span className="visually-hidden">Chargement...</span>
+              </div>
+              <h3 className="fw-bolder custom-logo mb-3">Génération de la classe</h3>
+              <p className="text-secondary fw-medium">
+                Veuillez patienter pendant que LitterAI crée la classe et génère les identifiants pour vos {effectif} élèves...
+              </p>
+            </div>
+          </div>
         ) : (
+          /* --- ÉCRAN DU FORMULAIRE --- */
           <div className="card shadow-lg border-0 rounded-4 overflow-hidden animate__animated animate__fadeIn">
             <div className="bg-primary bg-opacity-10 border-bottom border-primary border-opacity-10 p-4 text-center">
               <h3 className="mb-0 h4 fw-bolder custom-logo">Création d'une nouvelle classe</h3>
             </div>
 
             <div className="card-body p-4 p-md-5 bg-white">
-              <form onSubmit={(e) => classeSubmit(e, nomComplet, effectif, setEleves, setChargement)}>
+              <form onSubmit={handleCreation}>
 
                 <div className="mb-4">
                   <label htmlFor="niveau" className="form-label fw-bold text-secondary">Niveau :</label>
@@ -135,6 +159,7 @@ export default function CreerClasse() {
                     className="form-control form-control-lg border-light shadow-sm custom-input-wrapper bg-light fw-bold text-primary"
                     min="1"
                     max="100"
+                    placeholder="Saisissez un nombre (ex: 25)"
                     value={effectif}
                     onChange={event => setEffectif(event.target.value)}
                     required
@@ -144,16 +169,8 @@ export default function CreerClasse() {
                 <button
                   type="submit"
                   className="btn btn-primary btn-gradient-primary btn-lg w-100 py-3 rounded-pill fw-bold shadow-sm btn-hover-scale d-flex align-items-center justify-content-center"
-                  disabled={chargement}
                 >
-                  {chargement ? (
-                    <>
-                      <span className="spinner-border spinner-border-sm me-3" role="status" aria-hidden="true"></span>
-                      Génération en cours...
-                    </>
-                  ) : (
-                    'Générer la classe et les comptes'
-                  )}
+                  Générer la classe et les comptes
                 </button>
               </form>
             </div>
