@@ -1,95 +1,31 @@
-import React, {useState} from "react";
-import { motion } from "framer-motion";
-import {useNavigate} from "react-router-dom";
+import ModelageLecon from "../../../composants/ModelageLecon.jsx";
 import ExempleResolution2 from "../ExempleResolution/ExempleResolution2.jsx";
 
-
 function Modelage2() {
-  const [afficheVideo, setAfficheVideo] = useState(false);
-  const navigate = useNavigate();
-  const goToVideo = () => {
-    setAfficheVideo( !afficheVideo );
-  };
-
-  const goToPratiqueGuide = () => {
-    navigate("/pratiqueGuide")
-  }
-  return(
-    <div className="container py-5 min-h-screen bg-light">
-      <div className="row justify-content-center">
-        <div className="col-lg-8 bg-white p-5 shadow-lg rounded-4">
-
-          {/* --- Header --- */}
-          <header className="text-center mb-5">
-            <h1 className="display-5 fw-bold text-primary">
-              L'équilibre de la Balance ⚖️
-            </h1>
-            <p className="lead text-dark mt-4">
-              Le signe "=" est le pivot.
-              <br />
-              <span className="fw-bold">Règle d'or :</span> Tout ce que tu retires d'un côté, tu dois le retirer de l'autre avec l'opération contraire !
-            </p>
-          </header>
-
-          {/* --- Rappel Concepts --- */}
-          <div className="card bg-light border-0 p-3 mb-5">
-            <div className="card-body">
-              <p className="mb-2">
-                <i className="bi bi-arrow-right-short text-primary fs-5"></i>
-                L'opposé de <strong>+5</strong> est <strong>-5</strong>.
-              </p>
-              <p className="mb-0">
-                <i className="bi bi-arrow-right-short text-primary fs-5"></i>
-                La réciproque de <strong>×3</strong> est <strong>÷3</strong>.
-              </p>
-            </div>
-
-            {/* --- Résolution Sombre --- */}
-          <ExempleResolution2/>
-
-
-            {/* --- Actions --- */}
-            <footer className="d-flex justify-content-center gap-4 mt-5 pt-4 border-top">
-              <motion.div
-                // Animation au survol (Effet de lévitation)
-                whileHover={{
-                  y: -10,
-                  shadow: "0px 10px 20px rgba(0,0,0,0.1)",
-                  scale: 1.02
-                }}
-              >
-
-                <button onClick={goToVideo} className="btn btn-sm px-md-5 py-md-3 px-4 rounded-pill fw-bold d-flex flex-wrap justify-content-center gap-3 mt-4" style={{ backgroundColor: 'orangered', color: 'white' }}>
-                  🎬 Vidéo éxplicative
-                </button>
-              </motion.div>
-              <motion.div
-                // Animation au survol (Effet de lévitation)
-                whileHover={{
-                  y: -10,
-                  shadow: "0px 10px 20px rgba(0,0,0,0.1)",
-                  scale: 1.02
-                }}
-              >
-                <button onClick={() => navigate("/pratiqueGuide2")} className="btn btn-sm px-md-5 py-md-3 px-4 rounded-pill fw-bold d-flex flex-wrap justify-content-center gap-3 mt-4" style={{ backgroundColor: 'deepskyblue', color: 'white' }}>
-                  Pratique Guidée
-                </button>
-              </motion.div>
-
-            </footer>
-            {afficheVideo && (
-              <div className="mt-3">
-                <video controls width="100%" className="rounded-4">
-                  <source src="/videos/le-mystere-de-la-balance.mp4" type="video/mp4" />
-                  Votre navigateur ne supporte pas la lecture de vidéos.
-                </video>
-              </div>
-            )}
-          </div>
-        </div>
+  return (
+    <ModelageLecon
+      titre="L'équilibre de la Balance ⚖️"
+      description={
+        <>
+          Le signe "=" est le pivot.
+          <br />
+          <span className="fw-bold text-dark">Règle d'or :</span> Tout ce que tu retires d'un côté, tu dois le retirer de l'autre avec l'opération contraire !
+        </>
+      }
+      routePratiqueGuidee="/pratiqueGuide2"
+      srcVideo="/videos/le-mystere-de-la-balance.mp4"
+      ComponentExemple={ExempleResolution2}
+    >
+      <div className="card-body px-0 pt-0 mb-3 border-bottom border-light">
+        <p className="mb-2 text-secondary">
+          <i className="bi bi-arrow-right-short text-primary fs-5"></i> L'opposé de <strong>+5</strong> est <strong>-5</strong>.
+        </p>
+        <p className="mb-0 text-secondary">
+          <i className="bi bi-arrow-right-short text-primary fs-5"></i> La réciproque de <strong>×3</strong> est <strong>÷3</strong>.
+        </p>
       </div>
-    </div>
-  )
+    </ModelageLecon>
+  );
 }
 
 export default Modelage2;
