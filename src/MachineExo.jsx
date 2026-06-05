@@ -1,5 +1,5 @@
-import {useState} from "react";
-import {useNavigate} from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function MachineExo({ titreModule, listeNiveaux }) {
   const [nbQuestions, setNbQuestions] = useState(5);
@@ -7,40 +7,44 @@ function MachineExo({ titreModule, listeNiveaux }) {
   const navigate = useNavigate();
 
   const lancerEntrainement = () => {
-    // 1. On cherche le niveau sélectionné par l'élève dans la liste
     const niveauChoisi = listeNiveaux.find(n => n.id === parseInt(niveau));
-
-    // 2. S'il existe, on redirige vers sa page autonome dédiée
-    // IMPORTANT : On transmet "totalQuestions" dans l'état de la navigation
     if (niveauChoisi && niveauChoisi.pathRoute) {
       navigate(niveauChoisi.pathRoute, { state: { totalQuestions: nbQuestions } });
     }
   };
 
   return (
-    <div className="container-fluid min-vh-100 bg-light d-flex align-items-center py-5">
+    <div className="container-fluid min-vh-100 bg-light d-flex align-items-center py-5 mt-4">
       <div className="container">
         <div className="row justify-content-center">
-          <div className="col-10 col-md-8 col-lg-5">
-            <div className="card border-0 shadow-lg rounded-4 p-4 p-md-5 bg-white text-center">
+          <div className="col-12 col-md-9 col-lg-6 col-xl-5">
+            {/* Carte avec effet Glassmorphism léger sur les bordures */}
+            <div className="card border-0 shadow-lg rounded-4 p-4 p-md-5 bg-white text-center custom-exercise-card">
 
-              <h2 className="fw-bold text-dark mb-2">⚙️ La Machine à Exercices</h2>
-              <p className="text-muted small mb-4">{titreModule}</p>
+              {/* Titre avec le dégradé de la charte */}
+              <h2 className="fw-bolder custom-logo mb-2">
+                ⚙️ La Machine à Exercices
+              </h2>
+              <p className="text-secondary fw-medium small mb-5 opacity-75">{titreModule}</p>
 
               {/* Choix du nombre de questions */}
               <div className="mb-4 text-start">
-                <label className="form-label fw-bold text-secondary">
-                  Nombre de questions : <span className="text-primary fs-5">{nbQuestions}</span>
+                <label className="form-label fw-bold text-secondary d-flex justify-content-between align-items-center">
+                  <span>Nombre de questions :</span>
+                  {/* Badge numérique personnalisé */}
+                  <span className="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-2 fs-6">
+                    {nbQuestions}
+                  </span>
                 </label>
                 <input
                   type="range"
-                  className="form-range"
+                  className="form-range custom-range"
                   min="5"
                   max="10"
                   value={nbQuestions}
                   onChange={(e) => setNbQuestions(parseInt(e.target.value))}
                 />
-                <div className="d-flex justify-content-between text-muted small px-1">
+                <div className="d-flex justify-content-between text-muted small px-1 mt-1 fw-semibold">
                   <span>5</span>
                   <span>10</span>
                 </div>
@@ -50,7 +54,7 @@ function MachineExo({ titreModule, listeNiveaux }) {
               <div className="mb-5 text-start">
                 <label className="form-label fw-bold text-secondary">Niveau de difficulté :</label>
                 <select
-                  className="form-select form-select-lg rounded-3 fs-6"
+                  className="form-select form-select-lg rounded-3 fs-6 custom-select shadow-sm"
                   value={niveau}
                   onChange={(e) => setNiveau(e.target.value)}
                 >
@@ -62,10 +66,10 @@ function MachineExo({ titreModule, listeNiveaux }) {
                 </select>
               </div>
 
-              {/* Bouton de lancement */}
+              {/* Bouton de lancement avec le dégradé LitterAI */}
               <button
                 onClick={lancerEntrainement}
-                className="btn btn-success rounded-pill w-100 py-3 fw-bold shadow transition"
+                className="btn btn-primary btn-gradient-primary rounded-pill w-100 py-3 fw-bold shadow-sm"
               >
                 ⚡ Lancer l'entraînement
               </button>
@@ -76,7 +80,6 @@ function MachineExo({ titreModule, listeNiveaux }) {
       </div>
     </div>
   );
-
 }
 
 export default MachineExo;
