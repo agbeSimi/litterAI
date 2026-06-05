@@ -124,7 +124,7 @@ function GererClasse() {
   );
 
   return (
-    <div className="container py-5 mt-4 min-vh-100">
+    <div className="container py-5 mt-5 min-vh-100">
 
       {/* En-tête avec le nouveau bouton */}
       <div className="d-flex flex-column flex-md-row align-items-md-center justify-content-between mb-5 gap-3">
