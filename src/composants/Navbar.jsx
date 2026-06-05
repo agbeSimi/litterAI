@@ -79,7 +79,7 @@ function Navbar() {
             )}
             {hasPrivilege && (
               <li className="nav-item mx-lg-2">
-                <Link className="nav-link link-dark link-primary-hover" to="/listeClasse">Gérer ses classes</Link>
+                <Link className="nav-link link-dark link-primary-hover" to="/gererClasse">Gérer ses classes</Link>
               </li>
             )}
           </ul>
