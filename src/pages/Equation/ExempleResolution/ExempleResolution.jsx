@@ -75,9 +75,16 @@ function ExempleResolution() {
 
 
     </motion.div>
-    <BoutonSuivant
-      onClick={etapeSuivante}
-      visible={indexEtape<etapes.length}/>
+      {indexEtape < etapes.length && (
+        <div className="text-center">
+          <button
+            onClick={etapeSuivante}
+            className="btn btn-primary rounded-pill px-5 py-3 shadow fw-bold border-0"
+          >
+            Afficher la suite...
+          </button>
+        </div>
+      )}
     </>
 
   );
