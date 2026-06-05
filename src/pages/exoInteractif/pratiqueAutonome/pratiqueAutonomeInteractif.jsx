@@ -1,19 +1,18 @@
-import { useState, useMemo } from "react"; // Ajout de useMemo
-import {DndContext} from "@dnd-kit/core";
+import { useState, useMemo } from "react";
+import { DndContext } from "@dnd-kit/core";
 import ZoneADeposer from "../composant/ZoneADeposer.jsx";
 import CarteADeposer from "../composant/CarteADeposer.jsx";
 import GenererProgramme from "../composant/GenerProgramme.jsx";
-import {useLocation, useNavigate} from "react-router-dom";
-import {envoyerMessage} from "../../../services/LitterAI_API.js";
+import { useLocation, useNavigate } from "react-router-dom";
+import { envoyerMessage } from "../../../services/LitterAI_API.js";
 import logoRobot from "../../../assets/logo_robot.png";
 
-
 function PratiqueAutonomeInteractif() {
-  const [progression, setProgression] = useState(0); // On commence à l'index 0
+  const [progression, setProgression] = useState(0);
   const [emplacements, setEmplacements] = useState({});
   const [exercice, setExercice] = useState(1);
   const [score, setScore] = useState(0);
-  const [currentEquation, setCurrentEquation] = useState(GenererProgramme); // Retrait de setCurrentEquation si non utilisé
+  const [currentEquation, setCurrentEquation] = useState(GenererProgramme);
   const [inputEleve, setInputEleve] = useState("");
 
   const [conversationIA, setConversationIA] = useState([]);
@@ -22,13 +21,10 @@ function PratiqueAutonomeInteractif() {
   const [messageErreur, setMessageErreur] = useState("");
   const [isCorrect, setIsCorrect] = useState(null);
 
-
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Si l'élève vient de la machine, on prend son choix (5 à 10). Sinon (parcours normal), c'est 4.
   const totalQuestions = location.state?.totalQuestions || 4;
-
 
   async function discuterErreur(msg = "") {
     setIsWorking(true);
@@ -69,25 +65,20 @@ function PratiqueAutonomeInteractif() {
     await envoyerMessage([promptSysteme, ...conversationIA, nouveauMessage], setConversationIA, "", () => {}, setIsWorking);
   }
 
-
   const etapes = [
     { id: 0, consigne: currentEquation.premierePartie, solution: currentEquation.solutions[0] },
     { id: 1, consigne: currentEquation.deuxiemePartie, solution: currentEquation.solutions[1] },
     { id: 2, consigne: currentEquation.troisiemePartie, solution: currentEquation.solutions[2] }
   ];
 
-  // --- LOGIQUE INTERACTION ---
-
-  // Mélanger les cartes une seule fois au début
   const cartesMelangees = useMemo(() => {
-    // Les vraies cartes portent l'ID de leur index d'étape (0, 1 ou 2)
     const vraies = etapes.map((etape, index) => ({
-      id: `vrai-${index}`, // ID unique par étape
-      etapeRef: index,     // On garde une référence à l'étape
+      id: `vrai-${index}`,
+      etapeRef: index,
       affichage: index === 0 ? `× ${currentEquation.a}` :
         index === 1 ? `${currentEquation.operation} ${currentEquation.b}` :
           `${currentEquation.operationFinale === '*' ? '×' : ':'} ${currentEquation.c}`,
-      consigneSource: etape.consigne // Pour la validation
+      consigneSource: etape.consigne
     }));
 
     const leurres = [
@@ -104,18 +95,15 @@ function PratiqueAutonomeInteractif() {
     if (!over) return;
 
     const indexEtape = parseInt(over.id);
-
     const carteDansLaListe = cartesMelangees.find(c => c.id === active.id);
 
     if (carteDansLaListe && carteDansLaListe.consigneSource === etapes[indexEtape].consigne) {
-
       setEmplacements(prev => ({
         ...prev,
         [indexEtape]: carteDansLaListe.affichage
       }));
       setIsCorrect(true);
       setMessageErreur("");
-
     } else {
       setIsCorrect(false);
       setMessageErreur("Cette opération ne va pas ici !");
@@ -128,10 +116,9 @@ function PratiqueAutonomeInteractif() {
       setProgression(prev => prev + 1);
       setInputEleve("");
       setMessageErreur("");
-      setIsCorrect(true); // C'est juste
+      setIsCorrect(true);
     } else {
-      // CORRECTION ICI :
-      setIsCorrect(false); // On ouvre le chat
+      setIsCorrect(false);
       setMessageErreur("Le calcul est faux, réessaie !");
       discuterErreur(`Je pense que le résultat est ${inputEleve} mais ce n'est pas ça.`);
     }
@@ -150,59 +137,61 @@ function PratiqueAutonomeInteractif() {
       setScore(s => s + (progression === 3 ? 1 : 0));
       setIsFinished(true);
     }
-
   }
 
   return (
     <DndContext onDragEnd={handleDragEnd}>
-      <div className="container-fluid d-flex flex-column flex-md-row vh-100 bg-light p-0 overflow-hidden">
+      <div className="container-fluid d-flex flex-column flex-lg-row bg-light p-0 pt-5 mt-4 app-layout">
 
-        {/* ZONE GAUCHE : EXERCICE (Scrollable sur mobile) */}
-        <div className="flex-grow-1 p-2 p-md-4 d-flex flex-column align-items-center overflow-auto h-100">
-          <div className="card shadow-lg p-3 p-md-4 rounded-4 border-0 w-100 mb-3" style={{ maxWidth: '700px' }}>
+        <div className="p-3 p-md-5 d-flex flex-column align-items-center justify-content-center exercise-section">
+          <div className="card shadow-lg p-4 p-md-5 rounded-4 text-center custom-exercise-card w-100" style={{ maxWidth: '700px' }}>
             {!isFinished ? (
               <>
-                <div className="progress mb-2" style={{ height: '6px' }}>
-                  <div className="progress-bar bg-primary" style={{ width: `${((exercice - 1) / totalQuestions) * 100}%` }}></div>
+                <div className="progress mb-4 rounded-pill bg-primary bg-opacity-10" style={{ height: '8px' }}>
+                  <div className="progress-bar" style={{ width: `${((exercice - 1) / totalQuestions) * 100}%`, background: 'linear-gradient(45deg, #0d6efd, #6610f2)' }}></div>
                 </div>
-                <h6 className="text-muted fw-bold small mb-3">Ex {exercice} / {totalQuestions}</h6>
 
-                {/* Consignes dynamiques */}
-                <div className="bg-light p-3 rounded-4 border shadow-sm mb-3 text-start mx-auto w-100">
-                  <h6 className="text-primary border-bottom pb-2 fw-bold small">📜 Programme de calcul :</h6>
+                <h6 className="text-secondary fw-bold text-uppercase small tracking-wider mb-4 opacity-75">
+                  Ex {exercice} / {totalQuestions}
+                </h6>
+
+                <div className="bg-primary bg-opacity-10 border border-primary border-opacity-10 p-4 rounded-4 mb-4 text-start mx-auto w-100 shadow-sm">
+                  <h6 className="text-primary fw-bolder mb-3 d-flex align-items-center gap-2">
+                    <span className="fs-5">📜</span> Programme de calcul
+                  </h6>
                   <ul className="list-unstyled mb-0 small">
                     {etapes.map((etape, idx) => (
-                      <li key={idx} className={`${progression === idx ? "fw-bold text-dark" : "text-muted opacity-50"}`}>
+                      <li key={idx} className={`mb-2 ${progression === idx ? "fw-bold text-dark fs-6" : "text-secondary opacity-75"}`}>
                         {progression > idx ? "✅ " : (progression === idx ? "➡️ " : "• ")} {etape.consigne}
                       </li>
                     ))}
                   </ul>
                 </div>
 
-                <div className="bg-white p-2 rounded-3 mb-3 border text-center shadow-sm">
-                  Nombre de départ : <span className="fs-3 fw-bold text-primary">{currentEquation.x}</span>
+                <div className="bg-white p-3 rounded-4 mb-4 border border-light text-center shadow-sm d-inline-block px-5 mx-auto">
+                  <span className="text-secondary fw-medium me-2">Nombre de départ :</span>
+                  <span className="fs-3 fw-bolder text-primary-gradient">{currentEquation.x}</span>
                 </div>
 
-                {/* Flow de calcul */}
-                <div className="d-flex flex-column align-items-center gap-1 mb-4">
+                <div className="d-flex flex-column align-items-center gap-2 mb-4 w-100">
                   {etapes.map((etape, index) => (
-                    <div key={index} className="w-100">
-                      {index > 0 && <div className="text-muted text-center">⬇️</div>}
-                      <div className="d-flex align-items-center justify-content-center gap-2">
+                    <div key={index} className="w-100 d-flex flex-column align-items-center">
+                      {index > 0 && <div className="text-primary opacity-25 my-1 fs-5 fw-bold">↓</div>}
+                      <div className="d-flex align-items-center justify-content-center gap-3">
                         <ZoneADeposer id={index} cardInside={emplacements[index]} />
-                        <div className="border rounded-3 bg-white shadow-sm d-flex align-items-center justify-content-center" style={{ width: '100px', height: '60px' }}>
+                        <div className="border border-light rounded-4 bg-white shadow-sm d-flex align-items-center justify-content-center" style={{ width: '100px', height: '60px' }}>
                           {progression > index ? (
-                            <span className="text-success fw-bold">{etape.solution}</span>
+                            <span className="text-success fw-bolder fs-5">{etape.solution}</span>
                           ) : (progression === index && emplacements[index]) ? (
                             <input
                               type="number"
-                              className="form-control text-center fw-bold border-0 p-0"
+                              className="form-control text-center fw-bolder border-0 p-0 fs-5 text-primary custom-input-wrapper"
                               value={inputEleve}
                               onChange={(e) => setInputEleve(e.target.value)}
                               onKeyDown={(e) => e.key === 'Enter' && verifierResultat()}
                               placeholder="?"
                             />
-                          ) : <span className="text-muted opacity-25">...</span>}
+                          ) : <span className="text-muted opacity-25 fs-5">...</span>}
                         </div>
                       </div>
                     </div>
@@ -210,19 +199,15 @@ function PratiqueAutonomeInteractif() {
                 </div>
 
                 {progression === 3 ? (
-                  <button className="btn btn-success rounded-pill px-5 fw-bold shadow-sm animate__animated animate__bounceIn w-100" onClick={exerciceSuivant}>
-                    {exercice < totalQuestions ? "Suivant →" : "Voir bilan"}
+                  <button className="btn btn-success btn-gradient-primary rounded-pill px-5 py-3 fw-bold shadow-sm btn-hover-scale w-100 mt-2" onClick={exerciceSuivant}>
+                    {exercice < totalQuestions ? "Question Suivante →" : "Voir le Bilan"}
                   </button>
                 ) : (
-                  <div className="p-3 bg-white border rounded-4 w-100 shadow-sm">
-                    <p className="small fw-bold text-muted mb-2 text-center">Choisis l'opération :</p>
-                    <div className="d-flex flex-wrap justify-content-center gap-1">
+                  <div className="p-4 bg-white border border-light rounded-4 w-100 shadow-sm mt-2">
+                    <p className="small fw-semibold text-secondary mb-3 text-center">Fais glisser l'opération correspondante :</p>
+                    <div className="d-flex flex-wrap justify-content-center gap-2">
                       {cartesMelangees.map((c) => {
-                        // Si c'est une vraie carte, on vérifie si SON étape est déjà remplie
-                        const estDejaPlacer = c.id.startsWith('vrai')
-                          ? emplacements[c.etapeRef] !== undefined
-                          : false; // Les leurres ne disparaissent jamais (ou comme tu veux)
-
+                        const estDejaPlacer = c.id.startsWith('vrai') ? emplacements[c.etapeRef] !== undefined : false;
                         return !estDejaPlacer && (
                           <CarteADeposer key={c.id} id={c.id} content={c.affichage} />
                         );
@@ -232,22 +217,21 @@ function PratiqueAutonomeInteractif() {
                 )}
               </>
             ) : (
-              /* BILAN */
-              <div className="text-center py-4">
-                <h2 className="fw-bold mb-4">Bilan Final</h2>
-                <div className="display-1 fw-bold text-primary mb-4">{score} / {totalQuestions}</div>
+              <div className="animate__animated animate__fadeIn py-4">
+                <h2 className="fw-bolder mb-2 custom-logo">Bilan de l'entraînement</h2>
+                <div className="display-1 fw-bold mb-4 text-dark opacity-75">{score} <span className="fs-3 text-secondary">/ {totalQuestions}</span></div>
                 {(score / totalQuestions) >= 0.75 ? (
-                  <div className="alert alert-success rounded-4 border-0 shadow-sm p-4">
-                    <p className="fw-bold">Excellent ! Module validé.</p>
-                    <button className="btn btn-success rounded-pill px-5 fw-bold w-100" onClick={() => navigate("/calculLiteral")}>
-                      Passer au Module 1
+                  <div className="bg-success bg-opacity-10 border border-success border-opacity-25 rounded-4 p-4 mt-4">
+                    <p className="fw-semibold text-success mb-4">Excellent ! Tu as maîtrisé les programmes de calcul.</p>
+                    <button className="btn btn-success rounded-pill px-5 py-3 fw-bold shadow-sm btn-hover-scale w-100" onClick={() => navigate("/calculLiteral")}>
+                      Passer au Module Suivant 🚀
                     </button>
                   </div>
                 ) : (
-                  <div className="alert alert-danger rounded-4 border-0 shadow-sm p-4">
-                    <p className="fw-bold">Besoin de revoir la méthode.</p>
-                    <button className="btn btn-danger rounded-pill px-5 fw-bold w-100" onClick={() => navigate("/ModelageCalculLiteralPhase1")}>
-                      Retour Modelage
+                  <div className="bg-danger bg-opacity-10 border border-danger border-opacity-25 rounded-4 p-4 mt-4">
+                    <p className="fw-semibold text-danger mb-4">Encore quelques erreurs. Il faut réviser la méthode.</p>
+                    <button className="btn btn-danger rounded-pill px-5 py-3 fw-bold shadow-sm btn-hover-scale w-100" onClick={() => navigate("/ModelageCalculLiteralPhase1")}>
+                      Retour à la leçon 📖
                     </button>
                   </div>
                 )}
@@ -256,49 +240,61 @@ function PratiqueAutonomeInteractif() {
           </div>
         </div>
 
-        {/* ZONE DROITE : CHAT (S'adapte en bas sur mobile) */}
-        <div className="bg-white border-start shadow-sm d-flex flex-column h-100"
-             style={{ width: '100%', maxWidth: '100%', flexBasis: '400px' }}>
+        <div className="bg-white border-top border-lg-start border-lg-top-0 shadow-sm d-flex flex-column z-1 chat-sidebar">
 
-          <div className="p-2 border-bottom text-center bg-white">
-            <img src={logoRobot} alt="Robot" style={{ width: '40px' }} />
-            <h6 className="fw-bold mb-0">LitterAl</h6>
+          <div className="p-3 border-bottom text-center bg-white d-none d-lg-block shadow-sm z-1">
+            <img src={logoRobot} alt="Robot" style={{ width: '45px' }} className="mb-1 logo-bounce cursor-pointer" onClick={() => navigate("/")} />
+            <h6 className="fw-bolder mb-0 custom-logo fs-5">LitterAI</h6>
           </div>
 
-          <div className="flex-grow-1 overflow-auto p-3 bg-light d-flex flex-column">
+          <div className="flex-grow-1 overflow-auto p-3 p-md-4 bg-light d-flex flex-column gap-3" style={{ scrollBehavior: 'smooth' }}>
             {isCorrect === false && !isFinished ? (
               <>
-                {conversationIA.filter(m => m.role !== 'system').map((m, i) => (
-                  <div key={i} className={`mb-2 p-2 rounded-4 shadow-sm small ${m.role === 'user' ? 'bg-primary text-white ms-4' : 'bg-white me-4 border'}`}>
-                    {m.content}
+                {(conversationIA || []).filter(m => m.role !== 'system' && m.content.trim() !== "").map((m, i) => (
+                  <div key={i} className={`d-flex ${m.role === 'user' ? 'justify-content-end' : 'justify-content-start'}`}>
+                    <div className={`px-3 py-2 shadow-sm small chat-bubble ${m.role === 'user' ? 'bg-primary text-white' : 'bg-white text-dark border-light custom-bot-bubble'}`} style={{ maxWidth: '85%', whiteSpace: 'pre-wrap' }}>
+                      {m.content}
+                    </div>
                   </div>
                 ))}
-                {isWorking && <div className="text-muted small p-2 text-center italic">LitterAl réfléchit...</div>}
+
+                {isWorking && (
+                  <div className="d-flex justify-content-start">
+                    <div className="px-3 py-2 shadow-sm small chat-bubble bg-white text-dark border-light custom-bot-bubble d-flex align-items-center gap-2 opacity-75">
+                      <span className="spinner-border spinner-border-sm text-primary" role="status"></span>
+                      <span className="fw-medium">LitterAI analyse...</span>
+                    </div>
+                  </div>
+                )}
               </>
             ) : (
-              <div className="text-center text-muted mt-5 px-3">
-                <p className="small">Je t'aide ici si tu bloques !</p>
+              <div className="d-flex flex-column align-items-center justify-content-center h-100 text-muted opacity-50 py-5 py-lg-0">
+                <i className="bi bi-robot display-1 mb-3"></i>
+                <p className="small text-center px-4 fw-medium">Fais glisser les cartes et calcule.<br />Je t'aiderai si tu te trompes !</p>
               </div>
             )}
           </div>
 
           {messageErreur && (
-            <div className="p-2 bg-danger text-white text-center small fw-bold">{messageErreur}</div>
+            <div className="p-2 bg-danger bg-opacity-10 border-top border-danger border-opacity-25 text-danger text-center small fw-semibold">
+              {messageErreur}
+            </div>
           )}
 
           {isCorrect === false && !isFinished && (
-            <div className="p-2 border-top bg-white">
-              <div className="input-group shadow-sm rounded-pill overflow-hidden border">
+            <div className="p-3 p-md-4 border-top bg-white d-flex flex-column shadow-lg">
+              <div className="d-flex align-items-center border border-light rounded-pill bg-light p-1 ps-3 shadow-sm custom-input-wrapper">
                 <input
                   type="text"
-                  className="form-control border-0 px-3"
-                  style={{ fontSize: '0.85rem' }}
-                  placeholder="Réponds à LitterAl..."
+                  className="form-control border-0 bg-transparent shadow-none py-2"
+                  style={{ fontSize: '0.95rem' }}
+                  placeholder="Réponds à LitterAI..."
+                  disabled={isWorking}
                   onKeyDown={(e) => {
-                    if (e.key === 'Enter' && e.target.value.trim() !== "") {
-                      setIsCorrect(false); // On s'assure que le mode "Erreur/Chat" est actif
+                    if (e.key === 'Enter' && e.target.value.trim() !== "" && !isWorking) {
+                      setIsCorrect(false);
                       discuterErreur(e.target.value);
-                      e.target.value = ""; // On vide l'input
+                      e.target.value = "";
                     }
                   }}
                 />
