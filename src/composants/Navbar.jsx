@@ -119,7 +119,7 @@ function Navbar() {
                 )}
                 {hasPrivilege && (
                   <li className="nav-item">
-                    <Link className="nav-link link-dark link-primary-hover py-2" to="/listeClasse" onClick={closeMenu}>Gérer ses classes</Link>
+                    <Link className="nav-link link-dark link-primary-hover py-2" to="/gererClasse" onClick={closeMenu}>Gérer ses classes</Link>
                   </li>
                 )}
               </ul>

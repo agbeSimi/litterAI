@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-function ListeClasse() {
+function GererClasse() {
   const [classes, setClasses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -172,4 +172,4 @@ function ListeClasse() {
   );
 }
 
-export default ListeClasse;
+export default GererClasse;
