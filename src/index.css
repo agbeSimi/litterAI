@@ -174,3 +174,38 @@ body, html {
 .bg-secondary.bg-opacity-10 {
     background-color: rgba(108, 117, 125, 0.1) !important; /* Gris Bootstrap à 10% */
 }
+
+
+
+
+
+
+/* --- Gestion Responsive : Split Screen (PC) vs Stacked (Mobile) --- */
+
+/* Configuration de base (Mobile First) */
+.app-layout {
+    min-height: 100vh;
+}
+.exercise-section {
+    flex: 1;
+}
+.chat-sidebar {
+    width: 100%;
+    height: 600px; /* Sur mobile, le chat se met en bas et fait une belle hauteur */
+}
+
+/* Comportement sur Ordinateur et Tablettes larges (>= 992px) */
+@media (min-width: 992px) {
+    .app-layout {
+        height: 100vh;
+        overflow: hidden; /* Empêche le scroll global, on veut figer l'écran */
+    }
+    .exercise-section {
+        overflow-y: auto; /* Seule la zone exercice peut scroller si besoin */
+    }
+    .chat-sidebar {
+        width: 420px; /* On fige la largeur du panneau latéral */
+        height: 100%;
+        flex-shrink: 0;
+    }
+}
