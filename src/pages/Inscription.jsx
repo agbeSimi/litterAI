@@ -2,136 +2,215 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { handleSubmitRegister } from "../services/LitterAI_API.js";
 
-function Inscription() {
-  const [login, setLogin] = useState(""); // État pour l'identifiant
+export default function Inscription() {
+  const [login, setLogin] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("ROLE_USER_ELEVE"); // Aligné avec la valeur des options
+  const [role, setRole] = useState("ROLE_USER_ELEVE");
   const [mail_academique, setmail_academique] = useState("");
-  const [errorMessage, setErrorMessage] = useState(""); // Pour afficher les erreurs de l'API
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-  return (
-    <div className="container d-flex justify-content-center align-items-center vh-100">
-      <div className="card shadow border-0 p-4" style={{ width: "25rem", borderRadius: "15px" }}>
-        <div className="card-body">
-          <h2 className="card-title text-center mb-4 fw-bold">Inscription</h2>
+  const onRegisterSubmit = async (event) => {
+    event.preventDefault();
+    setErrorMessage("");
+    setIsLoading(true);
 
-          {/* Affichage du message d'erreur s'il y en a un */}
+    try {
+      const response = await handleSubmitRegister(event, login, email, password, role, mail_academique);
+
+      if (role === "ROLE_USER_ELEVE") {
+        if (response && response.token) {
+          localStorage.setItem("jwt_token", response.token);
+        }
+        navigate("/");
+        window.location.reload();
+      } else {
+        navigate("/verification-prof");
+      }
+    } catch (error) {
+      if (error.response && error.response.data) {
+        const message = error.response.data['hydra:description'] || "Une erreur est survenue.";
+        setErrorMessage(message);
+
+        if (message.includes("déjà utilisé") || message.includes("déjà un compte")) {
+          setTimeout(() => {
+            navigate("/login");
+          }, 3000);
+        }
+      } else {
+        setErrorMessage("Impossible de contacter le serveur.");
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <div className="container-fluid d-flex justify-content-center align-items-center min-vh-100 bg-light p-3 py-5">
+      <div
+        className="card shadow-lg border-0 rounded-4 p-4 p-md-5 animate__animated animate__fadeIn"
+        style={{ width: "100%", maxWidth: "500px" }}
+      >
+        <div className="card-body p-0">
+
+          <div className="text-center mb-4">
+            <div className="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3 shadow-sm" style={{ width: '80px', height: '80px' }}>
+              <i className="bi bi-person-plus-fill fs-1 text-primary"></i>
+            </div>
+            <h2 className="fw-bolder custom-logo mb-1">Inscription</h2>
+            <p className="text-secondary fw-medium">Rejoignez LitterAI</p>
+          </div>
+
           {errorMessage && (
-            <div className="alert alert-danger rounded-pill text-center py-2 fs-6" role="alert">
-              {errorMessage}
+            <div className="alert alert-danger border-danger border-opacity-25 rounded-4 py-3 px-4 shadow-sm mb-4 d-flex align-items-center gap-3 animate__animated animate__shakeX">
+              <i className="bi bi-exclamation-triangle-fill fs-4 text-danger"></i>
+              <div className="fw-medium small">{errorMessage}</div>
             </div>
           )}
 
-          <form
-            onSubmit={async (event) => {
-              event.preventDefault(); // Sécurité pour éviter le rechargement de page natif
-              setErrorMessage(""); // Réinitialise l'erreur à chaque tentative
+          <form onSubmit={onRegisterSubmit}>
 
-              try {
-                // Intégration de la variable login dans les paramètres envoyés à l'API
-                const response = await handleSubmitRegister(event, login, email, password, role, mail_academique);
-
-                // Si tout s'est bien passé, on redirige selon le rôle
-                if (role === "ROLE_USER_ELEVE") {
-                  if (response && response.token) {
-                    localStorage.setItem("jwt_token", response.token);
-                  }
-                  navigate("/");
-                  window.location.reload();
-                } else {
-                  navigate("/verification-prof");
-                }
-              } catch (error) {
-                // Si l'API renvoie une erreur (Ex: email non académique ou utilisateur existant)
-                if (error.response && error.response.data) {
-                  const message = error.response.data['hydra:description'] || "Une erreur est survenue.";
-                  setErrorMessage(message);
-
-                  // Si le message renvoyé par Symfony indique que le login existe déjà
-                  if (message.includes("déjà utilisé") || message.includes("déjà un compte")) {
-                    setTimeout(() => {
-                      navigate("/login"); // Redirection automatique après 3 secondes vers la connexion
-                    }, 3000);
-                  }
-                } else {
-                  setErrorMessage("Impossible de contacter le serveur.");
-                }
-              }
-            }}
-          >
-            {/* Champ ajouté : Identifiant (Login) */}
             <div className="mb-3">
-              <label className="form-label text-muted fw-semibold">Identifiant (Login)</label>
-              <input
-                type="text"
-                className="form-control form-control-lg rounded-pill bg-light border-0"
-                placeholder="Votre identifiant"
-                value={login}
-                onChange={(event) => setLogin(event.target.value)}
-                required
-              />
+              <label className="form-label text-secondary fw-bold small text-uppercase tracking-wider">
+                Identifiant (Login)
+              </label>
+              <div className="input-group shadow-sm rounded-4 overflow-hidden border border-light">
+                <span className="input-group-text bg-light border-0 text-primary px-3">
+                  <i className="bi bi-person-badge fs-5"></i>
+                </span>
+                <input
+                  type="text"
+                  className="form-control form-control-lg bg-light border-0 custom-input-wrapper py-2 fw-medium text-dark"
+                  placeholder="Votre identifiant"
+                  value={login}
+                  onChange={(event) => setLogin(event.target.value)}
+                  required
+                  disabled={isLoading}
+                />
+              </div>
             </div>
 
             <div className="mb-3">
-              <label className="form-label text-muted fw-semibold">Email personnel</label>
-              <input
-                type="email"
-                className="form-control form-control-lg rounded-pill bg-light border-0"
-                placeholder="votre@email.com"
-                value={email}
-                onChange={(event) => setEmail(event.target.value)}
-                required
-              />
+              <label className="form-label text-secondary fw-bold small text-uppercase tracking-wider">
+                Email personnel
+              </label>
+              <div className="input-group shadow-sm rounded-4 overflow-hidden border border-light">
+                <span className="input-group-text bg-light border-0 text-primary px-3">
+                  <i className="bi bi-envelope-fill fs-5"></i>
+                </span>
+                <input
+                  type="email"
+                  className="form-control form-control-lg bg-light border-0 custom-input-wrapper py-2 fw-medium text-dark"
+                  placeholder="votre@email.com"
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
+                  required
+                  disabled={isLoading}
+                />
+              </div>
             </div>
 
             <div className="mb-3">
-              <label className="form-label text-muted fw-semibold">Mot de passe</label>
-              <input
-                type="password"
-                className="form-control form-control-lg rounded-pill bg-light border-0"
-                placeholder="••••••••"
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-                required
-              />
+              <label className="form-label text-secondary fw-bold small text-uppercase tracking-wider">
+                Mot de passe
+              </label>
+              <div className="input-group shadow-sm rounded-4 overflow-hidden border border-light">
+                <span className="input-group-text bg-light border-0 text-primary px-3">
+                  <i className="bi bi-lock-fill fs-5"></i>
+                </span>
+                <input
+                  type="password"
+                  className="form-control form-control-lg bg-light border-0 custom-input-wrapper py-2 fw-medium text-dark"
+                  placeholder="••••••••"
+                  value={password}
+                  onChange={(event) => setPassword(event.target.value)}
+                  required
+                  disabled={isLoading}
+                />
+              </div>
             </div>
 
-            <div className="mb-3">
-              <label className="form-label text-muted fw-semibold">Je suis :</label>
-              <select
-                className="form-select form-select-lg rounded-pill bg-light border-0"
-                value={role}
-                onChange={(event) => setRole(event.target.value)}
-              >
-                <option value="ROLE_USER_ELEVE">Un élève</option>
-                <option value="ROLE_USER_PROF">Un professeur</option>
-              </select>
+            <div className="mb-4">
+              <label className="form-label text-secondary fw-bold small text-uppercase tracking-wider">
+                Je suis :
+              </label>
+              <div className="input-group shadow-sm rounded-4 overflow-hidden border border-light">
+                <span className="input-group-text bg-light border-0 text-primary px-3">
+                  <i className="bi bi-mortarboard-fill fs-5"></i>
+                </span>
+                <select
+                  className="form-select form-select-lg bg-light border-0 custom-input-wrapper py-2 fw-medium text-dark"
+                  value={role}
+                  onChange={(event) => setRole(event.target.value)}
+                  disabled={isLoading}
+                >
+                  <option value="ROLE_USER_ELEVE">Un élève</option>
+                  <option value="ROLE_USER_PROF">Un professeur</option>
+                </select>
+              </div>
             </div>
 
             {role === "ROLE_USER_PROF" && (
-              <div className="mb-4">
-                <label className="form-label text-primary fw-semibold">Email académique de vérification</label>
-                <input
-                  type="email"
-                  className="form-control form-control-lg rounded-pill bg-light border-0 border-primary"
-                  placeholder="prenom.nom@ac-academie.fr"
-                  value={mail_academique}
-                  onChange={(event) => setmail_academique(event.target.value)}
-                  required
-                />
+              <div className="mb-4 animate__animated animate__fadeInDown">
+                <label className="form-label text-primary fw-bold small text-uppercase tracking-wider d-flex align-items-center gap-2">
+                  <i className="bi bi-shield-lock-fill"></i>
+                  Email académique de vérification
+                </label>
+                <div className="input-group shadow-sm rounded-4 overflow-hidden border border-primary border-opacity-50">
+                  <span className="input-group-text bg-primary bg-opacity-10 border-0 text-primary px-3">
+                    <i className="bi bi-building fs-5"></i>
+                  </span>
+                  <input
+                    type="email"
+                    className="form-control form-control-lg bg-light border-0 custom-input-wrapper py-2 fw-medium text-dark"
+                    placeholder="prenom.nom@ac-academie.fr"
+                    value={mail_academique}
+                    onChange={(event) => setmail_academique(event.target.value)}
+                    required
+                    disabled={isLoading}
+                  />
+                </div>
+                <div className="form-text text-muted mt-2 small">
+                  Cet email est requis pour vérifier votre statut d'enseignant.
+                </div>
               </div>
             )}
 
-            <button type="submit" className="btn btn-primary btn-lg w-100 rounded-pill shadow-sm mt-3">
-              Créer mon compte
+            <button
+              type="submit"
+              className="btn btn-primary btn-gradient-primary btn-lg w-100 py-3 rounded-pill fw-bold shadow-sm btn-hover-scale mt-2 d-flex justify-content-center align-items-center gap-2"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <>
+                  <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                  Création en cours...
+                </>
+              ) : (
+                <>
+                  Créer mon compte
+                  <i className="bi bi-arrow-right-circle-fill fs-5"></i>
+                </>
+              )}
             </button>
+
+            <div className="text-center mt-4">
+              <span className="text-secondary small fw-medium">Déjà un compte ? </span>
+              <button
+                type="button"
+                className="btn btn-link text-primary fw-bold p-0 text-decoration-none small"
+                onClick={() => navigate('/login')}
+                disabled={isLoading}
+              >
+                Se connecter
+              </button>
+            </div>
+
           </form>
         </div>
       </div>
     </div>
   );
 }
-
-export default Inscription;
