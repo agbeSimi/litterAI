@@ -1,25 +1,29 @@
 import logoRobot from "../assets/logo_robot.png";
-import {useEffect, useState} from "react";
-import {envoyerMessage} from "../services/LitterAI_API.js";
-import {useNavigate} from "react-router-dom";
+import { useEffect, useState } from "react";
+import { envoyerMessage } from "../services/LitterAI_API.js";
+import { useNavigate } from "react-router-dom";
 
-function IntroductionIA({prompt, pathSkip}) {
+function IntroductionIA({ prompt, pathSkip }) {
   const navigate = useNavigate();
   const [conversationIA, setConversationIA] = useState([]);
   const [isWorking, setIsWorking] = useState(false);
 
   async function discussionIA(messageUtilisateur = "") {
     setIsWorking(true);
-    const nouveauMessage = {role: "user", content: messageUtilisateur};
-    const historique = [...conversationIA, nouveauMessage];
+    const nouveauMessage = { role: "user", content: messageUtilisateur };
+    const historique = messageUtilisateur ? [...conversationIA, nouveauMessage] : conversationIA;
+
+    if (messageUtilisateur) {
+      setConversationIA(historique);
+    }
+
     const promptSysteme = {
       role: "system",
       content: prompt
     };
-    await envoyerMessage([promptSysteme, ...historique], setConversationIA, "", () => {
-    }, setIsWorking);
-  }
 
+    await envoyerMessage([promptSysteme, ...historique], setConversationIA, "", () => {}, setIsWorking);
+  }
 
   useEffect(() => {
     const initChat = async () => {
@@ -29,47 +33,65 @@ function IntroductionIA({prompt, pathSkip}) {
   }, []);
 
   return (
-    <div className="bg-white border-start shadow-sm d-flex flex-column"
-         style={{width: '100%', maxWidth: '100%', height: '100vh', flexBasis: '420px'}}>
-      <div className="p-2 p-md-3 border-bottom text-center bg-white d-none d-md-block shadow-sm z-1">
-        <img src={logoRobot} alt="Robot" style={{width: '50px'}} className="mb-1"/>
-        <h6 className="fw-bold mb-0 text-primary">LitterAl</h6>
-      </div>
+    <div className="d-flex flex-column vh-100 bg-light pt-5">
 
-      <div className="flex-grow-1 overflow-auto p-3 p-md-4 bg-light d-flex flex-column gap-3">
-        {(conversationIA || []).filter(m => m.role !== 'system' && m.content.trim() !== "").map((m, i) => (
-          <div key={i}
-               className={`px-3 py-2 rounded-4 shadow-sm small ${m.role === 'user' ? 'bg-primary text-white align-self-end' : 'bg-white text-dark border align-self-start'}`}
-               style={{
-                 maxWidth: '85%',
-                 width: 'fit-content',
-                 borderBottomRightRadius: m.role === 'user' ? '4px' : 'var(--bs-border-radius-xl)',
-                 borderBottomLeftRadius: m.role !== 'user' ? '4px' : 'var(--bs-border-radius-xl)'
-               }}>
-            {m.content}
-          </div>
-        ))}
-        {isWorking && <div className="text-muted small p-2 align-self-start">LitterAl réfléchit...</div>}
-      </div>
+      <div className="flex-grow-1 overflow-auto p-3 p-md-5 mt-4" style={{ scrollBehavior: 'smooth' }}>
+        <div className="mx-auto" style={{ maxWidth: '800px' }}>
+          {(conversationIA || [])
+            .filter(m => m.role !== 'system' && m.content.trim() !== "")
+            .map((m, i) => (
+              <div
+                key={i}
+                className={`d-flex mb-4 ${m.role === 'user' ? 'justify-content-end' : 'justify-content-start'}`}
+              >
+                <div
+                  className={`p-3 shadow-sm chat-bubble ${
+                    m.role === 'user'
+                      ? 'bg-gradient-user text-white'
+                      : 'bg-white text-dark border-light custom-bot-bubble'
+                  }`}
+                  style={{ maxWidth: '85%', whiteSpace: 'pre-wrap' }}
+                >
+                  {m.content}
+                </div>
+              </div>
+            ))}
 
-      <div className="p-3 p-md-4 border-top bg-white d-flex flex-column gap-3">
-        <div className="input-group shadow-sm rounded-pill overflow-hidden border">
-          <input
-            type="text"
-            className="form-control border-0 px-4 py-2 shadow-none"
-            style={{fontSize: '0.95rem'}}
-            placeholder="Question au robot..."
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' && e.target.value.trim() !== "") {
-                discussionIA(e.target.value);
-                e.target.value = "";
-              }
-            }}
-          />
+          {isWorking && (
+            <div className="d-flex justify-content-start mb-4">
+              <div className="p-3 shadow-sm chat-bubble bg-white text-dark border-light custom-bot-bubble d-flex align-items-center gap-2 opacity-75">
+                <span className="spinner-border spinner-border-sm text-primary" role="status"></span>
+                <span className="small fw-medium">LitterAI réfléchit...</span>
+              </div>
+            </div>
+          )}
         </div>
-        <button onClick={() => navigate(pathSkip)} className="btn btn-outline-primary w-100 py-2 rounded-pill fw-bold shadow-sm" >
-          Passer l'introduction →
-        </button>
+      </div>
+
+      <div className="bg-white bg-opacity-75 border-top p-3 p-md-4 shadow-lg custom-navbar mt-auto">
+        <div className="mx-auto d-flex flex-column gap-3" style={{ maxWidth: '800px' }}>
+          <div className="d-flex align-items-center border border-light rounded-pill bg-light p-1 ps-3 shadow-sm custom-input-wrapper">
+            <input
+              type="text"
+              className="form-control border-0 bg-transparent shadow-none py-2 fs-6 text-dark"
+              placeholder="Question au robot..."
+              disabled={isWorking}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && e.target.value.trim() !== "" && !isWorking) {
+                  discussionIA(e.target.value);
+                  e.target.value = "";
+                }
+              }}
+            />
+          </div>
+
+          <button
+            onClick={() => navigate(pathSkip)}
+            className="btn btn-outline-primary w-100 py-2 rounded-pill fw-bold shadow-sm btn-hover-scale"
+          >
+            Passer l'introduction →
+          </button>
+        </div>
       </div>
     </div>
   );
