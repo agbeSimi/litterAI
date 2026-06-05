@@ -46,7 +46,7 @@ export default function PratiqueAutonomeFactorisation() {
     };
   }
 
-  async function discuterErreur(feedbackErreur) {
+  async function discuterErreur(feedbackErreur, isUserMessage = false) {
     setIsWorking(true);
 
     const K = currentCalcul.K;
@@ -55,28 +55,30 @@ export default function PratiqueAutonomeFactorisation() {
     const signe = currentCalcul.signe;
     const baseRonde = currentCalcul.baseRonde;
 
-    const nouveauMessage = { role: "user", content: `Je suis bloqué. ${feedbackErreur}` };
+    // Si c'est un message tapé par l'élève, on envoie son texte brut. Sinon, on garde le format d'erreur.
+    const texteMessage = isUserMessage ? feedbackErreur : `Je suis bloqué. ${feedbackErreur}`;
+    const nouveauMessage = { role: "user", content: texteMessage };
+
     const historique = [...conversationIA, nouveauMessage];
     const promptSysteme = {
       role: "system",
-      content: `Tu es LitterAl, un tuteur socratique. 
-      OBJECTIF : Faire calculer astucieusement ${A} * ${K} ${signe} ${B} * ${K} en factorisant en 3 étapes.
-      
-      STATUT DE L'ÉLÈVE : ${feedbackErreur}
-      - Étape 1 saisie : "${etape1}" (Attendu: ${K} * (${A} ${signe} ${B}))
-      - Étape 2 saisie : "${etape2}" (Attendu: ${K} * ${baseRonde})
-      - Étape 3 saisie : "${etape3}" (Attendu: ${currentCalcul.solution})
-      
-      CONSIGNES ET VÉRIFICATION STRICTE :
-      1. RÈGLE D'OR : À CHAQUE ÉTAPE, vérifie mathématiquement la réponse. S'il fait une erreur, signale-la. Ne valide JAMAIS une réponse fausse.
-      2. Concentre-toi UNIQUEMENT sur l'étape qui est incorrecte (indiquée dans le statut).
-      3. Ne donne jamais la bonne réponse directement.
-      4. Si c'est l'étape 1 : Demande quel nombre se répète (le facteur commun) et dis-lui de l'écrire devant des parenthèses contenant le reste de l'opération.
-      5. Si c'est l'étape 2 : Demande de calculer uniquement l'intérieur de la parenthèse.
-      6. Si c'est l'étape 3 : Demande le résultat de la multiplication finale.
-      7. FORMATAGE : Pas de gras. Utilise * pour multiplier.`
+      content: `Tu es LitterAl, un tuteur socratique.
+  OBJECTIF : Faire calculer astucieusement ${A} * ${K} ${signe} ${B} * ${K} en factorisant en 3 étapes.
+  
+  STATUT DE L'ÉLÈVE : ${feedbackErreur}
+  - Étape 1 saisie : "${etape1}" (Attendu: ${K} * (${A} ${signe} ${B}))
+  - Étape 2 saisie : "${etape2}" (Attendu: ${K} * ${baseRonde})
+  - Étape 3 saisie : "${etape3}" (Attendu: ${currentCalcul.solution})
+  
+  CONSIGNES ET VÉRIFICATION STRICTE :
+  1. RÈGLE D'OR : À CHAQUE ÉTAPE, vérifie mathématiquement la réponse. S'il fait une erreur, signale-la. Ne valide JAMAIS une réponse fausse.
+  2. Concentre-toi UNIQUEMENT sur l'étape qui est incorrecte (indiquée dans le statut).
+  3. Ne donne jamais la bonne réponse directement.
+  4. Si c'est l'étape 1 : Demande quel nombre se répète (le facteur commun) et dis-lui de l'écrire devant des parenthèses contenant le reste de l'opération.
+  5. Si c'est l'étape 2 : Demande de calculer uniquement l'intérieur de la parenthèse.
+  6. Si c'est l'étape 3 : Demande le résultat de la multiplication finale.
+  7. FORMATAGE STRICT : Rédige ton texte de manière totalement brute, sans AUCUN style Markdown (pas d'étoiles pour le gras ou l'italique). Pour écrire une multiplication, utilise le symbole "x" ou "*" de manière standard entre deux nombres (par exemple : "7 * 10"), mais ne mets jamais d'étoile isolée directement devant ou derrière un chiffre.`
     };
-
     await envoyerMessage([promptSysteme, ...historique], setConversationIA, "", () => {}, setIsWorking);
   }
 
@@ -104,9 +106,9 @@ export default function PratiqueAutonomeFactorisation() {
       let feedback = "";
       if (!isE1Correct) feedback = "L'étape 1 (mettre en facteur) est incorrecte ou vide.";
       else if (!isE2Correct) feedback = "L'étape 2 (calculer la parenthèse) est incorrecte.";
-      else if (!isE3Correct) feedback = "L'étape 3 (le résultat final) est incorrect.</br>Vérifie ta multiplication.";
+      else if (!isE3Correct) feedback = "L'étape 3 (le résultat final) est incorrect.\nVérifie ta multiplication.";
 
-      setMessage(feedback.replace("</br>", " "));
+      setMessage(feedback);
       discuterErreur(feedback);
     }
   }
@@ -165,7 +167,7 @@ export default function PratiqueAutonomeFactorisation() {
 
               {message && (
                 <div className={`alert ${isCorrect ? 'alert-success border-success' : 'alert-danger border-danger'} border-opacity-25 rounded-4 py-3 px-4 shadow-sm animate__animated animate__fadeIn mt-4`}>
-                  <div className="fw-medium mb-3 small">{message}</div>
+                  <div className="fw-medium mb-3 small" style={{ whiteSpace: 'pre-wrap' }}>{message}</div>
                   <button className={`btn ${isCorrect ? 'btn-success' : 'btn-outline-danger btn-hover-scale'} rounded-pill px-5 fw-bold`} onClick={exerciceSuivant}>
                     {exercice < totalQuestions ? "Question suivante →" : "Voir le bilan complet"}
                   </button>
@@ -250,7 +252,19 @@ export default function PratiqueAutonomeFactorisation() {
         {isCorrect === false && !isFinished && (
           <div className="p-3 p-md-4 border-top bg-white d-flex flex-column shadow-lg">
             <div className="d-flex align-items-center border border-light rounded-pill bg-light p-1 ps-3 shadow-sm custom-input-wrapper">
-              <input type="text" className="form-control border-0 bg-transparent shadow-none py-2" style={{ fontSize: '0.95rem' }} placeholder="Demander de l'aide à LitterAI..." disabled={isWorking} onKeyDown={(e) => { if (e.key === 'Enter' && e.target.value.trim() !== "" && !isWorking) { discuterErreur(e.target.value); e.target.value = ""; } }} />
+              <input
+                type="text"
+                className="form-control border-0 bg-transparent shadow-none py-2"
+                style={{ fontSize: '0.95rem' }}
+                placeholder="Demander de l'aide à LitterAI..."
+                disabled={isWorking}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && e.target.value.trim() !== "" && !isWorking) {
+                    discuterErreur(e.target.value, true);
+                    e.target.value = "";
+                  }
+                }}
+              />
             </div>
           </div>
         )}

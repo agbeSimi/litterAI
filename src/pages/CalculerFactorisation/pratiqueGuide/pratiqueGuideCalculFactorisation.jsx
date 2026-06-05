@@ -24,6 +24,7 @@ export default function PratiqueGuideCalculFactorisation() {
               - NE DONNE PAS LA RÉPONSE DIRECTEMENT.
               - BRIÈVETÉ : 3 lignes max.
               - UNE SEULE QUESTION à la fois.
+              - N'UTILISE JAMAIS LES NOMS DE VARIABLES UTILISE SEUELEMENT LES NOMBRES QUE TU Génères
               - MATHÉMATIQUES : Pas de LaTeX, pas de $. Utilise * pour la multiplication.
               - ZÉRO GRAS : N'utilise jamais de doubles étoiles.`}
     />
