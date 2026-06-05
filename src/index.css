@@ -1,6 +1,6 @@
 body, html {
     margin: 0;
-    padding-top: 85px;
+    padding: 0;
     width: 100%;
     min-height: 100%;
     font-family: sans-serif;
@@ -46,4 +46,58 @@ body, html {
     overflow: hidden;
 
     background-color: aliceblue;
+}
+
+
+/* Effet de flou moderne (Glassmorphism) sur la Navbar */
+.custom-navbar {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+/* Effet de survol sur les liens de la navbar */
+.link-primary-hover {
+    transition: color 0.25s ease-in-out;
+}
+.link-primary-hover:hover {
+    color: #0d6efd !important; /* Couleur primaire Bootstrap */
+}
+
+/* Logos et Textes en Dégradé */
+.custom-logo {
+    background: linear-gradient(45deg, #0d6efd, #6610f2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 1px;
+}
+
+.text-primary-gradient {
+    background: linear-gradient(45deg, #6610f2, #0d6efd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 0.5px;
+}
+
+/* Boutons avec dégradés et animations de survol */
+.btn-gradient-primary {
+    background: linear-gradient(45deg, #0d6efd, #6610f2) !important;
+    border: none !important;
+    transition: transform 0.2s ease;
+}
+
+.btn-gradient-danger {
+    background: linear-gradient(45deg, #dc3545, #fd7e14) !important;
+    border: none !important;
+    transition: transform 0.2s ease;
+}
+
+.btn-hover-scale {
+    transition: transform 0.2s ease;
+}
+
+/* Animation au survol pour tous les boutons d'action */
+.btn-gradient-primary:hover,
+.btn-gradient-danger:hover,
+.btn-hover-scale:hover {
+    transform: scale(1.04);
 }
