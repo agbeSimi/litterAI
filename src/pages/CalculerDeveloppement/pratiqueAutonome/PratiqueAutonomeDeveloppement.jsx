@@ -209,7 +209,7 @@ export default function PratiqueAutonomeDeveloppement() {
             <>
               {(conversationIA || []).filter(m => m.role !== 'system' && m.content.trim() !== "").map((m, i) => (
                 <div key={i} className={`d-flex ${m.role === 'user' ? 'justify-content-end' : 'justify-content-start'}`}>
-                  <div className={`px-3 py-2 shadow-sm small chat-bubble ${m.role === 'user' ? 'bg-gradient-user text-white' : 'bg-white text-dark border-light custom-bot-bubble'}`} style={{ maxWidth: '85%', whiteSpace: 'pre-wrap' }}>
+                  <div className={`px-3 py-2 shadow-sm small chat-bubble ${m.role === 'user' ? 'bg-primary text-white' : 'bg-white text-dark border-light custom-bot-bubble'}`} style={{ maxWidth: '85%', whiteSpace: 'pre-wrap' }}>
                     {m.content}
                   </div>
                 </div>
