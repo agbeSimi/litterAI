@@ -17,7 +17,7 @@ export default function LayoutPratiqueIA({
                                            onRetry,
                                            onSendMessage,
                                            btnValidateText = "Valider",
-                                           children 
+                                           children
                                          }) {
   const navigate = useNavigate();
 
