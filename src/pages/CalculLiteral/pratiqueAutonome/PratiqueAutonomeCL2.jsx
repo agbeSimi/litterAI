@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import {envoyerMessage} from "../../../../services/LitterAI_API.js";
-import LayoutPratiqueIA from "../LayoutPratiqueIA.jsx";
+import {envoyerMessage} from "../../../services/LitterAI_API.js";
+import LayoutPratiqueIA from "../../../composants/LayoutPratiqueIA.jsx";
 
 export default function PratiqueAutonomeCL2() {
   const [exercice, setExercice] = useState(1);

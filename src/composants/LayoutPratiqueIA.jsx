@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import logoRobot from "./../../../assets/logo_robot.png";
+import logoRobot from "../assets/logo_robot.png";
 
 export default function LayoutPratiqueIA({
                                            exercice,
