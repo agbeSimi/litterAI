@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import {motion} from "framer-motion";
-import BoutonSuivant from "../../../composants/BoutonSuivant.jsx";
 
 function ExempleResolution2() {
   const [equation, setEquation] = useState({ a: 0, b: 0, c: 0, x: 0 });
@@ -129,9 +128,16 @@ function ExempleResolution2() {
 
 
     </motion.div>
-      <BoutonSuivant
-        onClick={etapeSuivante}
-        visible={indexEtape<etapes.length}/>
+      {indexEtape < etapes.length && (
+        <div className="text-center">
+          <button
+            onClick={etapeSuivante}
+            className="btn btn-primary rounded-pill px-5 py-3 shadow fw-bold border-0"
+          >
+            Afficher la suite...
+          </button>
+        </div>
+      )}
     </>
 
   );
