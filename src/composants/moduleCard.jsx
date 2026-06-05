@@ -1,51 +1,55 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
-// On ajoute "estActif = true" par défaut pour ne pas casser la carte si tu l'utilises ailleurs
 function ModuleCard({ titre, description, path, estActif = true }) {
   const navigate = useNavigate();
 
   return (
     <motion.div
-      // Animation d'entrée (Fade in + montée), on baisse l'opacité finale si c'est inactif
       initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: estActif ? 1 : 0.5, y: 0 }}
-      transition={{ duration: 0.5 }}
-
-      // L'effet de lévitation au survol ne s'active QUE si le module est actif
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
       whileHover={estActif ? {
-        y: -10,
-        boxShadow: "0px 10px 20px rgba(0,0,0,0.15)", // (Correction : 'shadow' devient 'boxShadow' pour Framer)
-        scale: 1.02
+        y: -8,
+        scale: 1.015,
+        transition: { duration: 0.2 }
       } : {}}
-
-      className={`card card-litteral shadow-sm rounded-4 p-4 m-4 ${!estActif ? 'bg-light' : ''}`}
+      className={`card h-100 border-0 rounded-4 p-4 shadow-sm custom-card ${!estActif ? 'card-disabled' : 'card-active'}`}
       style={{
-        cursor: estActif ? 'pointer' : 'not-allowed',
-        filter: estActif ? 'none' : 'grayscale(80%)' // Ajoute un bel effet grisé natif
+        cursor: estActif ? 'pointer' : 'not-allowed'
       }}
       onClick={() => {
-        // On empêche la navigation si le module est verrouillé
         if (estActif) {
           navigate(path);
         }
       }}
     >
-      <h5 className={`fw-bold ${estActif ? 'text-primary' : 'text-secondary'}`}>
-        {titre}
-      </h5>
-      <p className="mb-0 text-secondary">
-        {description}
-      </p>
+      {/* Contenu principal de la carte */}
+      <div className="card-body p-0 d-flex flex-column h-100">
 
-      {/* Petit indicateur visuel supplémentaire si verrouillé */}
-      {!estActif && (
-        <div className="mt-3">
-          <span className="badge bg-secondary py-2 px-3 rounded-pill">
-            🔒 Module verrouillé
-          </span>
+        {/* Titre : En dégradé si actif, gris si verrouillé */}
+        <h5 className={`fw-bold card-title mb-3 ${estActif ? 'text-gradient-title' : 'text-muted'}`}>
+          {titre}
+        </h5>
+
+        {/* Description */}
+        <p className="card-text text-secondary small flex-grow-1 opacity-85">
+          {description}
+        </p>
+
+        {/* Pied de carte avec Badge Statut */}
+        <div className="mt-4 pt-2 border-top border-light d-flex align-items-center justify-content-center">
+          {estActif ? (
+            <span className="badge bg-primary bg-opacity-10 text-primary py-2 px-3 rounded-pill fw-semibold small">
+              🚀 Commencer
+            </span>
+          ) : (
+            <span className="badge bg-secondary bg-opacity-10 text-secondary py-2 px-3 rounded-pill fw-semibold small d-flex align-items-center gap-1">
+              🔒 Verrouillé
+            </span>
+          )}
         </div>
-      )}
+      </div>
     </motion.div>
   );
 }

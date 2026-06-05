@@ -101,3 +101,76 @@ body, html {
 .btn-hover-scale:hover {
     transform: scale(1.04);
 }
+
+
+
+/* Petit décalage vers le bas pour ne pas être caché sous la navbar fixe */
+.pt-5.mt-4 {
+    padding-top: 3rem !important;
+}
+
+/* Effet de flou de fond (Glassmorphism) sur le footer aussi */
+.custom-footer {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+/* Raccourci pour changer le curseur en main pointeuse */
+.cursor-pointer {
+    cursor: pointer;
+}
+
+/* Animation douce de flottement sur le robot au survol */
+.logo-bounce {
+    filter: drop-shadow(0px 8px 12px rgba(13, 110, 253, 0.15));
+    transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
+}
+
+.logo-bounce:hover {
+    transform: translateY(-6px);
+    filter: drop-shadow(0px 12px 20px rgba(102, 16, 242, 0.25));
+}
+
+
+
+/* --- Style de base des cartes de module --- */
+.custom-card {
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    background: #ffffff;
+}
+
+/* --- Cartes Actives --- */
+.custom-card.card-active {
+    border: 1px solid rgba(13, 110, 253, 0.1) !important;
+}
+
+.custom-card.card-active:hover {
+    /* Ombre colorée très subtile assortie à la charte au survol */
+    box-shadow: 0 15px 30px rgba(102, 16, 242, 0.08) !important;
+    border-color: rgba(13, 110, 253, 0.25) !important;
+}
+
+/* Titre text-gradient spécifique pour les cartes */
+.text-gradient-title {
+    background: linear-gradient(135deg, #0d6efd, #6610f2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* --- Cartes Verrouillées / Désactivées --- */
+.custom-card.card-disabled {
+    background: rgba(248, 249, 250, 0.75) !important;
+    border: 1px solid rgba(0, 0, 0, 0.05) !important;
+    filter: grayscale(100%) opacity(65%);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+/* Personnalisation des badges transparents */
+/* Personnalisation des badges transparents sans alertes de l'éditeur */
+.bg-opacity-10 {
+    background-color: rgba(13, 110, 253, 0.1) !important; /* Bleu Bootstrap à 10% */
+}
+.bg-secondary.bg-opacity-10 {
+    background-color: rgba(108, 117, 125, 0.1) !important; /* Gris Bootstrap à 10% */
+}
