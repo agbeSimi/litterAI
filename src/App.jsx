@@ -89,7 +89,6 @@ import Inscription from "./pages/Inscription.jsx";
 import VerificationProf from "./pages/VerificationProf.jsx";
 import ProtectedProfRoute from "./pages/ProtectedProfRoute.jsx";
 import CreerClasse from "./pages/fonctionProf/CreerClasse.jsx";
-import ClasseCree from "./pages/fonctionProf/ListeClasse.jsx";
 import ListeClasse from "./pages/fonctionProf/ListeClasse.jsx";
 
 function App() {
