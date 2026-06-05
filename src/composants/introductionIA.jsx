@@ -1,4 +1,3 @@
-import logoRobot from "../assets/logo_robot.png";
 import { useEffect, useState } from "react";
 import { envoyerMessage } from "../services/LitterAI_API.js";
 import { useNavigate } from "react-router-dom";
@@ -47,7 +46,7 @@ function IntroductionIA({ prompt, pathSkip }) {
                 <div
                   className={`p-3 shadow-sm chat-bubble ${
                     m.role === 'user'
-                      ? 'bg-gradient-user text-white'
+                      ? 'bg-primary text-white'
                       : 'bg-white text-dark border-light custom-bot-bubble'
                   }`}
                   style={{ maxWidth: '85%', whiteSpace: 'pre-wrap' }}
