@@ -12,10 +12,10 @@ import PratiqueGuidePhase2CL from "./pages/CalculLiteral/pratiqueGuide/pratiqueG
 import ModelageCalculLiteralPhase1 from "./pages/CalculLiteral/modelage/ModelageCalculLiteralPhase1.jsx";
 import ModelageCalculLiteralPhase3 from "./pages/CalculLiteral/modelage/ModelageCalculLiteralPhase3.jsx";
 import PratiqueGuidePhase3CL from "./pages/CalculLiteral/pratiqueGuide/pratiqueGuidePhase3CL.jsx";
-import PratiqueAutonomeCL1 from "./pages/CalculLiteral/pratiqueAutonome/PratiqueAutonomeCL1.jsx";
+import PratiqueAutonomeCL1 from "./pages/CalculLiteral/pageAutonome/pratiqueAutonome/PratiqueAutonomeCL1.jsx";
 import PratiqueGuidePhase1CL from "./pages/CalculLiteral/pratiqueGuide/pratiqueGuidePhase1CL.jsx";
-import PratiqueAutonomeCL2 from "./pages/CalculLiteral/pratiqueAutonome/PratiqueAutonomeCL2.jsx";
-import PratiqueAutonomeCL3 from "./pages/CalculLiteral/pratiqueAutonome/PratiqueAutonomeCL3.jsx";
+import PratiqueAutonomeCL2 from "./pages/CalculLiteral/pageAutonome/pratiqueAutonome/PratiqueAutonomeCL2.jsx";
+import PratiqueAutonomeCL3 from "./pages/CalculLiteral/pageAutonome/pratiqueAutonome/PratiqueAutonomeCL3.jsx";
 import Modelage2 from "./pages/Equation/Modelage/Modelage2.jsx";
 import PratiqueGuide2 from "./pages/Equation/pratiqueGuide/PratiqueGuide2.jsx";
 import PratiqueAutonome2 from "./pages/Equation/pratiqueAutonome/PratiqueAutonome2.jsx";
