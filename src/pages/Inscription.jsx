@@ -94,26 +94,6 @@ export default function Inscription() {
 
             <div className="mb-3">
               <label className="form-label text-secondary fw-bold small text-uppercase tracking-wider">
-                Email personnel
-              </label>
-              <div className="input-group shadow-sm rounded-4 overflow-hidden border border-light">
-                <span className="input-group-text bg-light border-0 text-primary px-3">
-                  <i className="bi bi-envelope-fill fs-5"></i>
-                </span>
-                <input
-                  type="email"
-                  className="form-control form-control-lg bg-light border-0 custom-input-wrapper py-2 fw-medium text-dark"
-                  placeholder="votre@email.com"
-                  value={email}
-                  onChange={(event) => setEmail(event.target.value)}
-                  required
-                  disabled={isLoading}
-                />
-              </div>
-            </div>
-
-            <div className="mb-3">
-              <label className="form-label text-secondary fw-bold small text-uppercase tracking-wider">
                 Mot de passe
               </label>
               <div className="input-group shadow-sm rounded-4 overflow-hidden border border-light">
