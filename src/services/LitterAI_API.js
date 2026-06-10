@@ -154,15 +154,17 @@ export function handleLogout(setConversation) {
 }
 
 export async function handleSubmitRegister(event, login, password, role, mail_academique) {
-  event.preventDefault();
-
   const payload = {
     login: login,
     password: password,
     role: role
   };
 
-  payload.mail_academique = mail_academique;
+  if (role === "ROLE_USER_PROF" || role === "ROLE_USER_PROFESSEUR") {
+    // On envoie les deux versions pour être sûr à 100% que Symfony l'attrape
+    payload.mailAcademique = mail_academique; // Version CamelCase
+    payload.mail_academique = mail_academique; // Version Snake_case
+  }
 
   try {
     const response = await fetch(`${URL_BASE}/register`, {
@@ -175,13 +177,14 @@ export async function handleSubmitRegister(event, login, password, role, mail_ac
     });
 
     if (!response.ok) {
-      throw new Error("Erreur");
+      const errorData = await response.json();
+      throw { response: { data: errorData } };
     }
 
     return await response.json();
   } catch (error) {
     console.error("Erreur d'inscription :", error);
-    return false;
+    throw error;
   }
 }
 
