@@ -97,9 +97,14 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/Login" element={<Login/>}/>
-        <Route path="/Inscription" element={<Inscription/>}/>
         <Route path="/VerificationProf" element={<VerificationProf/>}/>
 
+        <Route path="/Inscription" element={
+          <ProtectedProfRoute>
+            <Inscription/>
+          </ProtectedProfRoute>
+
+        }/>
         <Route
           path="/creer-classe"
           element={

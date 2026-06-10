@@ -4,9 +4,9 @@ import { handleSubmitRegister } from "../services/LitterAI_API.js";
 
 export default function Inscription() {
   const [login, setLogin] = useState("");
-  const [email, setEmail] = useState("");
+  const [email] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("ROLE_USER_ELEVE");
+  const [role] = useState("ROLE_USER_PROF");
   const [mail_academique, setmail_academique] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -18,17 +18,8 @@ export default function Inscription() {
     setIsLoading(true);
 
     try {
-      const response = await handleSubmitRegister(event, login, email, password, role, mail_academique);
-
-      if (role === "ROLE_USER_ELEVE") {
-        if (response && response.token) {
-          localStorage.setItem("jwt_token", response.token);
-        }
-        navigate("/");
-        window.location.reload();
-      } else {
-        navigate("/verification-prof");
-      }
+      await handleSubmitRegister(event, login, email, password, role, mail_academique);
+      navigate("/verification-prof");
     } catch (error) {
       if (error.response && error.response.data) {
         const message = error.response.data['hydra:description'] || "Une erreur est survenue.";
@@ -59,8 +50,8 @@ export default function Inscription() {
             <div className="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3 shadow-sm" style={{ width: '80px', height: '80px' }}>
               <i className="bi bi-person-plus-fill fs-1 text-primary"></i>
             </div>
-            <h2 className="fw-bolder custom-logo mb-1">Inscription</h2>
-            <p className="text-secondary fw-medium">Rejoignez LitterAI</p>
+            <h2 className="fw-bolder custom-logo mb-1">Inscription Enseignant</h2>
+            <p className="text-secondary fw-medium">Créez votre espace professeur</p>
           </div>
 
           {errorMessage && (
@@ -113,50 +104,28 @@ export default function Inscription() {
             </div>
 
             <div className="mb-4">
-              <label className="form-label text-secondary fw-bold small text-uppercase tracking-wider">
-                Je suis :
+              <label className="form-label text-primary fw-bold small text-uppercase tracking-wider d-flex align-items-center gap-2">
+                <i className="bi bi-shield-lock-fill"></i>
+                Email académique de vérification
               </label>
-              <div className="input-group shadow-sm rounded-4 overflow-hidden border border-light">
-                <span className="input-group-text bg-light border-0 text-primary px-3">
-                  <i className="bi bi-mortarboard-fill fs-5"></i>
+              <div className="input-group shadow-sm rounded-4 overflow-hidden border border-primary border-opacity-50">
+                <span className="input-group-text bg-primary bg-opacity-10 border-0 text-primary px-3">
+                  <i className="bi bi-building fs-5"></i>
                 </span>
-                <select
-                  className="form-select form-select-lg bg-light border-0 custom-input-wrapper py-2 fw-medium text-dark"
-                  value={role}
-                  onChange={(event) => setRole(event.target.value)}
+                <input
+                  type="email"
+                  className="form-control form-control-lg bg-light border-0 custom-input-wrapper py-2 fw-medium text-dark"
+                  placeholder="prenom.nom@ac-academie.fr"
+                  value={mail_academique}
+                  onChange={(event) => setmail_academique(event.target.value)}
+                  required
                   disabled={isLoading}
-                >
-                  <option value="ROLE_USER_ELEVE">Un élève</option>
-                  <option value="ROLE_USER_PROF">Un professeur</option>
-                </select>
+                />
+              </div>
+              <div className="form-text text-muted mt-2 small">
+                Cet email est requis pour vérifier votre statut d'enseignant.
               </div>
             </div>
-
-            {role === "ROLE_USER_PROF" && (
-              <div className="mb-4 animate__animated animate__fadeInDown">
-                <label className="form-label text-primary fw-bold small text-uppercase tracking-wider d-flex align-items-center gap-2">
-                  <i className="bi bi-shield-lock-fill"></i>
-                  Email académique de vérification
-                </label>
-                <div className="input-group shadow-sm rounded-4 overflow-hidden border border-primary border-opacity-50">
-                  <span className="input-group-text bg-primary bg-opacity-10 border-0 text-primary px-3">
-                    <i className="bi bi-building fs-5"></i>
-                  </span>
-                  <input
-                    type="email"
-                    className="form-control form-control-lg bg-light border-0 custom-input-wrapper py-2 fw-medium text-dark"
-                    placeholder="prenom.nom@ac-academie.fr"
-                    value={mail_academique}
-                    onChange={(event) => setmail_academique(event.target.value)}
-                    required
-                    disabled={isLoading}
-                  />
-                </div>
-                <div className="form-text text-muted mt-2 small">
-                  Cet email est requis pour vérifier votre statut d'enseignant.
-                </div>
-              </div>
-            )}
 
             <button
               type="submit"
@@ -170,7 +139,7 @@ export default function Inscription() {
                 </>
               ) : (
                 <>
-                  Créer mon compte
+                  Créer mon compte Professeur
                   <i className="bi bi-arrow-right-circle-fill fs-5"></i>
                 </>
               )}
